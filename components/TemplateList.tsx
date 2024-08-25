@@ -37,7 +37,7 @@ const TemplateList = ({ userSearchInput }: { userSearchInput: string }) => {
     <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 p-8'>
       {templateList.map((item: TEMPLATE, i: number) => (
         <Link href={`/dashboard/content/${item.slug}`} key={i} className="p-5 group shadow-md rounded-md border bg-primary-foreground flex flex-col gap-3" >
-          <Image className='group-hover:animate-bounce' src={item.icon} alt='icon' width={50} height={50} />
+          <Image src={item.icon} alt='icon' width={50} height={50} />
           <h2 className='font-medium group-hover:translate-x-4 duration-300'>{item.name}</h2>
 
           <p className='text-gray-400 line-clamp-3'>{item.desc}</p>

@@ -50,8 +50,8 @@ export async function generateAIContent({ finalAIPrompt, formData, templateSlug,
 }
 
 export async function generateAIChat({ aiPrompt, maxTokens }: { aiPrompt: string, maxTokens: number }) {
- 
-  if (maxTokens < 0) return "Not enough Credits/Words left";
+
+  if (maxTokens < 1) return "Not enough Credits/Words left";
   if (!aiPrompt) return "Please add a prompt";
   const generationConfig = {
     temperature: 1,
@@ -76,7 +76,7 @@ export async function generateAIChat({ aiPrompt, maxTokens }: { aiPrompt: string
     history: [],
   });
 
-  const result = await chatSession.sendMessage(aiPrompt);
+  const result = await chatSession.sendMessage(aiPrompt+'not long answer');
 
   return result.response.text();
 

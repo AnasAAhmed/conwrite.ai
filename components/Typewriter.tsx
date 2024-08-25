@@ -1,34 +1,34 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect,  useState } from "react";
 
-const TypeWriter = ({ txt }: { txt: string }) => {
+const TypeWriter = ({ isNewRes, txt }: { isNewRes: boolean; txt: string }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const containerRef = useRef<HTMLPreElement>(null);
 
   const speed = 7; // Typing speed in milliseconds
 
   useEffect(() => {
-    if (txt && currentIndex < txt.length) {
-      const interval = setInterval(() => {
-        setCurrentIndex((prevIndex) => prevIndex + 1);
-      }, speed);
+    if (isNewRes) {
+      if (txt && currentIndex < txt.length) {
+        const interval = setInterval(() => {
+          setCurrentIndex((prevIndex) => prevIndex + 1);
+        }, speed);
 
-      return () => clearInterval(interval);
+        return () => clearInterval(interval);
+      }
     }
   }, [currentIndex, txt, speed]);
 
   useEffect(() => {
-    // Scroll the container to the bottom as text is typed out
-    if (containerRef.current) {
-      containerRef.current.scrollTop = containerRef.current.scrollHeight;
-    }
+    window.scrollTo({
+      top: document.body.scrollHeight,
+      behavior: "smooth",
+  });
   }, [currentIndex]);
 
   return (
     <pre
-      ref={containerRef}
-      className="mt-2 dark:text-gray-300 whitespace-pre-wrap w-full overflow-auto max-h-96" // Add max height for better scrolling
+      className="p-3 rounded-lg font-sans bg-primary-foreground dark:text-gray-300 whitespace-pre-wrap" // Add max height for better scrolling
     >
-      <strong>AI:</strong> {txt.slice(0, currentIndex)}
+      <strong>AI:</strong> {isNewRes ? txt.slice(0, currentIndex) : txt}
     </pre>
   );
 };
