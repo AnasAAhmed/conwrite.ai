@@ -26,7 +26,10 @@ const Chat = () => {
 
     }, [chatHistory]);
 
-    let total: number = chatHistory.reduce((acc, chat) => acc + chat.response.length, 0);
+    const total: number = chatHistory.reduce(
+        (acc, chat) => acc + chat.response.replace(/[\s\*]+/g, '').length,
+        0
+    );
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -74,7 +77,7 @@ const Chat = () => {
     return (
         <>
             <div className="mb-28 px-1 sm:px-12 p-3 space-y-4">
-                {chatHistory.length < 1 && <div className="flex justify-center">
+                <div className="flex mb-20 justify-center">
                     <div style={{ opacity: 1 }}>
                         <div className="mx-3 mt-12 flex max-w-3xl flex-wrap items-stretch justify-center gap-4">
                             <Image src={'/logo.svg'} className='dark:drop-shadow-[0_0_0.1rem_#ffffff70] dark:invert' alt='logo' width={130} height={88} />
@@ -89,7 +92,7 @@ const Chat = () => {
                             </div>
                         </div>
                     </div>
-                </div>}
+                </div>
                 {/* <Button variant={'ghost'} onClick={() => setChatHistory([])}>Clear Chat History</Button> */}
                 {chatHistory.map((chat, index) => (
                     <div key={index} className="my-6">

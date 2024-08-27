@@ -10,7 +10,17 @@ import { ArrowLeft, Loader } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
 import React, { useState } from 'react'
-
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog"
+import { useRouter } from 'next/navigation'
 
 const page = ({ params }: { params: { template: string } }) => {
 
@@ -18,9 +28,8 @@ const page = ({ params }: { params: { template: string } }) => {
   const [loading, setLoading] = useState<boolean>(false);
   const [aiOutput, setAiOutput] = useState<string>('');
   const [formData, setFormData] = useState<any>();
-  const { usage } = useUsage();
-const maxTokens =10000 - usage
-console.log(maxTokens);
+  const [limitReached, setLimitReached] = useState<boolean>(false);
+  const { usage, maxCredits } = useUsage();
 
   const handleInputChange = (e: any) => {
     const { name, value } = e.target;
@@ -29,7 +38,10 @@ console.log(maxTokens);
 
   const onSubmit = async (e: any) => {
     e.preventDefault()
-    // if (usage > 10000) return alert('fuck of bitch upgrade asshole');
+    if (usage > maxCredits) {
+      setLimitReached(!limitReached);
+      return;
+    };
     setLoading(true);
     try {
       const selectdPrompt = selectedTemp?.aiPrompt;
@@ -38,7 +50,7 @@ console.log(maxTokens);
         finalAIPrompt,
         formData,
         templateSlug: params.template,
-        maxTokens
+        maxTokens: maxCredits - usage,
       });
       setAiOutput(output);
     } catch (error) {
@@ -51,6 +63,7 @@ console.log(maxTokens);
 
   return (
     <div className='p-5'>
+      {limitReached && <LimitReached />}
       <Link className='' href={'/dashboard'}>
         <Button className='group' variant={'link'}>
           <ArrowLeft className='group-hover:-translate-x-2 duration-300 -translate-x-1' size={'1rem'} />
@@ -100,4 +113,60 @@ console.log(maxTokens);
   )
 }
 
-export default page
+export default page;
+const LimitReached = () => {
+
+  const router = useRouter();
+
+  return (
+    <AlertDialog defaultOpen>
+      <AlertDialogContent>
+        <AlertDialogHeader>
+          <div className="flex justify-between items-center">
+            <p>Insufficient Credits</p>
+            <AlertDialogCancel
+              className="border-0 p-0 hover:bg-transparent"
+            >
+              <Image
+                src="/close.svg"
+                alt="credit coins"
+                width={24}
+                height={24}
+                className="cursor-pointer"
+              />
+            </AlertDialogCancel>
+          </div>
+
+          <Image
+            src="/stacked-coins.png"
+            alt="credit coins"
+            width={462}
+            height={122}
+          />
+
+          <AlertDialogTitle >
+            Oops.... Looks like you&#39;ve run out of free credits!
+          </AlertDialogTitle>
+
+          <AlertDialogDescription className="py-3">
+            No worries, though - you can keep enjoying our services by grabbing
+            more credits.
+          </AlertDialogDescription>
+        </AlertDialogHeader>
+        <AlertDialogFooter>
+          <AlertDialogCancel
+            className='w-full'
+          >
+            No, Cancel
+          </AlertDialogCancel>
+          <AlertDialogAction
+            className="w-full"
+            onClick={() => router.push("/dashboard/billing")}
+          >
+            Yes, Proceed
+          </AlertDialogAction>
+        </AlertDialogFooter>
+      </AlertDialogContent>
+    </AlertDialog>
+  );
+};

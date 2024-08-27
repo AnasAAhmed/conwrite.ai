@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
-import { Inter,Roboto } from "next/font/google";
+import { Inter, Roboto } from "next/font/google";
 import "./globals.css";
 import { ClerkProvider } from "@clerk/nextjs";
+import CreateUser from "@/components/CreateUser";
 
-const inter = Roboto({ subsets: ["latin"] ,weight:['500','700']});
+const inter = Roboto({ subsets: ["latin"], weight: ['500', '700'] });
 
 export const metadata: Metadata = {
   title: "ConWrite.ai",
@@ -17,9 +18,12 @@ export default function RootLayout({
 }>) {
   return (
     <ClerkProvider>
-    <html lang="en" >
-      <body className={inter.className}>{children}</body>
-    </html>
+      <html lang="en" >
+        <body className={inter.className}>
+          <CreateUser />
+          {children}
+        </body>
+      </html>
     </ClerkProvider>
   );
 }

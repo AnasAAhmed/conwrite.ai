@@ -1,13 +1,21 @@
 import { create } from "zustand";
 
 interface UserUsage {
-    usage: number
+    usage: number;
+    userId: string;
     setUsage: (usage: any) => void;
+    setUserId: (userId: any) => void;
     resetUsage: () => void;
+    maxCredits: number
+    setMaxCredits: (maxCredits: any) => void;
 }
 
 export const useUsage = create<UserUsage>((set) => ({
     usage: 0,
+    userId: '',
+    maxCredits: 0,
+    setMaxCredits: (maxCredits) => set({ maxCredits }),
     setUsage: (usage) => set({ usage }),
-    resetUsage: () => set({ usage: 0 }),
+    setUserId: (userId) => set({ userId }),
+    resetUsage: () => set({ usage: 0, userId: '', maxCredits: 0 }),
 }));

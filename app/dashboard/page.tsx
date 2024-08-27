@@ -1,16 +1,17 @@
 'use client'
-import Search from '@/components/Search'
-import TemplateList from '@/components/TemplateList'
-import React, { useState } from 'react'
+import Search from '@/components/Search';
+import TemplateList from '@/components/TemplateList';
+import { useState } from 'react';
 
-const page = () => {
-  const [userSearchInput, setUserSearchInput] = useState<string>('')
+const Page: React.FC = () => {
+  const [userSearchInput, setUserSearchInput] = useState<string>('');
+
   return (
-    <div >
-      <Search onSearchInput={(value:string)=>setUserSearchInput(value)}/>
-      <TemplateList userSearchInput={userSearchInput}/>
+    <div>
+      <Search onSearchInput={(value: string) => setUserSearchInput(value)} />
+      <TemplateList userSearchInput={userSearchInput} />
     </div>
-  )
-}
+  );
+};
 
-export default page
+export default Page;

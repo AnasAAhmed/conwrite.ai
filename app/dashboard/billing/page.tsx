@@ -1,89 +1,14 @@
 import { Button } from "@/components/ui/button";
+import { plans } from "@/lib/Templates";
 import { SignedIn } from "@clerk/nextjs";
 import { auth } from "@clerk/nextjs/server";
-import { url } from "inspector";
 import Image from "next/image";
+import Link from "next/link";
 
 const page = async () => {
     const { userId } = auth();
 
-    const plans = [
-        {
-            _id: 1,
-            name: "Free",
-            icon: "/free-plan.svg",
-            price: 0,
-            credits: '20k',
-            inclusions: [
-                {
-                    label: "20k Free Credits",
-                    isIncluded: true,
-                },
-                {
-                    label: "Basic Access to Services",
-                    isIncluded: true,
-                },
-                {
-                    label: "Priority Customer Support",
-                    isIncluded: false,
-                },
-                {
-                    label: "Priority Updates",
-                    isIncluded: false,
-                },
-            ],
-        },
-        {
-            _id: 2,
-            name: "Pro Package",
-            icon: "/free-plan.svg",
-            price: 99,
-            credits: '70k',
-            inclusions: [
-                {
-                    label: "70k Credits",
-                    isIncluded: true,
-                },
-                {
-                    label: "Full Access to Services",
-                    isIncluded: true,
-                },
-                {
-                    label: "Priority Customer Support",
-                    isIncluded: true,
-                },
-                {
-                    label: "Priority Updates",
-                    isIncluded: false,
-                },
-            ],
-        },
-        {
-            _id: 3,
-            name: "Premium Package",
-            icon: "/free-plan.svg",
-            price: 299,
-            credits: '200k',
-            inclusions: [
-                {
-                    label: "200k Credits",
-                    isIncluded: true,
-                },
-                {
-                    label: "Full Access to Services",
-                    isIncluded: true,
-                },
-                {
-                    label: "Priority Customer Support",
-                    isIncluded: true,
-                },
-                {
-                    label: "Priority Updates",
-                    isIncluded: true,
-                },
-            ],
-        },
-    ];
+    
     return (
         <>
             <section className="px-8">
@@ -124,16 +49,15 @@ const page = async () => {
                                 </Button>
                             ) : (
                                 <SignedIn>
-                                    <section>
+                                    <Link href={`/checkout?id=${plan._id}`}>
                                         <Button
                                             type="submit"
                                             role="link"
                                             className="w-full bg-primary rounded-full bg-cover"
-                                            // style={{backgroundImage:'url(/gradient.svg)'}}
                                         >
                                             Buy Credit
                                         </Button>
-                                    </section>
+                                    </Link>
                                 </SignedIn>
                             )}
                         </li>

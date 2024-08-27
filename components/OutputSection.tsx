@@ -32,25 +32,14 @@ const OutputSection = ({ result }: { result: string }) => {
                     {isCopy ? <><Check className='w-5 h-5 mr-1' />Copied</> : <><Copy className='w-4 h-4 mr-1' />Copy</>}
                 </Button>
             </div>
-            <div className="hidden dark:block">
-                <Editor
-                    ref={editorRef}
-                    initialValue=""
-                    height="600px"
-                    initialEditType="wysiwyg"
-                    useCommandShortcut={true}
-                    toolbarItems={[]}
-                    theme='dark'
-                /></div>
-            <div className="dark:hidden">
-                <Editor
-                    ref={editorRef}
-                    initialValue=""
-                    height="600px"
-                    initialEditType="wysiwyg"
-                    useCommandShortcut={true}
-                    toolbarItems={[]}
-                /></div>
+            <Editor
+                ref={editorRef}
+                initialValue=""
+                height="600px"
+                initialEditType="wysiwyg"
+                useCommandShortcut={true}
+                toolbarItems={[]}
+            />
         </div>
     )
 }

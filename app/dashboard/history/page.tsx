@@ -7,7 +7,7 @@ import Templates from '@/lib/Templates';
 import Image from 'next/image';
 import Link from 'next/link';
 import PaginationControls from '@/components/PaginationControls';
-import { Metadata } from 'next';
+import Delete from '@/components/Delete';
 
 const Page = async ({ searchParams }: { searchParams: any }) => {
     let page = Number(searchParams?.page) || 1;
@@ -24,17 +24,14 @@ const Page = async ({ searchParams }: { searchParams: any }) => {
         .offset(offset)
         .orderBy(desc(AIOutput.createdAt));
 
-        const totalItemsResult = await database
+    const totalItemsResult = await database
         .select({ count: count() })
         .from(AIOutput)
         .where(eq(AIOutput.createdBy, userId))
-        .execute();  // Execute the query to get the result
+        .execute();
 
-    const totalItems = totalItemsResult[0]?.count || 0;  // Access the count value
-
+    const totalItems = totalItemsResult[0]?.count || 0;
     const totalPages = Math.ceil(totalItems / limit);
-
-    // const totalPages = Math.ceil(totalItems / limit);
 
     const filterTemp = (slug: string) => {
         const selectedTemp = Templates.find((item => item.slug === slug));
@@ -48,16 +45,17 @@ const Page = async ({ searchParams }: { searchParams: any }) => {
 
     return (
         <div className="container mx-auto p-6">
-            <h1 className="text-2xl font-bold mb-2">History</h1>
+                <h1 className="text-2xl font-bold mb-2">History</h1>
             <p className='text-md text-gray-500 mb-3'>Search your periviously generated AI content</p>
             <div className="grid gap-4">
                 {result.length > 0 ? result.map((item) => (
                     <div key={item.id} className="bg-primary-foreground shadow-lg rounded-lg p-4">
                         <div className="flex items-center justify-between mb-4">
                             {filterTemp(item.templateSlug)}
-                            <p className="text-sm text-gray-500">
+                            <div className="text-sm flex items-center gap-2 text-gray-500">
                                 {new Date(item.createdAt).toLocaleDateString()}
-                            </p>
+                                <Delete historyId={item.id} />
+                            </div>
                         </div>
                         <div className="mb-4">
                             <h3 className="text-lg font-semibold">Prompt:</h3>
@@ -74,7 +72,7 @@ const Page = async ({ searchParams }: { searchParams: any }) => {
                             <summary className="cursor-pointer font-medium flex justify-between items-center">
 
                                 <span>AI Response</span>
-                                <span>({item.aiResponse?.length}) words</span>
+                                <span>({item.aiResponse?.replace(/[\s\*]+/g, '').trim().length}) words</span>
                             </summary>
                             <pre className="mt-2 text-primary whitespace-pre-wrap">{item.aiResponse}</pre>
                         </details>
