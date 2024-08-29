@@ -80,7 +80,7 @@ const Chat = () => {
                 <div className="flex mb-20 justify-center">
                     <div style={{ opacity: 1 }}>
                         <div className="mx-3 mt-12 flex max-w-3xl flex-wrap items-stretch justify-center gap-4">
-                            <Image src={'/logo.svg'} className='dark:drop-shadow-[0_0_0.1rem_#ffffff70] dark:invert' alt='logo' width={130} height={88} />
+                            <Image src={'/logo.svg'} className='dark:drop-shadow-[0_0_0.1rem_#ffffff70] dark:invert' alt='logo' width={130} height={130} />
                             <div className="flex max-w-3xl flex-wrap items-stretch justify-center gap-4">
                                 {promptCard.map((i, _) => (
                                     <button key={_} onClick={() => setAiPrompt(i.prompt)} className="relative flex w-40 flex-col gap-2 rounded-2xl border border-token-border-light px-3 pb-4 pt-3 text-start align-top text-[15px] shadow-xxs transition enabled:hover:bg-token-main-surface-secondary disabled:cursor-not-allowed">

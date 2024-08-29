@@ -5,55 +5,27 @@ import { auth } from '@clerk/nextjs/server';
 import { AIOutput, UserData } from './schema';
 import { revalidatePath } from 'next/cache';
 import { and, eq, sql } from 'drizzle-orm';
-import { use } from 'react';
 
 //get
 export async function generateAIContent({
-  finalAIPrompt,
+  aiResponse,
   formData,
   templateSlug,
-  maxTokens,
+  trimmedLength
 }: {
-  finalAIPrompt: string;
+  aiResponse: string;
   formData: any;
   templateSlug: string;
-  maxTokens: number;
+  trimmedLength: number;
 }) {
   const { userId } = auth();
-  if (maxTokens < 1) return "Not enough Credits";
-  if (!finalAIPrompt) return "Please add a prompt";
   try {
-
-
-    const generationConfig = {
-      temperature: 1,
-      topP: 0.95,
-      topK: 64,
-      maxOutputTokens: maxTokens,
-      responseMimeType: "text/plain",
-    };
-
-    const { GoogleGenerativeAI } = require("@google/generative-ai");
-    const apiKey = process.env.GEMINI_API_KEY;
-    const genAI = new GoogleGenerativeAI(apiKey);
-    const model = genAI.getGenerativeModel({
-      model: "gemini-1.5-flash",
-    });
-
-    const chatSession = model.startChat({
-      generationConfig,
-      history: [],
-    });
-
-    const result = await chatSession.sendMessage(finalAIPrompt);
-
-    let trimmedLength: string = result.response.text().replace(/[\s\*]+/g, '').trim().length;
 
     if (userId) {
       const database = await db();
       await database.insert(AIOutput).values({
         formData: JSON.stringify(formData),
-        aiResponse: result.response.text(),
+        aiResponse,
         templateSlug,
         createdBy: userId,
         createdAt: new Date(),
@@ -67,7 +39,7 @@ export async function generateAIContent({
     }
 
     revalidatePath('/dashboard/history');
-    return result.response.text();
+    return 'Succesfully created history';
   } catch (error) {
     const tyeError = error as Error
     console.error("Error in creating AI content:", tyeError);
@@ -102,7 +74,7 @@ export async function generateAIChat({ aiPrompt, maxTokens }: { aiPrompt: string
     history: [],
   });
 
-  const result = await chatSession.sendMessage(aiPrompt + 'not long answer');
+  const result = await chatSession.sendMessage(aiPrompt +'short answer');
 
   return result.response.text();
 
@@ -125,14 +97,15 @@ export async function createUser({ userId, email }: { userId: string; email: str
           createdAt: new Date(),
         });
         revalidatePath('/dashboard');
-        return 'User created'
+        return 'User created  ';
       }
-      return 'User already exists'
+
+      return 'User already exists';
     } catch (error) {
-      const tyeError = error as Error
-      console.error("Error in deleteHistory:", tyeError);
-      return tyeError.message
-    };
+      const tyeError = error as Error;
+      console.error("Error in createUser:", tyeError);
+      return tyeError.message;
+    }
   }
 }
 

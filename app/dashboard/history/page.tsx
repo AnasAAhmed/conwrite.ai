@@ -8,6 +8,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import PaginationControls from '@/components/PaginationControls';
 import Delete from '@/components/Delete';
+import Markdown from 'react-markdown';
 
 const Page = async ({ searchParams }: { searchParams: any }) => {
     let page = Number(searchParams?.page) || 1;
@@ -38,7 +39,7 @@ const Page = async ({ searchParams }: { searchParams: any }) => {
         return selectedTemp ? (
             <div className="flex items-center gap-2">
                 <Image src={selectedTemp.icon} alt="icon" width={40} height={40} />
-                <Link href={'/dashborad/content/' + selectedTemp.slug} className="font-bold text-lg">{selectedTemp.name}</Link>
+                <Link href={'/dashborad/content/' + selectedTemp.slug} className="font-bold text-md">{selectedTemp.name}</Link>
             </div>
         ) : null;
     };
@@ -52,16 +53,16 @@ const Page = async ({ searchParams }: { searchParams: any }) => {
                     <div key={item.id} className="bg-primary-foreground shadow-lg rounded-lg p-4">
                         <div className="flex items-center justify-between mb-4">
                             {filterTemp(item.templateSlug)}
-                            <div className="text-sm flex items-center gap-2 text-gray-500">
+                            <div className="text-xs sm:text-sm flex items-center gap-2 text-gray-500">
                                 {new Date(item.createdAt).toLocaleDateString()}
                                 <Delete historyId={item.id} />
                             </div>
                         </div>
                         <div className="mb-4">
-                            <h3 className="text-lg font-semibold">Prompt:</h3>
+                            <h3 className="text-md sm:text-lg font-semibold">Prompt:</h3>
                             <ul className="list-disc list-inside text-primary">
                                 {Object.entries(JSON.parse(item.formData)).map(([key, value], index) => (
-                                    <li key={index} className="mt-1">
+                                    <li key={index} className="mt-1 text-sm sm:text-md">
                                         <span className="font-medium capitalize">{key}: </span>
                                         {String(value)}
                                     </li>
@@ -74,7 +75,9 @@ const Page = async ({ searchParams }: { searchParams: any }) => {
                                 <span>AI Response</span>
                                 <span>({item.aiResponse?.replace(/[\s\*]+/g, '').trim().length}) words</span>
                             </summary>
-                            <pre className="mt-2 text-primary whitespace-pre-wrap">{item.aiResponse}</pre>
+                            {/* <pre className="mt-2 text-primary whitespace-pre-wrap">{item.aiResponse}</pre> */}
+                            <hr className='my-2'/>
+                            <Markdown>{item.aiResponse}</Markdown>
                         </details>
                     </div>
                 )) : <p className='text-lg mb-3'>You have not created any AI content yet.</p>}

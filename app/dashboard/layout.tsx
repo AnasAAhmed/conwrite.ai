@@ -8,17 +8,16 @@ export const metadata: Metadata = {
     description: "DAshboard where you can access all templates",
 };
 
-const layout = ({
+const layout = async ({
     children,
 }: Readonly<{
     children: React.ReactNode;
 }>) => {
+
     return (
-        <div className='h-screen bg-accent'>
-            <div className='md:w-64 hidden lg:block fixed'>
-                <SideNav />
-            </div>
-            <div className="bg-accent lg:ml-64">
+        <div className='h-screen flex bg-accent'>
+            <SideNav />
+            <div className="bg-accent w-full overflow-y-auto lgs:ml-64 md:sml-44">
                 <Header />
                 {children}
             </div>

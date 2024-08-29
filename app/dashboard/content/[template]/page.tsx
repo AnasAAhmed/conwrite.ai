@@ -1,15 +1,14 @@
 'use client'
-import OutputSection from '@/components/OutputSection'
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
-import { Textarea } from '@/components/ui/textarea'
-import { generateAIContent } from '@/lib/actions'
-import Templates from '@/lib/Templates'
-import { useUsage } from '@/lib/useUsage.'
-import { ArrowLeft, Loader } from 'lucide-react'
-import Image from 'next/image'
-import Link from 'next/link'
-import React, { useState } from 'react'
+import React, { useState } from 'react';
+import OutputSection from '@/components/OutputSection';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Textarea } from '@/components/ui/textarea';
+import { generateAIContent } from '@/lib/actions';
+import Templates from '@/lib/Templates';
+import { ArrowLeft, Loader } from 'lucide-react';
+import Image from 'next/image';
+import Link from 'next/link';
 import {
   AlertDialog,
   AlertDialogAction,
@@ -19,40 +18,54 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-} from "@/components/ui/alert-dialog"
-import { useRouter } from 'next/navigation'
+} from "@/components/ui/alert-dialog";
+import { useRouter } from 'next/navigation';
+import { chatSession } from '@/lib/AI_Modal';
+import { useUsage } from '@/lib/useUsage.';
 
 const page = ({ params }: { params: { template: string } }) => {
 
-  const selectedTemp = Templates.find((item => item.slug === params.template));
+  const selectedTemp = Templates.find((item) => item.slug === params.template);
   const [loading, setLoading] = useState<boolean>(false);
   const [aiOutput, setAiOutput] = useState<string>('');
   const [formData, setFormData] = useState<any>();
   const [limitReached, setLimitReached] = useState<boolean>(false);
   const { usage, maxCredits } = useUsage();
+  const router = useRouter();
 
-  const handleInputChange = (e: any) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
-  }
+    setFormData((prevData:any) => ({ ...prevData, [name]: value }));
+  };
 
-  const onSubmit = async (e: any) => {
-    e.preventDefault()
+  const onSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
     if (usage > maxCredits) {
-      setLimitReached(!limitReached);
+      setLimitReached(true);
       return;
-    };
+    }
     setLoading(true);
     try {
       const selectdPrompt = selectedTemp?.aiPrompt;
       const finalAIPrompt = JSON.stringify(formData) + ", " + selectdPrompt;
-      const output = await generateAIContent({
-        finalAIPrompt,
+      const result = await chatSession.sendMessageStream(finalAIPrompt);
+      let accumalatedText = '';
+      for await (const chunk of result.stream) {
+        const chunkTxt = await chunk.text(); 
+        accumalatedText += chunkTxt;
+        setAiOutput(accumalatedText);
+      }
+
+      let trimmedLength = accumalatedText.replace(/[\s\*]+/g, '').trim().length;
+
+      const res = await generateAIContent({
+        aiResponse: accumalatedText,
         formData,
         templateSlug: params.template,
-        maxTokens: maxCredits - usage,
+        trimmedLength
       });
-      setAiOutput(output);
+      console.log(res);
+
     } catch (error) {
       console.error(error);
     } finally {
@@ -60,16 +73,13 @@ const page = ({ params }: { params: { template: string } }) => {
     }
   };
 
-
   return (
     <div className='p-5'>
       {limitReached && <LimitReached />}
-      <Link className='' href={'/dashboard'}>
-        <Button className='group' variant={'link'}>
+        <Button onClick={()=>router.back()} className='group' variant={'link'}>
           <ArrowLeft className='group-hover:-translate-x-2 duration-300 -translate-x-1' size={'1rem'} />
           Back
         </Button>
-      </Link>
       <div className='grid grid-cols-1 md:grid-cols-3 gap-5 py-5'>
         <div className={`p-5 shadow-md border bg-primary-foreground rounded-lg ${loading && "opacity-40 cursor-not-allowed"}`}>
           <Image src={selectedTemp!.icon} alt='icon' width={70} height={70} />
@@ -80,7 +90,7 @@ const page = ({ params }: { params: { template: string } }) => {
             {selectedTemp?.form?.map((item, i) => (
               <div key={i} className="mt-2 flex flex-col gap-2 mb-7 outline-none">
                 <label className='font-bold' htmlFor={item.name}>{item.label}</label>
-                {item.field == 'input' ?
+                {item.field === 'input' ? (
                   <Input
                     id={item.name}
                     name={item.name}
@@ -88,7 +98,7 @@ const page = ({ params }: { params: { template: string } }) => {
                     onChange={handleInputChange}
                     disabled={loading}
                   />
-                  :
+                ) : (
                   <Textarea
                     id={item.name}
                     name={item.name}
@@ -96,22 +106,22 @@ const page = ({ params }: { params: { template: string } }) => {
                     onChange={handleInputChange}
                     disabled={loading}
                   />
-                }
+                )}
               </div>
             ))}
             <Button disabled={loading} className='w-full'>
-              {loading && <Loader className=' animate-spin mr-2' />}
+              {loading && <Loader className='animate-spin mr-2' />}
               Generate Content
             </Button>
           </form>
         </div>
-        <div className="col-span-2">
+        <div className="md:col-span-2">
           <OutputSection result={aiOutput} />
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
 export default page;
 const LimitReached = () => {

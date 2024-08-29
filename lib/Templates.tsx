@@ -374,7 +374,7 @@ export const plans = [
         icon: "/free-plan.svg",
         price: 0,
         credits: '13k',
-        creditsNo: 1300,
+        creditsNo: 13000,
         inclusions: [
             {
                 label: "13k Free Credits",

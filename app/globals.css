@@ -64,6 +64,7 @@
     @apply border-border;
   }
   body {
+    scroll-behavior: smooth;
     @apply bg-background text-foreground;
   }
 }

@@ -13,9 +13,11 @@ import {
 import { Button } from "@/components/ui/button"
 import { deleteHistory } from "@/lib/actions";
 import { Check, Loader, Trash } from "lucide-react";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 const Delete = ({ historyId }: { historyId: number }) => {
+    const router = useRouter();
     const [res, setRes] = useState<string>('');
     const [load, setLoad] = useState<boolean>(false);
     const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -25,6 +27,7 @@ const Delete = ({ historyId }: { historyId: number }) => {
         try {
             const del = await deleteHistory(historyId);
             setRes(del);
+            router.refresh();
         } catch (err) {
             console.log('Something went wrong' + err);
         } finally {
@@ -35,7 +38,7 @@ const Delete = ({ historyId }: { historyId: number }) => {
     return (
         <AlertDialog open={isOpen}>
             <AlertDialogTrigger asChild>
-                <abbr title={res||'Delete'}> <Button size={'icon'} variant={'secondary'} onClick={() => setIsOpen(true)}>
+                <abbr title={res || 'Delete'}> <Button size={'icon'} variant={'secondary'} onClick={() => setIsOpen(true)}>
                     {res ? res === 'Deleted Successfully' ? <Check /> : res : <Trash />}
                 </Button>
                 </abbr>

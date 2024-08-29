@@ -6,8 +6,6 @@ import Image from "next/image";
 import Link from "next/link";
 
 const page = async () => {
-    const { userId } = auth();
-
     
     return (
         <>

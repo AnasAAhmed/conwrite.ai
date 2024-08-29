@@ -14,6 +14,6 @@ export const UserData = pgTable('user_data', {
     userId: varchar('userId').notNull(),
     email: varchar('email').notNull(),
     usage: integer('usage').default(0),
-    credits: integer('credits').default(20000),
+    credits: integer('credits').default(13000),
     createdAt: timestamp('created_at', { withTimezone: true }).notNull(),
 });
