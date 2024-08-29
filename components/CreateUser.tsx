@@ -54,9 +54,9 @@ const CreateUser = () => {
         if (user?.id && user.emailAddresses.length > 0) {
             try {
                 const res = await createUser({ userId: user.id, email: user.emailAddresses[0].emailAddress });
-                if (res && res.userData) {
+                if (res) {
                     setUserId(user.id);
-                    console.log(res.message);
+                    console.log(res);
                 }
             } catch (error) {
                 console.error('Failed to create user:', error);
