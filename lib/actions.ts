@@ -36,10 +36,10 @@ export async function generateAIContent({
           usage: sql`${UserData.usage} + ${trimmedLength}`,
         })
         .where(eq(UserData.userId, userId));
+      revalidatePath('/dashboard/history');
+      return 'Succesfully created history';
     }
-
-    revalidatePath('/dashboard/history');
-    return 'Succesfully created history';
+    return 'Unauthorized';
   } catch (error) {
     const tyeError = error as Error
     console.error("Error in creating AI content:", tyeError);
@@ -74,7 +74,7 @@ export async function generateAIChat({ aiPrompt, maxTokens }: { aiPrompt: string
     history: [],
   });
 
-  const result = await chatSession.sendMessage(aiPrompt +'short answer');
+  const result = await chatSession.sendMessage(aiPrompt + 'short answer');
 
   return result.response.text();
 

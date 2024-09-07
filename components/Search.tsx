@@ -1,35 +1,3 @@
-// import Templates from '@/lib/Templates'
-// import { SearchIcon } from 'lucide-react'
-// import React from 'react'
-
-// const Search = ({ onSearchInput }: any) => {
-//   return (
-//     <div className="p-10 text-white flex justify-center items-center bg-gradient-to-br from-slate-600 via-black to-slate-600 flex-col">
-//       <h2 className="text-3xl font-bold">Browse All Templates</h2>
-//       <p>What would you like to create today?</p>
-//       <div className="w-full flex justify-center">
-//         <div className="relative flex items-center w-[60%] border rounded-md bg-primary-foreground my-5">
-//           <SearchIcon className="text-primary mx-2" />
-//           <input
-//             type="text"
-//             placeholder="Search..."
-//             list="template"
-//             className="outline-none text-primary bg-transparent w-full py-2 px-3"
-//             onChange={(e) => onSearchInput(e.target.value)}
-//           />
-//           <datalist id="template" className="w-full h-5">
-//             {Templates.map((item, i) => (
-//                 <option key={i} value={item.name}>sssss</option>
-//             ))}
-//           </datalist>
-//         </div>
-//       </div>
-//     </div>
-//   )
-// }
-
-// export default Search
-
 import Templates from '@/lib/Templates'
 import { SearchIcon } from 'lucide-react'
 import React, { useState } from 'react'
