@@ -1,6 +1,5 @@
 'use client'
 import { Button } from '@/components/ui/button'
-import { checkout } from '@/lib/actions'
 import { plans } from '@/lib/Templates'
 import { ArrowLeft, Loader } from 'lucide-react'
 import Link from 'next/link'
@@ -17,13 +16,15 @@ const page = () => {
     const [load, setLoad] = useState<boolean>(false);
     const onSubmit = async () => {
         setLoad(true)
-        try {
-            const res = await checkout(selectedPlan?.creditsNo!);
-            setRes(res);
-            router.push('/dashboard')
-        } catch (error) {
-            console.log('CheckOut Error:', error);
-        } 
+        router.push('/dashboard')
+        // try {
+        //     const res = await checkout(selectedPlan?.creditsNo!);
+        //     setRes(res);
+        //     router.push('/dashboard')
+        // } catch (error) {
+        //     console.log('CheckOut Error:', error);
+        // } 
+        
     }
 
     return (

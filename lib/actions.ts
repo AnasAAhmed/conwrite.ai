@@ -131,29 +131,29 @@ export async function deleteHistory(historyId: number) {
     return tyeError.message;
   }
 }
-export async function checkout(credits: number) {
-  const { userId } = auth(); // Assuming auth() provides the userId
-  if (!userId) {
-    return 'Unauthorized';
-  }
+// export async function checkout(credits: number) {
+//   const { userId } = auth(); // Assuming auth() provides the userId
+//   if (!userId) {
+//     return 'Unauthorized';
+//   }
 
-  try {
-    const database = await db(); // Ensure your db() function returns the database connection
+//   try {
+//     const database = await db(); // Ensure your db() function returns the database connection
 
-    await database
-      .update(UserData)
-      .set({
-        credits, // Set new credits value directly
-        usage: 0 // Set usage to 0
-      })
-      .where(eq(UserData.userId, userId)); // Use the 'eq' function to match userId
+//     await database
+//       .update(UserData)
+//       .set({
+//         credits, // Set new credits value directly
+//         usage: 0 // Set usage to 0
+//       })
+//       .where(eq(UserData.userId, userId)); // Use the 'eq' function to match userId
 
-    revalidatePath('/dashboard'); // Ensure this path is correctly awaited or used
+//     revalidatePath('/dashboard'); // Ensure this path is correctly awaited or used
 
-    return 'Payment Successful';
-  } catch (error) {
-    const typeError = error as Error;
-    console.error("Error in checkout:", typeError);
-    return typeError.message;
-  }
-}
+//     return 'Payment Successful';
+//   } catch (error) {
+//     const typeError = error as Error;
+//     console.error("Error in checkout:", typeError);
+//     return typeError.message;
+//   }
+// }
