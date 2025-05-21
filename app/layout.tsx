@@ -39,13 +39,13 @@ export const metadata: Metadata = {
     images: [
       {
         url: '/hero.avif',
-        width: 400,
+        width: 711,
         height: 400,
         alt: 'ConWrite.ai home preview',
       },
       {
         url: '/demo3.png',
-        width: 400,
+        width: 711,
         height: 400,
         alt: 'ConWrite.ai chat preview',
       },

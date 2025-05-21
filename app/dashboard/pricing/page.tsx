@@ -3,12 +3,25 @@ import { plans } from "@/lib/Templates";
 import { SignedIn } from "@clerk/nextjs";
 import Image from "next/image";
 import SmartLink from '@/components/SmartLink';
+import { Metadata } from "next";
 
 
 // export const dynamic = 'force-static';
-
+export const metadata: Metadata = {
+    title: "Pricing | ConWrite.ai",
+    description:
+        "Pricing page at ConWrite.ai discover our premium packges for the ultimate use of our AI tool for content generation, marketing copy, social media posts, and intelligent chatbot support. Powered by the latest AI technology.",
+    robots: {
+        index: true,
+        follow: true,
+        googleBot: {
+            index: true,
+            follow: true,
+        },
+    },
+};
 const page = async () => {
-    
+
     return (
         <>
             <section className="px-8">
@@ -49,7 +62,7 @@ const page = async () => {
                                 </Button>
                             ) : (
                                 <SignedIn>
-                                    <SmartLink href={`/checkout?id=${plan._id}`}>
+                                    <SmartLink href={`/checkout/${plan.slug}`}>
                                         <Button
                                             type="submit"
                                             role="SmartLink"

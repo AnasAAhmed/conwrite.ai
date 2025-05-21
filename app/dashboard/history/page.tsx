@@ -9,7 +9,10 @@ import SmartLink from '@/components/SmartLink';
 import PaginationControls from '@/components/PaginationControls';
 import Delete from '@/components/Delete';
 import Markdown from 'react-markdown';
-
+import { Metadata } from 'next';
+export const metadata: Metadata = {
+    title: "History | ConWrite.ai",
+};
 const Page = async ({ searchParams }: { searchParams: any }) => {
     let page = Number(searchParams?.page) || 1;
     const limit = 6

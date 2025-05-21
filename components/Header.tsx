@@ -9,15 +9,13 @@ import { UserData } from '@/lib/schema';
 import { eq } from 'drizzle-orm';
 import UserUsage from '@/components/UserUsage';
 
-const Header = async () => {
-  const { userId } = auth();
-  if (!userId) return 'Unauthorized';
+const Header = ({ result }: {
+  result: {
+    usage: number | null;
+    credits: number | null;
+  }[]
+}) => {
 
-  const database = await db();
-  const result = await database.select({
-    usage: UserData.usage,
-    credits: UserData.credits,
-  }).from(UserData).where(eq(UserData.userId, userId))
   return (
     <div className='p-2 gap-2 shadow-sm border-b flex bg-accent justify-between items-center'>
       <SmartLink href={'/'} className="md:hidden cursor-pointer flex justify-start">
@@ -29,7 +27,7 @@ const Header = async () => {
         <h2 className="bg-primary text-primary-foreground py-2 rounded-full text-xs px-2">
           ️‍🔥Join Membership in just for $9.99/Month
         </h2>
-        <UserButton signInUrl='/'/>
+        <UserButton signInUrl='/' />
       </div>
     </div>
   )

@@ -2,6 +2,10 @@ import React from 'react'
 import SideNav from '@/components/SideNav';
 import Header from '@/components/Header';
 import { Metadata } from 'next';
+import { db } from '@/lib/db';
+import { auth } from '@clerk/nextjs/server';
+import { UserData } from '@/lib/schema';
+import { eq } from 'drizzle-orm';
 
 export const metadata: Metadata = {
     title: "ConWrite | Dashboard",
@@ -30,7 +34,7 @@ export const metadata: Metadata = {
     openGraph: {
         title: "ConWrite | Dashboard",
         description: "Dashboard where you can access all templates only for logged in users",
-         url: `${process.env.ECOM_STORE_URL}`,
+        url: `${process.env.ECOM_STORE_URL}`,
         images: [
             {
                 url: '/demo.png',
@@ -48,12 +52,19 @@ const layout = async ({
 }: Readonly<{
     children: React.ReactNode;
 }>) => {
+    const { userId } = auth();
+    if (!userId) return 'Unauthorized';
 
+    const database = await db();
+    const result = await database.select({
+        usage: UserData.usage,
+        credits: UserData.credits,
+    }).from(UserData).where(eq(UserData.userId, userId))
     return (
         <div className='h-screen flex bg-accent'>
             <SideNav />
             <div className="bg-accent w-full overflow-y-auto lgs:ml-64 md:sml-44">
-                <Header />
+                <Header result={result}/>
                 {children}
             </div>
         </div>

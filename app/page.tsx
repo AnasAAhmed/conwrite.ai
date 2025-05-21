@@ -151,7 +151,7 @@ export default async function Home() {
                   Free Consumable
                 </Button>
               ) : (
-                <SmartLink href={`/checkout?id=${plan._id}`}>
+                <SmartLink href={`/checkout?/${plan.slug}`}>
                   <Button
                     type="submit"
                     role="link"
