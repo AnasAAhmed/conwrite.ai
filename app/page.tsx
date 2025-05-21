@@ -1,13 +1,13 @@
+import AuthModal from "@/components/AuthModal";
+import SmartLink from "@/components/SmartLink";
 import { Button } from "@/components/ui/button";
 import { plans } from "@/lib/Templates";
-import { auth } from "@clerk/nextjs/server";
-import { ArrowBigRight, ArrowRight, ChevronRight, Facebook, Github, Instagram, Linkedin, LinkedinIcon } from "lucide-react";
+import { ChevronRight, Facebook, Github, Instagram, LinkedinIcon } from "lucide-react";
 import Image from "next/image";
-import Link from "next/link";
 
-export default function Home() {
+export const dynamic = 'force-static';
 
-  const { userId } = auth()
+export default async function Home() {
   return (
     <main className="flex bg-no-repeat scroll-smooth flex-col  items-center justify-center bg-cover">
       <div className="px-3 sm:px-6 py-1 w-full items-center border-b justify-between text-sm flex">
@@ -19,10 +19,7 @@ export default function Home() {
           height={37}
           priority
         />
-        <Link href={userId ? '/dashboard' : "/sign-in"}
-        >
-          <Button size={'sm'}>{userId ? 'Dashboard' : "Login"}</Button>
-        </Link>
+      <AuthModal/>
       </div>
 
       <div className="relative z-[-1] w-full h-[400px] flex dark:bg-[url('https://preline.co/assets/svg/examples-dark/polygon-bg-element.svg')] bg-[url('https://preline.co/assets/svg/examples/polygon-bg-element.svg')] bg-no-repeat items-center justify-center bg-cover place-items-center flex-col gap-3">
@@ -54,7 +51,7 @@ export default function Home() {
           </p>
         </a>
 
-        <Link
+        <SmartLink
           href="/chat"
           className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
         >
@@ -67,9 +64,9 @@ export default function Home() {
           <p className="m-0 max-w-[30ch] text-sm opacity-50">
             Try our new AI chat bot for free without login.
           </p>
-        </Link>
+        </SmartLink>
 
-        <Link
+        <SmartLink
           href="/dashboard"
           className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
         >
@@ -82,7 +79,7 @@ export default function Home() {
           <p className="m-0 max-w-[30ch] text-sm opacity-50">
             Explore starter templates for our AI powered tools.
           </p>
-        </Link>
+        </SmartLink>
 
         <a
           href="#pricing"
@@ -99,23 +96,23 @@ export default function Home() {
           </p>
         </a>
       </div>
-      <div id="docs" className="my-16 flex flex-col gap-8 justify-center">
+      <div id="docs" className="my-16 flex flex-col gap-8 justify-center items-center">
         <h1 className="text-center text-2xl sm:text-4xl">How it works?</h1>
         <h1 className="text-center text-xl sm:text-3xl">Select Tool form dashboard</h1>
         <p className=" text-center text-md sm:text-lg">Select a tool from Dashboard after login find it with our search bar. </p>
-        <div className=" border ring-[0.3px] rounded-md">
-          <Image src={'/demo.png'} alt="hero" width={1000} height={1000} className="rounded-md"></Image>
-        </div>
+        {/* <div className=" border ring-[0.3px] rounded-md"> */}
+        <Image src={'/demo.png'} alt="hero" width={1000} height={1000} className="rounded-md border ring-[0.3px]" />
+        {/* </div> */}
         <h1 className="text-center text-xl sm:text-3xl">Creating AI-Content </h1>
         <p className=" text-center text-md sm:text-lg">From selected tool put a prompt as per input and wait for your result in rich text Editor and get track of your credits in realtime.</p>
-        <div className=" border ring-[0.3px] rounded-md">
-          <Image src={'/demo2.png'} alt="hero" width={1000} height={1000} className="rounded-md"></Image>
-        </div>
+        {/* <div className=" border ring-[0.3px] rounded-md"> */}
+        <Image src={'/demo2.png'} alt="hero" width={1000} height={1000} className="border ring-[0.3px] rounded-md" />
+        {/* </div> */}
         <h1 className=" text-center text-xl sm:text-3xl">AI-Chatbot</h1>
         <p className=" text-center text-md sm:text-lg">try out our free chatbot without even login in Just Put a Prompt to get most out of our AI-Chatbot and gets a track to your free credits</p>
-        <div className=" border ring-[0.3px] rounded-md">
-          <Image src={'/demo3.png'} alt="hero" width={1000} height={1000} className="rounded-md"></Image>
-        </div>
+        {/* <div className=" border ring-[0.3px] rounded-md"> */}
+        <Image src={'/demo3.png'} alt="hero" width={1000} height={1000} className="rounded-md border ring-[0.3px]" />
+        {/* </div> */}
       </div>
       <section id="pricing" className="px-8 my-16">
         <ul className="mt-11 grid grid-cols-1 gap-5 sm:grid-cols-2 md:gap-9 xl:grid-cols-3">
@@ -154,7 +151,7 @@ export default function Home() {
                   Free Consumable
                 </Button>
               ) : (
-                <Link href={`/checkout?id=${plan._id}`}>
+                <SmartLink href={`/checkout?id=${plan._id}`}>
                   <Button
                     type="submit"
                     role="link"
@@ -162,20 +159,20 @@ export default function Home() {
                   >
                     Buy Credit
                   </Button>
-                </Link>
+                </SmartLink>
               )}
             </li>
           ))}
         </ul>
       </section>
-      <footer className="h-12 px-2 sm:px-8 flex justify-between w-full bg-accent items-center border">
-        <p className="text-gray-700 ">Conwrite.ai All Right Reserved &copy;</p>
-        <p className="text-gray-700">Made By Anas Ahmed</p>
+      <footer className="h-1s2 px-2 py-3 sm:px-8 flex flex-col max-sm:gap-3 sm:flex-row justify-between w-full bg-accsent items-center border">
+        <p className="text-muted-foreground text-center">Conwrite.ai All Right Reserved &copy;</p>
+        <p className="text-muted-foreground text-center">Made By Anas Ahmed</p>
         <div className="flex gap-4 justify-between items-center">
-          <Instagram/>
-          <Github/>
-          <Facebook/>
-          <LinkedinIcon/>
+          <Instagram />
+          <Github />
+          <Facebook />
+          <LinkedinIcon />
         </div>
       </footer>
     </main>

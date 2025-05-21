@@ -1,9 +1,11 @@
 import { Button } from "@/components/ui/button";
 import { plans } from "@/lib/Templates";
 import { SignedIn } from "@clerk/nextjs";
-import { auth } from "@clerk/nextjs/server";
 import Image from "next/image";
-import Link from "next/link";
+import SmartLink from '@/components/SmartLink';
+
+
+// export const dynamic = 'force-static';
 
 const page = async () => {
     
@@ -47,15 +49,15 @@ const page = async () => {
                                 </Button>
                             ) : (
                                 <SignedIn>
-                                    <Link href={`/checkout?id=${plan._id}`}>
+                                    <SmartLink href={`/checkout?id=${plan._id}`}>
                                         <Button
                                             type="submit"
-                                            role="link"
+                                            role="SmartLink"
                                             className="w-full bg-primary rounded-full bg-cover"
                                         >
                                             Buy Credit
                                         </Button>
-                                    </Link>
+                                    </SmartLink>
                                 </SignedIn>
                             )}
                         </li>

@@ -5,7 +5,7 @@ import React from 'react';
 import { count, desc, eq, sql } from 'drizzle-orm';
 import Templates from '@/lib/Templates';
 import Image from 'next/image';
-import Link from 'next/link';
+import SmartLink from '@/components/SmartLink';
 import PaginationControls from '@/components/PaginationControls';
 import Delete from '@/components/Delete';
 import Markdown from 'react-markdown';
@@ -39,7 +39,7 @@ const Page = async ({ searchParams }: { searchParams: any }) => {
         return selectedTemp ? (
             <div className="flex items-center gap-2">
                 <Image src={selectedTemp.icon} alt="icon" width={40} height={40} />
-                <Link href={'/dashborad/content/' + selectedTemp.slug} className="font-bold text-md">{selectedTemp.name}</Link>
+                <SmartLink href={'/dashborad/content/' + selectedTemp.slug} className="font-bold text-md">{selectedTemp.name}</SmartLink>
             </div>
         ) : null;
     };

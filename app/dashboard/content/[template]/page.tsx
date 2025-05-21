@@ -4,11 +4,9 @@ import OutputSection from '@/components/OutputSection';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
-import { generateAIContent } from '@/lib/actions';
 import Templates from '@/lib/Templates';
 import { ArrowLeft, Loader } from 'lucide-react';
 import Image from 'next/image';
-import Link from 'next/link';
 import {
   AlertDialog,
   AlertDialogAction,
@@ -35,7 +33,7 @@ const page = ({ params }: { params: { template: string } }) => {
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
-    setFormData((prevData:any) => ({ ...prevData, [name]: value }));
+    setFormData((prevData: any) => ({ ...prevData, [name]: value }));
   };
 
   const onSubmit = async (e: React.FormEvent) => {
@@ -44,42 +42,61 @@ const page = ({ params }: { params: { template: string } }) => {
       setLimitReached(true);
       return;
     }
+
     setLoading(true);
     try {
-      const selectdPrompt = selectedTemp?.aiPrompt;
-      const finalAIPrompt = JSON.stringify(formData) + ", " + selectdPrompt;
-      const result = await chatSession.sendMessageStream(finalAIPrompt);
-      let accumalatedText = '';
-      for await (const chunk of result.stream) {
-        const chunkTxt = await chunk.text(); 
-        accumalatedText += chunkTxt;
-        setAiOutput(accumalatedText);
+      const prompt = JSON.stringify(formData) + ', ' + selectedTemp?.aiPrompt;
+
+      const response = await fetch('/api/ai/stream', {
+        method: 'POST',
+        body: JSON.stringify({ prompt }),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      const reader = response.body?.getReader();
+      const decoder = new TextDecoder();
+      let result = '';
+      while (true) {
+        const { value, done } = await reader!.read();
+        if (done) break;
+        const chunk = decoder.decode(value);
+        result += chunk;
+        setAiOutput(result); // Update UI in real-time
       }
 
-      let trimmedLength = accumalatedText.replace(/[\s\*]+/g, '').trim().length;
+      const trimmedLength = result.replace(/[\s\*]+/g, '').trim().length;
 
-      const res = await generateAIContent({
-        aiResponse: accumalatedText,
-        formData,
-        templateSlug: params.template,
-        trimmedLength
+      const res = await fetch('/api/ai/save', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          aiResponse: result,
+          formData,
+          templateSlug: params.template,
+          trimmedLength,
+        }),
       });
       console.log(res);
 
-    } catch (error) {
-      console.error(error);
+    } catch (err) {
+      console.error(err);
     } finally {
       setLoading(false);
     }
   };
 
+
   return (
     <div className='p-5'>
       {limitReached && <LimitReached />}
-        <Button onClick={()=>router.back()} className='group' variant={'link'}>
-          <ArrowLeft className='group-hover:-translate-x-2 duration-300 -translate-x-1' size={'1rem'} />
-          Back
-        </Button>
+      <Button onClick={() => router.back()} className='group' variant={'link'}>
+        <ArrowLeft className='group-hover:-translate-x-2 duration-300 -translate-x-1' size={'1rem'} />
+        Back
+      </Button>
       <div className='grid grid-cols-1 md:grid-cols-3 gap-5 py-5'>
         <div className={`p-5 shadow-md border bg-primary-foreground rounded-lg ${loading && "opacity-40 cursor-not-allowed"}`}>
           <Image src={selectedTemp!.icon} alt='icon' width={70} height={70} />

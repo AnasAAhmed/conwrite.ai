@@ -1,5 +1,5 @@
 'use client'
-import { createUser } from '@/lib/actions';
+
 import { useUsage } from '@/lib/useUsage.';
 import { useUser } from '@clerk/nextjs';
 import React, { useEffect } from 'react';
@@ -16,7 +16,19 @@ const CreateUser = () => {
 
         if (user?.id && user.emailAddresses.length > 0) {
             try {
-                const res = await createUser({ userId: user.id, email: user.emailAddresses[0].emailAddress });
+                const res = await fetch('/api/create-user', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        userId: user.id,
+                        email: user.emailAddresses[0].emailAddress
+                    }),
+                });
+
+                const data = await res.json();
+                console.log(data.message || data.error);
                 if (res) {
                     setUserId(user.id);
                     console.log(res);

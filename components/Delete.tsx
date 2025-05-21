@@ -25,11 +25,20 @@ const Delete = ({ historyId }: { historyId: number }) => {
     const handleDelete = async () => {
         setLoad(true)
         try {
-            const del = await deleteHistory(historyId);
-            setRes(del);
+            const res = await fetch('/api/delete-history', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ historyId }),
+            });
+
+            const data = await res.json();
+            setRes(data.message || data.error);
             router.refresh();
         } catch (err) {
             console.log('Something went wrong' + err);
+            setRes((err as Error).message);
         } finally {
             setLoad(false);
             setIsOpen(false);

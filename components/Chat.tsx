@@ -1,7 +1,6 @@
 'use client';
 import React, { useState, useEffect } from 'react';
 import { Button } from "@/components/ui/button";
-import { generateAIChat } from "@/lib/actions";
 import { Loader, Send } from "lucide-react";
 import TypeWriter from './Typewriter';
 import Image from 'next/image';
@@ -31,30 +30,40 @@ const Chat = () => {
         0
     );
 
-    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-        if (total > 2000) return alert('Please login to try AI further.');
-        setLoading(true);
-        try {
-            const response = await generateAIChat({
-                aiPrompt,
-                maxTokens: 2000 - total,
-            });
+   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  e.preventDefault();
+  if (total > 2000) return alert('Please login to try AI further.');
+  setLoading(true);
+  try {
+    const response = await fetch('/api/ai/chat', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        aiPrompt,
+        maxTokens: 2000 - total,
+        chatHistory, // this is your [{prompt, response}]
+      }),
+    });
 
-            setChatHistory((prevHistory) => [
-                ...prevHistory,
-                { prompt: aiPrompt, response }
-            ]);
-            setAiPrompt('');
-            setIsNewRes(true);
-        } catch (error) {
-            const err = error as Error
-            console.error(err);
-            alert('An error occurred. Please try again.' + err.message);
-        } finally {
-            setLoading(false);
-        }
-    };
+    const data = await response.json();
+
+    if (!response.ok) throw new Error(data.error || 'AI Error');
+
+    setChatHistory((prevHistory) => [
+      ...prevHistory,
+      { prompt: aiPrompt, response: data.response },
+    ]);
+    setAiPrompt('');
+    setIsNewRes(true);
+  } catch (error) {
+    const err = error as Error;
+    console.error(err);
+    alert('An error occurred. ' + err.message);
+  } finally {
+    setLoading(false);
+  }
+};
+
     const promptCard = [
         {
             prompt: "Help me prepare for an interview",

@@ -2,7 +2,7 @@
 import { SignOutButton, UserButton } from '@clerk/nextjs';
 import { ChevronLeft, ChevronRight, History, Home, LayoutDashboard, LogOut, User, WalletCards } from 'lucide-react';
 import Image from 'next/image';
-import Link from 'next/link';
+import SmartLink from '@/components/SmartLink';
 import React, { useState } from 'react';
 import DarkModeToggle from './Toggle';
 
@@ -45,9 +45,9 @@ const SideNav = () => {
       <div className={`z-20 ${open ? 'lg:w-72 w-56 md:block max-sm:fixed' : 'hidden'}`}>
         <div className='flex flex-col justify-between h-screen overflow-y-auto bg-primary-foreground p-3 lg:p-5 shadow-sm border'>
           <div className="flex justify-between items-center">
-            <Link href={'/'} className="flex justify-start">
+            <SmartLink href={'/'} className="flex justify-start">
               <Image src={'/logo.svg'} className='dark:drop-shadow-[0_0_0.1rem_#ffffff70] dark:invert' alt='logo' width={130} height={88} />
-            </Link>
+            </SmartLink>
             <div onClick={() => setOpen(!open)} className='sm:hidden cursor-pointer'>
               <ChevronLeft />
             </div>
@@ -56,14 +56,14 @@ const SideNav = () => {
           <div className="flex flex-col gap-4 flex-1">
             <div>
               {menuListt.map((menu, index) => (
-                <Link
+                <SmartLink
                   href={menu.path}
                   key={index}
                   className='flex group items-center gap-2 mb-2 p-3 hover:bg-border hover:text-primary rounded-md cursor-pointer'
                 >
                   <menu.icon />
                   <h2 className='duration-300 group-hover:translate-x-4 text-lg'>{menu.name}</h2>
-                </Link>
+                </SmartLink>
               ))}
             </div>
             <SignOutButton>

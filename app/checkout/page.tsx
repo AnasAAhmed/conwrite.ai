@@ -1,13 +1,15 @@
 'use client'
 import { Button } from '@/components/ui/button'
 import { plans } from '@/lib/Templates'
-import { ArrowLeft, Loader } from 'lucide-react'
-import Link from 'next/link'
+import { ArrowLeft,  LoaderIcon } from 'lucide-react'
+import SmartLink from '@/components/SmartLink';
 import { useRouter, useSearchParams } from 'next/navigation'
 import React, { useState } from 'react'
+import { useUser } from '@clerk/nextjs'
 
 const page = () => {
     const searchParams = useSearchParams();
+    const { user } = useUser();
     const router = useRouter();
     const params = new URLSearchParams(searchParams.toString());
     const id = params.get('id');
@@ -15,31 +17,50 @@ const page = () => {
     const [res, setRes] = useState<string>('');
     const [load, setLoad] = useState<boolean>(false);
     const onSubmit = async () => {
-        setLoad(true)
-        router.push('/dashboard')
-        // try {
-        //     const res = await checkout(selectedPlan?.creditsNo!);
-        //     setRes(res);
-        //     router.push('/dashboard')
-        // } catch (error) {
-        //     console.log('CheckOut Error:', error);
-        // } 
-        
-    }
+        setLoad(true);
+        try {
+            const response = await fetch('/api/checkout', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ creditsNo: selectedPlan?.creditsNo })
+            });
 
+            const result = await response.text();
+            setRes(result);
+
+            if (response.ok) {
+                router.push('/dashboard');
+            }
+        } catch (error) {
+            console.log('Checkout Error:', error);
+            setRes('Something went wrong!');
+        } finally {
+            setLoad(false);
+        }
+    };
+
+    const handleSubmit = (e: any) => {
+        e.preventDefault();
+        setLoad(true);
+        setTimeout(() => {
+            onSubmit();
+        }, 0); // allows React to re-render and show the loader
+    };
     return (
         <>
             <section className="bg-white pb-8 pt-6 antialiased dark:bg-gray-900 md:pb-16">
                 <div className="mx-auto max-w-screen-xl px-4 2xl:px-0">
-                    <Link className='' href={'/dashboard/billing'}>
+                    <SmartLink className='' href={'/dashboard/billing'}>
                         <Button className='group' variant={'link'}>
                             <ArrowLeft className='group-hover:-translate-x-2 duration-300 -translate-x-1' size={'1rem'} />
                             Back
                         </Button>
-                    </Link>
+                    </SmartLink>
                     <div className="mx-auto max-w-5xl">
                         <div className="p-4 mb-4 text-sm text-blue-800 rounded-lg bg-blue-50 dark:bg-gray-800 dark:text-blue-400" role="alert">
-                            <span className="font-medium">Info alert!</span> This is fake payment form do not put your real card information. For fake payment you this card number: 4242-4242-4242-4242.
+                            <span className="font-medium">Info alert!</span> This is fake payment form do not put your real card information. For fake payment you this card number: 4242424242424242
                         </div>
                         <div className="text-xl font-semibold text-gray-900 dark:text-white sm:text-2xl">
 
@@ -47,16 +68,16 @@ const page = () => {
                         </div>
 
                         <div className="mt-6 sm:mt-8 lg:flex lg:items-start lg:gap-12">
-                            <form action={onSubmit} className="w-full rounded-lg border border-gray-200 bg-white p-4 shadow-sm dark:border-gray-700 dark:bg-gray-800 sm:p-6 lg:max-w-xl lg:p-8">
+                            <div className="w-full rounded-lg border border-gray-200 bg-white p-4 shadow-sm dark:border-gray-700 dark:bg-gray-800 sm:p-6 lg:max-w-xl lg:p-8">
                                 <div className="mb-6 grid grid-cols-2 gap-4">
                                     <div className="col-span-2 sm:col-span-1">
                                         <label htmlFor="full_name" className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"> Full name (as displayed on card)* </label>
-                                        <input type="text" id="full_name" className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 dark:focus:border-primary-500 dark:focus:ring-primary-500" placeholder="Bonnie Green" required />
+                                        <input type="text" defaultValue={user?.fullName!} id="full_name" className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 dark:focus:border-primary-500 dark:focus:ring-primary-500" placeholder="Bonnie Green" required />
                                     </div>
 
                                     <div className="col-span-2 sm:col-span-1">
                                         <label htmlFor="card-number-input" className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"> Card number* </label>
-                                        <input type="number" className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 pe-10 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500  dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 dark:focus:border-primary-500 dark:focus:ring-primary-500" maxLength={20} placeholder="xxxx-xxxx-xxxx-xxxx" required />
+                                        <input defaultValue={4242424242424242} type="number" className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 pe-10 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500  dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 dark:focus:border-primary-500 dark:focus:ring-primary-500" minLength={20} maxLength={20} placeholder="xxxx-xxxx-xxxx-xxxx" required />
                                     </div>
 
                                     <div>
@@ -84,12 +105,18 @@ const page = () => {
                                                     </svg></abbr>
                                             </button>
                                         </label>
-                                        <input type="number" maxLength={3} className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 dark:focus:border-primary-500 dark:focus:ring-primary-500" placeholder="CVV" required />
+                                        <input type="number" defaultValue={242} minLength={3} maxLength={3} className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 dark:focus:border-primary-500 dark:focus:ring-primary-500" placeholder="CVV" required />
                                     </div>
                                 </div>
 
-                                <Button type="submit" variant={'outline'} className="w-full focus:outline-none focus:ring-1  focus:ring-blue-500 ">{load && <Loader className="animate-spin mr-1" />} {res ? res : 'Pay now'}</Button>
-                            </form>
+                                <form onSubmit={handleSubmit}>
+                                    <Button type="submit" variant="outline" className="w-full focus:outline-none focus:ring-1 focus:ring-blue-500">
+                                        {load && <LoaderIcon className="animate-spin mr-1" />}
+                                        {res ? res : 'Pay now'}
+                                    </Button>
+                                </form>
+
+                            </div>
 
                             <div className="mt-6 grow sm:mt-8 lg:mt-0">
                                 <div className="space-y-4 rounded-lg border border-gray-100 bg-gray-50 p-6 dark:border-gray-700 dark:bg-gray-800">

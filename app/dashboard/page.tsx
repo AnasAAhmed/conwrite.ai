@@ -1,16 +1,12 @@
-'use client'
-import Search from '@/components/Search';
-import TemplateList from '@/components/TemplateList';
-import { useState } from 'react';
 
+import DashbordContent from '@/components/DashbordContent';
+import Templates from '@/lib/Templates';
+
+// export const dynamic = 'force-static';
 const Page: React.FC = () => {
-  const [userSearchInput, setUserSearchInput] = useState<string>('');
-
+  const templates = Templates;
   return (
-    <div>
-      <Search onSearchInput={(value: string) => setUserSearchInput(value)} />
-      <TemplateList userSearchInput={userSearchInput} />
-    </div>
+    <DashbordContent templates={templates} />
   );
 };
 
