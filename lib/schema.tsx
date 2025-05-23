@@ -17,3 +17,14 @@ export const UserData = pgTable('user_data', {
     credits: integer('credits').default(6000),
     createdAt: timestamp('created_at', { withTimezone: true }).notNull(),
 });
+
+export const BillingHistory = pgTable('billing_history', {
+  id: serial('id').primaryKey(),
+  userId: varchar('user_id', { length: 255 }).notNull(),
+  email: varchar('email', { length: 255 }).notNull(), 
+  amount: integer('amount').notNull().default(0), 
+  credits: integer('credits').notNull().default(6000),
+  currency: varchar('currency', { length: 10 }).default('usd'), 
+  paymentMethod: varchar('payment_method', { length: 50 }).default('cars'), 
+  createdAt: timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
+});

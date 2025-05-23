@@ -33,7 +33,7 @@ import { useUser } from '@clerk/nextjs'
                     headers: {
                         'Content-Type': 'application/json'
                     },
-                    body: JSON.stringify({ creditsNo: selectedPlan?.creditsNo })
+                    body: JSON.stringify({ creditsNo: selectedPlan?.creditsNo,amount:selectedPlan?.price,email:user?.emailAddresses[0].emailAddress })
                 });
 
                 const result = await response.text();

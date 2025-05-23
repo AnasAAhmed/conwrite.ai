@@ -4,6 +4,8 @@ import { SignedIn } from "@clerk/nextjs";
 import Image from "next/image";
 import SmartLink from '@/components/SmartLink';
 import { Metadata } from "next";
+import AuthModal from "@/components/AuthModal";
+import { Facebook, Github, Instagram, LinkedinIcon } from "lucide-react";
 
 
 // export const dynamic = 'force-static';
@@ -19,11 +21,40 @@ export const metadata: Metadata = {
             follow: true,
         },
     },
+    openGraph: {
+        title: "Pricing | ConWrite.ai",
+        description:
+            "Pricing page at ConWrite.ai discover our premium packges for the ultimate use of our AI tool for content generation, marketing copy, social media posts, and intelligent chatbot support. Powered by the latest AI technology.",
+        url: `${process.env.ECOM_STORE_URL}/pricing`,
+        images: [
+            {
+                url: '/pricing.webp',
+                width: 711,
+                height: 400,
+                alt: 'ConWrite.ai pricing',
+            },
+        ],
+        siteName: 'ConWrite.ai | AI Tools by Anas Ahmed',
+    },
 };
-const page = async () => {
+const page = () => {
 
     return (
-        <>
+        <main className="flex bg-no-repeat scroll-smooth flex-col  items-center justify-center bg-cover">
+
+            <div className="px-3 sm:px-6 py-1 w-full items-center border-b justify-between text-sm flex">
+                <SmartLink href={'/'} title="home">
+                    <Image
+                        className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
+                        src="/logo.svg"
+                        alt="Next.js Logo"
+                        width={100}
+                        height={37}
+                        priority
+                    />
+                </SmartLink>
+                <AuthModal />
+            </div>
             <section className="px-8">
                 <ul className="mt-11 grid grid-cols-1 gap-5 sm:grid-cols-2 md:gap-9 xl:grid-cols-3">
                     {plans.map((plan) => (
@@ -77,7 +108,17 @@ const page = async () => {
                     ))}
                 </ul>
             </section>
-        </>
+            <footer className="h-1s2 mt-12 px-2 py-3 sm:px-8 flex flex-col max-sm:gap-3 sm:flex-row justify-between w-full bg-accsent items-center border">
+                <p className="text-muted-foreground text-center">Conwrite.ai All Right Reserved &copy;</p>
+                <p className="text-muted-foreground text-center">Made By Anas Ahmed</p>
+                <div className="flex gap-4 justify-between items-center">
+                    <Instagram />
+                    <Github />
+                    <Facebook />
+                    <LinkedinIcon />
+                </div>
+            </footer>
+        </main>
     );
 };
 

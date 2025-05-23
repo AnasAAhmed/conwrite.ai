@@ -27,8 +27,11 @@ export const useProgressStore = create<ProgressState>((set) => ({
     set({ progress: 100 });
 
     setTimeout(() => {
-      set({ loading: false, progress: 0 });
-    }, 300); 
+      set({ loading: false});
+    }, 200); 
+      setTimeout(() => {
+      set({ progress: 0 });
+    }, 400); 
   },
   reset: () => {
     set({ loading: false, progress: 0 });

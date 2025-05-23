@@ -1,6 +1,6 @@
 'use client'
 import { SignOutButton, UserButton } from '@clerk/nextjs';
-import { ChevronLeft, ChevronRight, History, Home, LayoutDashboard, LogOut, User, WalletCards } from 'lucide-react';
+import { ChevronLeft, ChevronRight, History, Home, LayoutDashboard, LogOut, LoaderIcon, User, WalletCards } from 'lucide-react';
 import Image from 'next/image';
 import SmartLink from '@/components/SmartLink';
 import React, { useState } from 'react';
@@ -9,6 +9,7 @@ import DarkModeToggle from './Toggle';
 const SideNav = () => {
 
   const [open, setOpen] = useState(true)
+  const [load, setLoad] = useState(false)
   const menuListt = [
     {
       name: "Dashboard",
@@ -21,9 +22,9 @@ const SideNav = () => {
       path: '/dashboard/history'
     },
     {
-      name: "Pricing",
+      name: "Billing",
       icon: WalletCards,
-      path: '/dashboard/pricing'
+      path: '/dashboard/billing'
     },
     {
       name: "Profile",
@@ -66,10 +67,10 @@ const SideNav = () => {
                 </SmartLink>
               ))}
             </div>
-            <SignOutButton>
-              <div className='flex items-center group gap-2 mb-2 p-3 hover:bg-border hover:text-primary rounded-md cursor-pointer'>
+            <SignOutButton >
+              <div onClick={()=>setLoad(true)} className='flex items-center group gap-2 mb-2 p-3 hover:bg-border hover:text-primary rounded-md cursor-pointer'>
                 <LogOut />
-                <span className='text-lg duration-300 group-hover:translate-x-4'>Sign out</span>
+                <span className='text-lg flex items-center gap-1 duration-300 group-hover:translate-x-1'>Sign out {load && <LoaderIcon className='animate-spin'/>}</span>
               </div>
             </SignOutButton>
           </div>

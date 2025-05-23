@@ -1,4 +1,5 @@
-import { UserProfile } from '@clerk/nextjs'
+import Loader from '@/components/ui/loader';
+import { ClerkLoaded, ClerkLoading, UserProfile } from '@clerk/nextjs'
 import { Metadata } from 'next';
 import React from 'react'
 export const metadata: Metadata = {
@@ -9,7 +10,13 @@ const page = () => {
     <div className='w-full h-fuldl my-8  flex justify-center items-center'>
       <div className='overflow-y-auto'>
 
-      <UserProfile routing='hash' />
+     <ClerkLoading>
+        <Loader />
+      </ClerkLoading>
+
+      <ClerkLoaded>
+        <UserProfile routing="hash" />
+      </ClerkLoaded>
       </div>
     </div>
   )

@@ -1,12 +1,13 @@
 'use client';
 import { useEffect, useState } from "react";
-import { SignIn, SignUp, useUser } from "@clerk/nextjs";
+import { ClerkLoaded, ClerkLoading, SignIn, SignUp, useUser } from "@clerk/nextjs";
 
 import { Button } from "./ui/button";
 import SmartLink from '@/components/SmartLink';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "./ui/dialog";
 import { useSearchParams } from "next/navigation";
 import DarkModeToggle from "./Toggle";
+import Loader from "./ui/loader";
 
 export default function AuthModal() {
     const { user } = useUser();
@@ -35,15 +36,23 @@ export default function AuthModal() {
                         Login
                     </DialogTrigger>
                 }
-                <DialogContent className="max-w-md p-0">
-
+                <DialogContent className="max-w-md min-h-96 p-0">
+                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+                        <Loader />
+                    </div>
                     {authType === "sign-in" ? (
-                        <SignIn routing="virtual" signUpUrl="?auth=sign-up" />
+                        <>
+                            <ClerkLoading> <Loader /></ClerkLoading>
+                            <ClerkLoaded><SignIn routing="virtual" signUpUrl="?auth=sign-up" /></ClerkLoaded>
+                        </>
                     ) : (
-                        <SignUp routing="virtual" signInUrl="?auth=sign-in" />
+                        <>
+                            <ClerkLoading> <Loader /></ClerkLoading>
+                            <ClerkLoaded><SignUp routing="virtual" signInUrl="?auth=sign-in" /></ClerkLoaded>
+                        </>
                     )}
                 </DialogContent>
-            </Dialog>
+            </Dialog >
         </>
     );
 }

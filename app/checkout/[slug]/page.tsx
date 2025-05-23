@@ -18,22 +18,7 @@ export async function generateMetadata({ params }: { params: { slug: string } })
                 follow: true,
             },
         },
-        openGraph: {
-            title: selectedPlan?.name + " | ConWrite.ai",
-            description:
-                `Discover ${selectedPlan?.name} package at ConWrite.ai, your all-in-one AI platform for generating SEO-optimized content, marketing copy, and chatbot interactions. Built with Next.js by Anas Ahmed.`,
-            url: `${process.env.ECOM_STORE_URL}`,
-            images: [
-                {
-                    url: '/pricing.webp',
-                    width: 711,
-                    height: 400,
-                    alt: 'ConWrite.ai home preview',
-                },
-
-            ],
-            siteName: 'ConWrite.ai | AI Tools by Anas Ahmed',
-        },
+       
     }
 };
 
