@@ -10,8 +10,6 @@ import PaginationControls from '@/components/PaginationControls';
 import Delete from '@/components/Delete';
 import Markdown from 'react-markdown';
 import { Metadata } from 'next';
-import remarkGfm from 'remark-gfm';
-import rehypeRaw from 'rehype-raw';
 export const metadata: Metadata = {
     title: "History | ConWrite.ai",
 };
