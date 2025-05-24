@@ -11,12 +11,21 @@ const OutputSection = ({ result }: { result: string }) => {
     const editorRef = useRef<any>(null);
     useEffect(() => {
         const editorInstance = editorRef.current.getInstance();
-        editorInstance.setMarkdown(result);
+        
+        if (editorInstance) {
+            editorInstance.setMarkdown(result);
+
+            const editableEl = editorInstance?.editor?.el?.querySelector('iframe')?.contentWindow?.document?.activeElement;
+            editableEl?.blur(); 
+        }
 
     }, [result]);
-
+  
     const copyResult = () => {
-        navigator.clipboard.writeText(result)
+       const editorInstance = editorRef.current?.getInstance();
+  const currentContent = editorInstance?.getMarkdown();
+
+  navigator.clipboard.writeText(currentContent || '')
             .then(() => {
                 setIsCopy(true);
                 setTimeout(() => setIsCopy(false), 3000); // Reset copy state after 2 seconds
@@ -27,18 +36,26 @@ const OutputSection = ({ result }: { result: string }) => {
     };
 
     return (
-        <div className='bg-primary-foreground shadow-lg border rounded-lg'>
+        <div className='bg-primary-foreground text-primary shadow-lg border rounded-lg'>
             <div className="flex justify-between items-center p-5">
                 <h2>Your Result</h2>
-                <abbr title={isCopy ?"Copied":"Copy result"}>
+                <abbr title={isCopy ? "Copied" : "Copy result"}>
                     <Button onClick={copyResult}>
                         {isCopy ? <><Check className='w-5 h-5 mr-1' />Copied</> : <> <Copy className='w-4 h-4 mr-1' />Copy </>}
 
                     </Button>
                 </abbr>
             </div>
+            {/* <Viewer
+                initialValue={result}
+                ref={editorRef}
+                theme={'light'}
+                height="600px"
+            /> */}
+
             <Editor
                 ref={editorRef}
+                // theme={'dark'}
                 initialValue=""
                 height="600px"
                 initialEditType="wysiwyg"

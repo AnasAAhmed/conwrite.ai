@@ -10,6 +10,8 @@ import PaginationControls from '@/components/PaginationControls';
 import Delete from '@/components/Delete';
 import Markdown from 'react-markdown';
 import { Metadata } from 'next';
+import remarkGfm from 'remark-gfm';
+import rehypeRaw from 'rehype-raw';
 export const metadata: Metadata = {
     title: "History | ConWrite.ai",
 };
@@ -80,7 +82,7 @@ const Page = async ({ searchParams }: { searchParams: any }) => {
                             </summary>
                             {/* <pre className="mt-2 text-primary whitespace-pre-wrap">{item.aiResponse}</pre> */}
                             <hr className='my-2'/>
-                            <Markdown>{item.aiResponse}</Markdown>
+                            <Markdown >{item.aiResponse}</Markdown>
                         </details>
                     </div>
                 )) : <p className='text-lg mb-3'>You have not created any AI content yet.</p>}

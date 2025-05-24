@@ -1,4 +1,4 @@
-type Template={
+type Template = {
     name: string;
     desc: string;
     category: string;
@@ -10,10 +10,13 @@ type Template={
         field: string;
         name: string;
         required: boolean;
+        options?: string[]
     } | {
         label: string;
         field: string;
         name: string;
         required?: undefined;
+        options?: []
     })[];
 }
+

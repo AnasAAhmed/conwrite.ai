@@ -24,6 +24,13 @@ const DarkModeToggle = () => {
             document.documentElement.classList.add('dark');
             localStorage.setItem('theme', 'dark');
         }
+         const toggleDarkMode=()=>{
+    let el = document.getElementsByClassName("toastui-editor-defaultUI")[0];
+    if(el.classList.contains("toastui-editor-dark"))
+      el.classList.remove("toastui-editor-dark");
+    else el.classList.add("toastui-editor-dark");
+  }
+  toggleDarkMode()
         setDarkMode(!darkMode);
     };
 

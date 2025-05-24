@@ -9,8 +9,9 @@ export const dynamic = 'force-static';
 
 export default async function Home() {
   return (
-    <main className="flex bg-no-repeat scroll-smooth flex-col  items-center justify-center bg-cover">
+    <main className="flex bg-no-repeat scroll-smooth flex-col px-4  items-center justify-center bg-cover">
       <div className="px-3 sm:px-6 py-1 w-full items-center border-b justify-between text-sm flex">
+        <SmartLink title="home"href={'/'}>
         <Image
           className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
           src="/logo.svg"
@@ -18,8 +19,9 @@ export default async function Home() {
           width={100}
           height={37}
           priority
-        />
-      <AuthModal/>
+          />
+          </SmartLink>
+        <AuthModal />
       </div>
 
       <div className="relative z-[-1] w-full h-[400px] flex dark:bg-[url('https://preline.co/assets/svg/examples-dark/polygon-bg-element.svg')] bg-[url('https://preline.co/assets/svg/examples/polygon-bg-element.svg')] bg-no-repeat items-center justify-center bg-cover place-items-center flex-col gap-3">
@@ -31,7 +33,7 @@ export default async function Home() {
           height={37}
           priority
         />
-        <h1 className="block font-bold text-gray-800 text-4xl md:text-5xl lg:text-6xl dark:text-neutral-200">AI Content<span className="bg-clip-text bg-gradient-to-tl from-blue-600 to-violet-600 text-transparent"> Generator</span></h1>
+        <h1 className="block font-bold text-gray-800 text-4xl md:text-5xl lg:text-6xl dark:text-neutral-200">AI Content<span className="bg-clip-text bg-gradient-to-tl from-blue-400 to-violet-600 text-transparent"> Generator</span></h1>
         <p className="text-lg mt-3 max-w-[43rem] text-center text-gray-600 dark:text-neutral-400">Revolutionize your content creation with our AI-powered app, delivering engaging and high-quality text in seconds.</p>
       </div>
 
@@ -97,24 +99,25 @@ export default async function Home() {
         </a>
       </div>
       <div id="docs" className="my-16 flex flex-col gap-8 justify-center items-center">
-        <h1 className="text-center text-2xl sm:text-4xl">How it works?</h1>
-        <h1 className="text-center text-xl sm:text-3xl">Select Tool form dashboard</h1>
-        <p className=" text-center text-md sm:text-lg">Select a tool from Dashboard after login find it with our search bar. </p>
+        <h1 className=" text-center h-9 sm:h-16 bg-clip-text bg-gradient-to-tl from-blue-400 to-violet-600 text-transparent text-3xl sm:text-6xl font-semibold">How it works?</h1>
+         <p className=" text-center font-medium text-muted-foreground max-w-[70%] text-lg sm:text-xl">Select a tool from Dashboard after login find it with our search bar. </p>
         {/* <div className=" border ring-[0.3px] rounded-md"> */}
         <Image src={'/demo.png'} alt="hero" width={1000} height={1000} className="rounded-md border ring-[0.3px]" />
         {/* </div> */}
-        <h1 className="text-center text-xl sm:text-3xl">Creating AI-Content </h1>
-        <p className=" text-center text-md sm:text-lg">From selected tool put a prompt as per input and wait for your result in rich text Editor and get track of your credits in realtime.</p>
+        <h1 className=" text-center h-9 sm:h-16 bg-clip-text bg-gradient-to-tl from-blue-300 to-violet-700 text-transparent text-3xl sm:text-6xl font-semibold">Creating AI-Content </h1>
+        <p className=" text-center font-medium text-muted-foreground max-w-[70%] text-lg sm:text-xl">From selected tool put a prompt as per input and wait for your result in rich text Editor and get track of your credits in realtime.</p>
         {/* <div className=" border ring-[0.3px] rounded-md"> */}
         <Image src={'/demo2.png'} alt="hero" width={1000} height={1000} className="border ring-[0.3px] rounded-md" />
         {/* </div> */}
-        <h1 className=" text-center text-xl sm:text-3xl">AI-Chatbot</h1>
-        <p className=" text-center text-md sm:text-lg">try out our free chatbot without even login in Just Put a Prompt to get most out of our AI-Chatbot and gets a track to your free credits</p>
+        <h1 className=" text-center h-9 sm:h-16 bg-clip-text bg-gradient-to-tl from-blue-300 to-violet-700 text-transparent text-3xl sm:text-6xl font-semibold">AI-Chatbot</h1>
+        <p className=" text-center font-medium text-muted-foreground max-w-[70%] text-lg sm:text-xl">try out our free chatbot without even login in Just Put a Prompt to get most out of our AI-Chatbot and gets a track to your free credits</p>
         {/* <div className=" border ring-[0.3px] rounded-md"> */}
         <Image src={'/demo3.png'} alt="hero" width={1000} height={1000} className="rounded-md border ring-[0.3px]" />
         {/* </div> */}
       </div>
       <section id="pricing" className="px-8 my-16">
+         <h1 className=" text-center h-9 sm:h-16 bg-clip-text bg-gradient-to-tl from-blue-300 to-violet-700 text-transparent text-3xl sm:text-6xl font-semibold">Pricing#</h1>
+
         <ul className="mt-11 grid grid-cols-1 gap-5 sm:grid-cols-2 md:gap-9 xl:grid-cols-3">
           {plans.map((plan) => (
             <li key={plan.name} className="w-full rounded-[16px] border-2 border-purple-200/20 bg-primary-foreground p-8 shadow-xl shadow-purple-200/20 lg:max-w-none">

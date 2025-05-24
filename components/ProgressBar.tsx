@@ -1,18 +1,20 @@
 'use client';
 
 import { useEffect } from 'react';
-import { usePathname } from 'next/navigation';
+import { usePathname, useSearchParams } from 'next/navigation';
 import { useProgressStore } from '@/lib/useProgressBar';
 
 export default function ProgressBar() {
   const pathname = usePathname();
+  const searchParams = useSearchParams();
+
   const progress = useProgressStore((s) => s.progress);
   const complete = useProgressStore((s) => s.complete);
   const loading = useProgressStore((s) => s.loading);
 
   useEffect(() => {
     if (loading) complete();
-  }, [pathname]);
+  }, [pathname,searchParams?.toString()]);
 
   return (
     <div className="fixed top-0 left-0 z-[9999] h-[3px] w-full bg-transparent">

@@ -20,7 +20,8 @@ import {
 import { useRouter } from 'next/navigation';
 import { useUsage } from '@/lib/useUsage.';
 
-const Content = ({ selectedTemp }: { selectedTemp:{
+const Content = ({ selectedTemp }: {
+  selectedTemp: {
     name: string;
     desc: string;
     category: string;
@@ -28,17 +29,21 @@ const Content = ({ selectedTemp }: { selectedTemp:{
     aiPrompt: string;
     slug: string;
     form: ({
-        label: string;
-        field: string;
-        name: string;
-        required: boolean;
+      label: string;
+      field: string;
+      name: string;
+      required: boolean;
+      options?:string[]
     } | {
-        label: string;
-        field: string;
-        name: string;
-        required?: undefined;
+      label: string;
+      field: string;
+      name: string;
+      required?: undefined;
+      options?:string[]
+
     })[];
-} | undefined }) => {
+  } | undefined
+}) => {
 
   const [loading, setLoading] = useState<boolean>(false);
   const [aiOutput, setAiOutput] = useState<string>('');
@@ -47,7 +52,7 @@ const Content = ({ selectedTemp }: { selectedTemp:{
   const { usage, maxCredits } = useUsage();
   const router = useRouter();
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement|HTMLSelectElement>) => {
     const { name, value } = e.target;
     setFormData((prevData: any) => ({ ...prevData, [name]: value }));
   };
@@ -79,7 +84,7 @@ const Content = ({ selectedTemp }: { selectedTemp:{
         if (done) break;
         const chunk = decoder.decode(value);
         result += chunk;
-        setAiOutput(result); 
+        setAiOutput(result);
       }
 
       const trimmedLength = result.replace(/[\s\*]+/g, '').trim().length;
@@ -131,14 +136,28 @@ const Content = ({ selectedTemp }: { selectedTemp:{
                     onChange={handleInputChange}
                     disabled={loading}
                   />
-                ) : (
-                  <Textarea
-                    id={item.name}
+                ) : item.field === 'select' ? (
+                  <select
+                    className="h-10 px-3 sm:msb-4 mr-2 bg-gray-100 rounded-lg"
+                    disabled={loading}
                     name={item.name}
+                    id={item.name}
                     required={item.required}
                     onChange={handleInputChange}
-                    disabled={loading}
-                  />
+                  >
+                    <option value="">Select</option>
+                    {item.options && item.options.map((i, _) => (
+                      <option key={_} value={i}>{i}</option>
+                    ))}
+                    <option value="">None</option>
+                  </select>
+                ) : (<Textarea
+                  id={item.name}
+                  name={item.name}
+                  required={item.required}
+                  onChange={handleInputChange}
+                  disabled={loading}
+                />
                 )}
               </div>
             ))}

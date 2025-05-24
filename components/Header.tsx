@@ -18,16 +18,18 @@ const Header = ({ result }: {
 
   return (
     <div className='p-2 gap-2 shadow-sm border-b flex bg-accent justify-between items-center'>
-      <SmartLink href={'/'} className="md:hidden cursor-pointer flex justify-start">
+      <SmartLink href={'/'} className="md:hdidden cursor-pointer flex justify-start">
         <Image src={'/logo.svg'} alt='logo' className='dark:drop-shadow-[0_0_0.1rem_#ffffff70] dark:invert ' width={70} height={70} />
       </SmartLink>
-      {result.length > 0 && <UserUsage usage={result[0].usage!} credits={result[0].credits!} />}
-      <div className="hidden md:flex justify-between items-center gap-3">
-        <DarkModeToggle />
-        <h2 className="bg-primary text-primary-foreground py-2 rounded-full text-xs px-2">
+      <h2 className="hidden md:flex bg-primary text-primary-foreground py-2 rounded-full text-xs px-2">
           ️‍🔥Join Membership in just for $9.99/Month
         </h2>
+      <div className="flex justify-between items-center gap-3">
+      <div className="hidden md:flex justify-between items-center gap-3">
+        <DarkModeToggle />
         <UserButton signInUrl='/' />
+      </div>
+      {result.length > 0 && <UserUsage usage={result[0].usage!} credits={result[0].credits!} />}
       </div>
     </div>
   )

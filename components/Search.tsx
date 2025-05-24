@@ -13,7 +13,8 @@ const Search = ({ onSearchInput }: any) => {
     if (value) {
       setFilteredTemplates(
         Templates.filter((item) =>
-          item.name.toLowerCase().includes(value.toLowerCase())
+          item.name.toLowerCase().includes(value.toLowerCase()) ||
+          item.category.toLowerCase().includes(value.toLowerCase())
         )
       )
       setShowOptions(true)
@@ -48,7 +49,7 @@ const Search = ({ onSearchInput }: any) => {
                   onMouseDown={() => handleInputChange(item.name)} // onMouseDown to prevent input blur
                 >
                   <p className='truncate min-w-20'>{item.name}</p>
-                  {/* <p className='text-xs text-gray-500'>{item.category}</p> */}
+                  <p className='text-xs text-gray-500'>{item.category}</p>
                 </div>
               ))}
             </div>
