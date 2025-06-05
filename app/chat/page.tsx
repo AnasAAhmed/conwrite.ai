@@ -3,7 +3,7 @@ import Chat from '@/components/Chat'
 import SmartLink from '@/components/SmartLink';
 import { Metadata } from 'next';
 import Image from 'next/image';
-import React from 'react'
+import React, { Suspense } from 'react'
 
 export const metadata: Metadata = {
     title: "Ai-ChatBot | ConWrite.ai",
@@ -46,7 +46,9 @@ const page = () => {
                         priority
                     />
                 </SmartLink>
-                <AuthModal />
+                <Suspense fallback={<div className='h-5 w-16 p-1 rounded-md bg-gray-300 animate-pulse'/>}>
+                    <AuthModal />
+                </Suspense>
             </div>
             <Chat />
         </div>

@@ -4,8 +4,8 @@ import { ClerkLoaded, ClerkLoading, SignIn, SignUp, useUser } from "@clerk/nextj
 
 import { Button } from "./ui/button";
 import SmartLink from '@/components/SmartLink';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "./ui/dialog";
-import { useSearchParams } from "next/navigation";
+import { Dialog, DialogContent, DialogTitle, DialogTrigger } from "./ui/dialog";
+import { useRouter, useSearchParams } from "next/navigation";
 import DarkModeToggle from "./Toggle";
 import Loader from "./ui/loader";
 
@@ -14,17 +14,33 @@ export default function AuthModal() {
     const [open, setOpen] = useState(false);
     const [authType, setAuthType] = useState<"sign-in" | "sign-up">("sign-in");
     const searchParams = useSearchParams()
+    const router = useRouter();
 
     useEffect(() => {
         const auth = searchParams.get('auth')
         if (auth) {
+            setOpen(true)
             setAuthType(auth as "sign-in" | "sign-up")
         }
     }, [searchParams]);
 
     return (
         <>
-            <Dialog open={open} onOpenChange={setOpen}>
+            <Dialog
+                open={open}
+                onOpenChange={(isOpen) => {
+                    setOpen(isOpen);
+                    if (!isOpen) {
+                        const current = new URLSearchParams(searchParams.toString());
+                        current.delete("auth");
+                        current.delete("redirect_url");
+                        router.replace(`?${current.toString()}`);
+                    }
+                }}
+            >
+                <DialogTitle asChild>
+                    <p className="sr-only">This dialog needs a title</p>
+                </DialogTitle>
                 {user ?
                     <div className="flex items-center gap-3">
                         <DarkModeToggle />

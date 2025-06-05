@@ -13,11 +13,12 @@ import { Metadata } from 'next';
 export const metadata: Metadata = {
     title: "History | ConWrite.ai",
 };
-const Page = async ({ searchParams }: { searchParams: any }) => {
+const Page = async (props: { searchParams: Promise<any> }) => {
+    const searchParams = await props.searchParams;
     let page = Number(searchParams?.page) || 1;
     const limit = 6
     const offset = (page - 1) * limit;
-    const { userId } = auth();
+    const { userId } = await auth();
     if (!userId) return 'Unauthorized';
 
     const database = await db();
@@ -49,7 +50,7 @@ const Page = async ({ searchParams }: { searchParams: any }) => {
 
     return (
         <div className="container mx-auto p-6">
-                <h1 className="text-2xl font-bold mb-2">History</h1>
+            <h1 className="text-2xl font-bold mb-2">History</h1>
             <p className='text-md text-gray-500 mb-3'>Search your periviously generated AI content</p>
             <div className="grid gap-4">
                 {result.length > 0 ? result.map((item) => (
@@ -79,7 +80,7 @@ const Page = async ({ searchParams }: { searchParams: any }) => {
                                 <span>({item.aiResponse?.replace(/[\s\*]+/g, '').trim().length}) words</span>
                             </summary>
                             {/* <pre className="mt-2 text-primary whitespace-pre-wrap">{item.aiResponse}</pre> */}
-                            <hr className='my-2'/>
+                            <hr className='my-2' />
                             <Markdown >{item.aiResponse}</Markdown>
                         </details>
                     </div>

@@ -6,6 +6,7 @@ import SmartLink from '@/components/SmartLink';
 import { Metadata } from "next";
 import AuthModal from "@/components/AuthModal";
 import { Facebook, Github, Instagram, LinkedinIcon } from "lucide-react";
+import { Suspense } from "react";
 
 
 // export const dynamic = 'force-static';
@@ -53,7 +54,9 @@ const page = () => {
                         priority
                     />
                 </SmartLink>
-                <AuthModal />
+                <Suspense fallback={<div className='h-5 w-16 p-1 rounded-md bg-gray-300 animate-pulse' />}>
+                    <AuthModal />
+                </Suspense>
             </div>
             <section className="px-8">
                 <ul className="mt-11 grid grid-cols-1 gap-5 sm:grid-cols-2 md:gap-9 xl:grid-cols-3">

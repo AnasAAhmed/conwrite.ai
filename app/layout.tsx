@@ -4,6 +4,7 @@ import "./globals.css";
 import { ClerkProvider } from "@clerk/nextjs";
 import CreateUser from "@/components/CreateUser";
 import ProgressBar from "@/components/ProgressBar";
+import { Suspense } from "react";
 
 const inter = Roboto({ subsets: ["latin"], weight: ['500', '700'] });
 
@@ -62,10 +63,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <ClerkProvider>
+    <ClerkProvider signInUrl="/?auth=sign-in">
       <html lang="en" >
         <body className={inter.className}>
-          <ProgressBar/>
+          <Suspense fallback={''}>
+            <ProgressBar />
+          </Suspense>
           <CreateUser />
           {children}
         </body>

@@ -7,7 +7,7 @@ import { revalidatePath } from "next/cache";
 import { NextRequest } from "next/server";
 
 export async function POST(req: NextRequest) {
-  const { userId } = auth();
+  const { userId } = await auth();
 
   if (!userId) {
     return new Response("Unauthorized", { status: 401 });
@@ -41,3 +41,4 @@ export async function POST(req: NextRequest) {
     return new Response(`Failed to save AI content: ${err.message}`, { status: 500 });
   }
 }
+export const dynamic = 'force-dynamic'

@@ -13,7 +13,7 @@ export async function POST(req: NextRequest) {
     if (![13000, 50000, 150000].includes(creditsNo)) {
         return new Response("Invalid credit amount", { status: 409 });
     }
-    const { userId } = auth();
+    const { userId } =await auth();
 
     if (!userId || !email) {
         return new Response("Unauthorized email or user id is missing", { status: 401 });
@@ -48,3 +48,4 @@ export async function POST(req: NextRequest) {
         return new Response(typeError.message, { status: 500 });
     }
 }
+export const dynamic = 'force-dynamic'

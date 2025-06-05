@@ -2,7 +2,8 @@ import CheckOut from '@/components/CheckOut'
 import { plans } from '@/lib/Templates';
 import React from 'react'
 
-export async function generateMetadata({ params }: { params: { slug: string } }) {
+export async function generateMetadata(props: { params: Promise<{ slug: string }> }) {
+    const params = await props.params;
 
     const selectedPlan = plans.find(item => item.slug === params.slug!);
 
@@ -22,11 +23,12 @@ export async function generateMetadata({ params }: { params: { slug: string } })
     }
 };
 
-const page = ({ params }: { params: { slug: string } }) => {
+const page = async (props: { params: Promise<{ slug: string }> }) => {
+    const params = await props.params;
     const selectedPlan = plans.find(item => item.slug === params.slug!);
-   return (
-        <CheckOut selectedPlan={selectedPlan} />
-    )
+    return (
+         <CheckOut selectedPlan={selectedPlan} />
+     )
 }
 
 export default page

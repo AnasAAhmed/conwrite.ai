@@ -2,8 +2,9 @@ import Content from '@/components/Content';
 import Templates from '@/lib/Templates';
 import React from 'react'
 
-export async function generateMetadata({ params }: { params: { template: string } }) {
-  const selectedTemp = Templates.find((item) => item.slug === params.template);
+export async function generateMetadata(props: { params: Promise<{ template: string }> }) {
+    const params = await props.params;
+    const selectedTemp = Templates.find((item) => item.slug === params.template);
 
     return {
         title: selectedTemp?.name + " | ConWrite.ai",
@@ -35,12 +36,13 @@ export async function generateMetadata({ params }: { params: { template: string 
     }
 };
 
-const page = ({ params }: { params: { template: string } }) => {
+const page = async (props: { params: Promise<{ template: string }> }) => {
+    const params = await props.params;
 
-  const selectedTemp = Templates.find((item) => item.slug === params.template);
-  return (
-    <Content selectedTemp={selectedTemp}/>
-  )
+    const selectedTemp = Templates.find((item) => item.slug === params.template);
+    return (
+      <Content selectedTemp={selectedTemp}/>
+    )
 }
 
 export default page

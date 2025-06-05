@@ -8,11 +8,12 @@ import { Metadata } from 'next';
 export const metadata: Metadata = {
   title: "Billing | ConWrite.ai",
 };
-const Page = async ({ searchParams }: { searchParams: any }) => {
+const Page = async (props: { searchParams: Promise<any> }) => {
+  const searchParams = await props.searchParams;
   let page = Number(searchParams?.page) || 1;
   const limit = 6
   const offset = (page - 1) * limit;
-  const { userId } = auth();
+  const { userId } = await auth();
   if (!userId) return 'Unauthorized';
 
   const database = await db();
@@ -42,10 +43,10 @@ const Page = async ({ searchParams }: { searchParams: any }) => {
           <div key={item.id} className="bg-primary-foreground shadow-lg rounded-lg p-4">
             <div className="flex flex-wrap items-center justify-between mb-4">
               {/* <div className="break-words"> */}
-                <h2 className="text-[15px] sm:text-lg truncate max-w-56 font-semibold">{item.email}</h2>
-                <p className="text-sm truncate max-w-56 text-gray-500">{item.userId}</p>
+              <h2 className="text-[15px] sm:text-lg truncate max-w-56 font-semibold">{item.email}</h2>
+              <p className="text-sm truncate max-w-56 text-gray-500">{item.userId}</p>
               {/* </div> */}
-              
+
             </div>
             <div className="flex flex-col justify-between">
 
@@ -75,15 +76,14 @@ const Page = async ({ searchParams }: { searchParams: any }) => {
               </div>
             </div>
             <div className="text-xs sm:text-sm flex items-center gap-2 text-gray-500">
-                {new Date(item.createdAt).toLocaleDateString()}
-              </div>
+              {new Date(item.createdAt).toLocaleDateString()}
+            </div>
           </div>
         )) : <p className='text-lg mb-3'>No billing records found.</p>}
       </div>
       <PaginationControls currentPage={page} totalPages={totalPages} />
     </div>
   );
-
 };
 
 export default Page;

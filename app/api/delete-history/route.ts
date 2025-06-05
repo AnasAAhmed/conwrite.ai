@@ -5,7 +5,7 @@ import { NextRequest, NextResponse } from 'next/server';
 
 export async function POST(req: NextRequest) {
     try {
-        const { userId } = auth();
+        const { userId } =await auth();
         if (!userId) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
 
         const { historyId } = await req.json();
@@ -14,10 +14,11 @@ export async function POST(req: NextRequest) {
             return NextResponse.json({ error: 'Invalid history ID' }, { status: 400 });
         }
 
-        const result = await deleteHistory(historyId,userId);
+        const result = await deleteHistory(historyId, userId);
         return NextResponse.json({ message: result });
     } catch (error) {
         console.error('API error:', error);
         return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
     }
 }
+export const dynamic = 'force-dynamic'

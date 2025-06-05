@@ -24,23 +24,23 @@ const DarkModeToggle = () => {
             document.documentElement.classList.add('dark');
             localStorage.setItem('theme', 'dark');
         }
-         const toggleDarkMode=()=>{
-    let el = document.getElementsByClassName("toastui-editor-defaultUI")[0];
-    if(el.classList.contains("toastui-editor-dark"))
-      el.classList.remove("toastui-editor-dark");
-    else el.classList.add("toastui-editor-dark");
-  }
-  toggleDarkMode()
+        // const toggleDarkModeForRichTextEditor = () => {
+        //     let el = document.getElementsByClassName("toastui-editor-defaultUI")[0];
+        //     if (el.classList.contains("toastui-editor-dark"))
+        //         el.classList.remove("toastui-editor-dark");
+        //     else el.classList.add("toastui-editor-dark");
+        // }
+        // toggleDarkModeForRichTextEditor()
         setDarkMode(!darkMode);
     };
 
     return (
-            <button
-                onClick={toggleDarkMode}
-                className="text-black text-[22px] dark:text-white"
-            >
-             {darkMode?<Image height={18} width={18} src="/sun.svg" alt="moon" />:<Image height={18} width={18} src="/Moon.svg" alt="moon" />} 
-            </button>
+        <button
+            onClick={toggleDarkMode}
+            className="text-black text-[22px] dark:text-white"
+        >
+            {darkMode ? <Image height={18} width={18} src="/sun.svg" alt="moon" /> : <Image height={18} width={18} src="/Moon.svg" alt="moon" />}
+        </button>
     );
 };
 

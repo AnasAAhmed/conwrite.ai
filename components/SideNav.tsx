@@ -71,7 +71,7 @@ const SideNav = () => {
       <div ref={dropdownRef} className={`z-20 duration-300 transition-transform max-sm:fixed -translate-x-96 ${open ? 'translate-x-0 w-64' : 'sm:fixed'}`}>
         <div className='flex flex-col justify-between h-screen overflow-y-auto bg-primary-foreground p-3 lg:p-5 shadow-sm border'>
           <div className="flex justify-between items-center">
-            <SmartLink href={'/'} className="flex justify-start">
+            <SmartLink href={'/dashboard'} className="flex justify-start">
               <Image src={'/logo.svg'} className='dark:drop-shadow-[0_0_0.1rem_#ffffff70] dark:invert' alt='logo' width={130} height={88} />
             </SmartLink>
             <div onClick={() => toggleOpen()} className='sm:hisdden cursor-pointer'>
