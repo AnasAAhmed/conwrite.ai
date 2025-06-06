@@ -33,13 +33,13 @@ const Content = ({ selectedTemp }: {
       field: string;
       name: string;
       required: boolean;
-      options?:string[]
+      options?: string[]
     } | {
       label: string;
       field: string;
       name: string;
       required?: undefined;
-      options?:string[]
+      options?: string[]
 
     })[];
   } | undefined
@@ -52,7 +52,7 @@ const Content = ({ selectedTemp }: {
   const { usage, maxCredits } = useUsage();
   const router = useRouter();
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement|HTMLSelectElement>) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     setFormData((prevData: any) => ({ ...prevData, [name]: value }));
   };
@@ -101,8 +101,8 @@ const Content = ({ selectedTemp }: {
           trimmedLength,
         }),
       });
-      console.log(res);
-
+      const ressponse = await res.json()
+      alert(JSON.stringify(ressponse) + ' Error saving history')
     } catch (err) {
       console.error(err);
     } finally {

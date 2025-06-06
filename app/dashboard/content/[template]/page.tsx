@@ -1,5 +1,6 @@
 import Content from '@/components/Content';
 import Templates from '@/lib/Templates';
+import { auth } from '@clerk/nextjs/server';
 import React from 'react'
 
 export async function generateMetadata(props: { params: Promise<{ template: string }> }) {
@@ -20,7 +21,7 @@ export async function generateMetadata(props: { params: Promise<{ template: stri
         },
         openGraph: {
             title: selectedTemp?.name + " | ConWrite.ai",
-            description:`${selectedTemp?.desc} | ConWrite.ai`,
+            description: `${selectedTemp?.desc} | ConWrite.ai`,
             url: `${process.env.ECOM_STORE_URL}/content/${selectedTemp?.slug}`,
             images: [
                 {
@@ -38,10 +39,10 @@ export async function generateMetadata(props: { params: Promise<{ template: stri
 
 const page = async (props: { params: Promise<{ template: string }> }) => {
     const params = await props.params;
-
+    await auth.protect();
     const selectedTemp = Templates.find((item) => item.slug === params.template);
     return (
-      <Content selectedTemp={selectedTemp}/>
+        <Content selectedTemp={selectedTemp} />
     )
 }
 

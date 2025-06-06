@@ -4,13 +4,13 @@ import { db } from "@/lib/db";
 import { AIOutput, UserData } from "@/lib/schema"; // adjust as needed
 import { sql, eq } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
-import { NextRequest } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: NextRequest) {
   const { userId } = await auth();
 
   if (!userId) {
-    return new Response("Unauthorized", { status: 401 });
+    return NextResponse.json("Unauthorized", { status: 401 });
   }
 
   try {
@@ -34,11 +34,12 @@ export async function POST(req: NextRequest) {
 
     revalidatePath('/dashboard/history');
 
-    return new Response("Successfully created history", { status: 200 });
+    return NextResponse.json("Successfully created history", { status: 200 });
+
   } catch (error) {
     const err = error as Error;
     console.error("Error in saving AI content:", err);
-    return new Response(`Failed to save AI content: ${err.message}`, { status: 500 });
+    return NextResponse.json(`Failed to save AI content: ${err.message}`, { status: 500 });
   }
 }
 export const dynamic = 'force-dynamic'

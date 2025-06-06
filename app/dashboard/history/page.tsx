@@ -14,12 +14,12 @@ export const metadata: Metadata = {
     title: "History | ConWrite.ai",
 };
 const Page = async (props: { searchParams: Promise<any> }) => {
+    const { userId } = await auth.protect();
+    if (!userId) return 'Unauthorized';
     const searchParams = await props.searchParams;
     let page = Number(searchParams?.page) || 1;
     const limit = 6
     const offset = (page - 1) * limit;
-    const { userId } = await auth();
-    if (!userId) return 'Unauthorized';
 
     const database = await db();
     const result = await database.select()
