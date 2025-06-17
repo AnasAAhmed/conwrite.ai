@@ -102,9 +102,10 @@ const Content = ({ selectedTemp }: {
         }),
       });
       const ressponse = await res.json()
-      alert(JSON.stringify(ressponse) + ' Error saving history')
+      console.log(ressponse);
     } catch (err) {
       console.error(err);
+      alert(JSON.stringify((err as Error).message) + ' Error saving history')
     } finally {
       setLoading(false);
     }

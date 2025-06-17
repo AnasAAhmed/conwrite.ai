@@ -62,13 +62,13 @@ const Page = async (props: { searchParams: Promise<any> }) => {
                                 <Delete historyId={item.id} />
                             </div>
                         </div>
-                        <div className="mb-4">
+                        <div className="mb-4 max-w-full">
                             <h3 className="text-md sm:text-lg font-semibold">Prompt:</h3>
                             <ul className="list-disc list-inside text-primary">
                                 {Object.entries(JSON.parse(item.formData)).map(([key, value], index) => (
                                     <li key={index} className="mt-1 text-sm sm:text-md">
                                         <span className="font-medium capitalize">{key}: </span>
-                                        {String(value)}
+                                        <p className='break-words'>{String(value)}</p>
                                     </li>
                                 ))}
                             </ul>
