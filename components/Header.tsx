@@ -11,7 +11,7 @@ import { auth } from '@clerk/nextjs/server';
 
 const Header = async () => {
   const { userId } = await auth();
-  if (!userId) return 'Unauthorized';
+  if (!userId) return null;
 
   const database = await db();
   const result = await database.select({

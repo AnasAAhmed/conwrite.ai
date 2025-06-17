@@ -1,4 +1,5 @@
 import Content from '@/components/Content';
+import SignInRedirect from '@/components/SignInRedirect';
 import Templates from '@/lib/Templates';
 import { auth } from '@clerk/nextjs/server';
 import React from 'react'
@@ -39,7 +40,12 @@ export async function generateMetadata(props: { params: Promise<{ template: stri
 
 const page = async (props: { params: Promise<{ template: string }> }) => {
     const params = await props.params;
-    await auth.protect();
+    const { userId } = await auth();
+    if (!userId) {
+        return (
+            <SignInRedirect redirectTo={`/content/${params.template}`} />
+        );
+    }
     const selectedTemp = Templates.find((item) => item.slug === params.template);
     return (
         <Content selectedTemp={selectedTemp} />

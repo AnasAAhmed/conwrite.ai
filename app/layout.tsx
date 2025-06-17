@@ -45,7 +45,7 @@ export const metadata: Metadata = {
         alt: 'ConWrite.ai home preview',
       },
       {
-        url: '/demo3.png',
+        url: '/demo.png',
         width: 711,
         height: 400,
         alt: 'ConWrite.ai chat preview',

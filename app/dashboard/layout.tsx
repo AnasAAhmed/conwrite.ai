@@ -2,6 +2,8 @@ import React from 'react'
 import SideNav from '@/components/SideNav';
 import Header from '@/components/Header';
 import { Metadata } from 'next';
+import { auth } from '@clerk/nextjs/server';
+import SignInRedirect from '@/components/SignInRedirect';
 
 export const metadata: Metadata = {
     title: "ConWrite | Dashboard",
@@ -48,12 +50,12 @@ const layout = async ({
 }: Readonly<{
     children: React.ReactNode;
 }>) => {
-
+    const { userId } = await auth();
     return (
         <div className='h-screen flex bg-accent'>
-            <SideNav />
+            {userId && <SideNav />}
             <div className="bg-accent w-full overflow-y-auto lgs:ml-64 md:sml-44">
-                <Header/>
+                <Header />
                 {children}
             </div>
         </div>
