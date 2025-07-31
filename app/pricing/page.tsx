@@ -1,12 +1,13 @@
 import { Button } from "@/components/ui/button";
-import { plans } from "@/lib/Templates";
-import { SignedIn } from "@clerk/nextjs";
 import Image from "next/image";
 import SmartLink from '@/components/SmartLink';
 import { Metadata } from "next";
 import AuthModal from "@/components/AuthModal";
 import { Facebook, Github, Instagram, LinkedinIcon } from "lucide-react";
 import { Suspense } from "react";
+import { pricing } from "@/constants";
+import Header from "@/components/design-components/Header";
+import Footer from "@/components/design-components/Footer";
 
 
 // export const dynamic = 'force-static';
@@ -41,8 +42,9 @@ export const metadata: Metadata = {
 const page = () => {
 
     return (
-        <main className="flex bg-no-repeat scroll-smooth flex-col  items-center justify-center bg-cover">
-
+        <main className="flex pt-20 bg-no-repeat scroll-smooth flex-col  items-center justify-center bg-cover">
+            <Header/>
+{/* 
             <div className="px-3 sm:px-6 py-1 w-full items-center border-b justify-between text-sm flex">
                 <SmartLink href={'/'} title="home">
                     <Image
@@ -57,10 +59,10 @@ const page = () => {
                 <Suspense fallback={<div className='h-5 w-16 p-1 rounded-md bg-gray-300 animate-pulse' />}>
                     <AuthModal />
                 </Suspense>
-            </div>
+            </div> */}
             <section className="px-8">
                 <ul className="mt-11 grid grid-cols-1 gap-5 sm:grid-cols-2 md:gap-9 xl:grid-cols-3">
-                    {plans.map((plan) => (
+                    {pricing.map((plan) => (
                         <li key={plan.name} className="w-full rounded-[16px] border-2 border-purple-200/20 bg-primary-foreground p-8 shadow-xl shadow-purple-200/20 lg:max-w-none">
                             <div className="flex-center flex-col gap-3">
                                 <Image src={plan.icon} alt="check" width={50} height={50} />
@@ -95,7 +97,7 @@ const page = () => {
                                     Free Consumable
                                 </Button>
                             ) : (
-                                <SignedIn>
+                                // <SignedIn>
                                     <SmartLink href={`/checkout/${plan.slug}`}>
                                         <Button
                                             type="submit"
@@ -105,22 +107,13 @@ const page = () => {
                                             Buy Credit
                                         </Button>
                                     </SmartLink>
-                                </SignedIn>
+                                //  </SignedIn> 
                             )}
                         </li>
                     ))}
                 </ul>
             </section>
-            <footer className="h-1s2 mt-12 px-2 py-3 sm:px-8 flex flex-col max-sm:gap-3 sm:flex-row justify-between w-full bg-accsent items-center border">
-                <p className="text-muted-foreground text-center">Conwrite.ai All Right Reserved &copy;</p>
-                <p className="text-muted-foreground text-center">Made By Anas Ahmed</p>
-                <div className="flex gap-4 justify-between items-center">
-                    <Instagram />
-                    <Github />
-                    <Facebook />
-                    <LinkedinIcon />
-                </div>
-            </footer>
+           <Footer/>
         </main>
     );
 };

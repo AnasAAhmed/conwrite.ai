@@ -1,186 +1,109 @@
-import { Suspense } from "react";
-import AuthModal from "@/components/AuthModal";
-import SmartLink from "@/components/SmartLink";
-import { Button } from "@/components/ui/button";
-import { plans } from "@/lib/Templates";
-import { ChevronRight, Facebook, Github, Instagram, LinkedinIcon } from "lucide-react";
 import Image from "next/image";
+import Benefits from "../components/design-components/Benefits";
+import Collaboration from "../components/design-components/Collaboration";
+import Footer from "../components/design-components/Footer";
+import Header from "../components/design-components/Header";
+import Hero from "../components/design-components/Hero";
+import Pricing from "../components/design-components/Pricing";
+import Roadmap from "../components/design-components/Roadmap";
+import Services from "../components/design-components/Services";
+import ButtonGradient from "@/assets/svg/ButtonGradient";
+import Section from "@/components/design-components/Section";
 
 export const dynamic = 'force-static';
 
+const howToSteps = [
+  {
+    id: 1,
+    title: "Step 1: Choose an AI Agent",
+    description: "Select a specialized agent like Blog Writer, Code Debugger, or Freelance Guide — tailored to your workflow.",
+    image: "/demo.png", // Replace with your actual image paths
+  },
+  {
+    id: 2,
+    title: "Step 2: Describe Your Task",
+    description: "Use natural language to tell Brainwave what you need — write, debug, generate ideas, and more.",
+    image: "/demo2.png",
+  },
+  {
+    id: 3,
+    title: "Step 3: Review your Chat history",
+    description: "You can track your AI-Created content from here at /history as well as Billing history.",
+    image: "/demo2.png",
+  },
+  {
+    id: 4,
+    title: "Our new Chatbot",
+    description: "Get results instantly.All within a clean, distraction-free interface.",
+    image: "/demo3.png",
+  },
+];
 export default async function Home() {
   return (
-     <main className="flex bg-no-repeat scroll-smooth flex-col px-4  items-center justify-center bg-cover">
-          <div className="px-3 sm:px-6 py-1 w-full items-center border-b justify-between text-sm flex">
-            <SmartLink title="home" href={'/'}>
-              <Image
-                className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
-                src="/logo.svg"
-                alt="Next.js Logo"
-                width={100}
-                height={37}
-                priority
-              />
-            </SmartLink>
-            <Suspense fallback={<div className='h-5 w-16 p-1 rounded-md bg-gray-300 animate-pulse' />}>
-              <AuthModal />
-            </Suspense>
-          </div>
-    
-          <div className="relative z-[-1] w-full h-[400px] flex dark:bg-[url('https://preline.co/assets/svg/examples-dark/polygon-bg-element.svg')] bg-[url('https://preline.co/assets/svg/examples/polygon-bg-element.svg')] bg-no-repeat items-center justify-center bg-cover place-items-center flex-col gap-3">
-            <Image
-              className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
-              src="/logo.svg"
-              alt="Next.js Logo"
-              width={180}
-              height={37}
-              priority
-            />
-            <h1 className="block font-bold self-center text-gray-800 text-3xl md:text-5xl lg:text-6xl dark:text-neutral-200">AI Content<span className="bg-clip-text bg-gradient-to-tl from-blue-400 to-violet-600 text-transparent"> Generator</span></h1>
-            <p className="text-lg mt-3 max-w-[43rem] text-center text-gray-600 dark:text-neutral-400">Revolutionize your content creation with our AI-powered app, delivering engaging and high-quality text in seconds.</p>
-          </div>
-    
-          <div className="mb-20 grid text-center lg:w-full lg:max-w-5xl lg:grid-cols-4 lg:text-left">
-            <a
-              href="#docs"
-              className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-            >
-              <h2 className="mb-3 gap-2 flex items-center text-2xl font-semibold">
-                Docs{" "}
-                <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-                  <ChevronRight />
-                </span>
-              </h2>
-              <p className="m-0 max-w-[30ch] text-sm opacity-50">
-                Find in-depth information about Conwrite.ai features and AI.
-              </p>
-            </a>
-    
-            <SmartLink
-              href="/chat"
-              className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-            >
-              <h2 className="mb-3 gap-2 flex items-center text-2xl font-semibold">
-                AI Chat{" "}
-                <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-                  <ChevronRight />
-                </span>
-              </h2>
-              <p className="m-0 max-w-[30ch] text-sm opacity-50">
-                Try our new AI chat bot for free without login.
-              </p>
-            </SmartLink>
-    
-            <SmartLink
-              href="/dashboard"
-              className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-            >
-              <h2 className="mb-3 gap-2 flex items-center text-2xl font-semibold">
-                Templates{" "}
-                <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-                  <ChevronRight />
-                </span>
-              </h2>
-              <p className="m-0 max-w-[30ch] text-sm opacity-50">
-                Explore starter templates for our AI powered tools.
-              </p>
-            </SmartLink>
-    
-            <a
-              href="#pricing"
-              className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-            >
-              <h2 className="mb-3 gap-2 flex items-center text-2xl font-semibold">
-                Pricing{" "}
-                <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-                  <ChevronRight />
-                </span>
-              </h2>
-              <p className="m-0 max-w-[30ch] text-balance text-sm opacity-50">
-                Instantly deploy your Next.js site to a shareable URL with Vercel.
-              </p>
-            </a>
-          </div>
-          <div id="docs" className="my-16 flex flex-col gap-8 justify-center items-center">
-            <h1 className=" text-center h-9 sm:h-16 bg-clip-text bg-gradient-to-tl from-blue-400 to-violet-600 text-transparent text-3xl sm:text-6xl font-semibold">How it works?</h1>
-            <p className=" text-center font-medium text-muted-foreground max-w-[70%] text-lg sm:text-xl">Select a tool from Dashboard after login find it with our search bar. </p>
-            {/* <div className=" border ring-[0.3px] rounded-md"> */}
-            <Image src={'/demo.png'} alt="hero" width={1000} height={1000} className="rounded-md border ring-[0.3px]" />
-            {/* </div> */}
-            <h1 className=" text-center h-9 sm:h-16 bg-clip-text bg-gradient-to-tl from-blue-300 to-violet-700 text-transparent text-3xl sm:text-6xl font-semibold">Creating AI-Content </h1>
-            <p className=" text-center font-medium text-muted-foreground max-w-[70%] text-lg sm:text-xl">From selected tool put a prompt as per input and wait for your result in rich text Editor and get track of your credits in realtime.</p>
-            {/* <div className=" border ring-[0.3px] rounded-md"> */}
-            <Image src={'/demo2.png'} alt="hero" width={1000} height={1000} className="border ring-[0.3px] rounded-md" />
-            {/* </div> */}
-            <h1 className=" text-center h-9 sm:h-16 bg-clip-text bg-gradient-to-tl from-blue-300 to-violet-700 text-transparent text-3xl sm:text-6xl font-semibold">AI-Chatbot</h1>
-            <p className=" text-center font-medium text-muted-foreground max-w-[70%] text-lg sm:text-xl">try out our free chatbot without even login in Just Put a Prompt to get most out of our AI-Chatbot and gets a track to your free credits</p>
-            {/* <div className=" border ring-[0.3px] rounded-md"> */}
-            <Image src={'/demo3.png'} alt="hero" width={1000} height={1000} className="rounded-md border ring-[0.3px]" />
-            {/* </div> */}
-          </div>
-          <section id="pricing" className="px-8 my-16">
-            <h1 className=" text-center h-9 sm:h-16 bg-clip-text bg-gradient-to-tl from-blue-300 to-violet-700 text-transparent text-3xl sm:text-6xl font-semibold">Pricing#</h1>
-    
-            <ul className="mt-11 grid grid-cols-1 gap-5 sm:grid-cols-2 md:gap-9 xl:grid-cols-3">
-              {plans.map((plan) => (
-                <li key={plan.name} className="w-full rounded-[16px] border-2 border-purple-200/20 bg-primary-foreground p-8 shadow-xl shadow-purple-200/20 lg:max-w-none">
-                  <div className="flex-center flex-col gap-3">
-                    <Image src={plan.icon} alt="check" width={50} height={50} />
-                    <p className="font-semibold text-[20px] leading-[140%] mt-2 text-primary">
-                      {plan.name}
+    <>
+      <div className="overflow-hidden sm:px-8">
+        <Header />
+        <Hero />
+        <Benefits />
+        <Collaboration />
+        <Services />
+        <Section
+          crosses
+          crossesOffset="lg:translate-y-[5.25rem]"
+          customPaddings="py-16"
+          id="how-to-use"
+        >
+          <div className="container space-y-12 text-center">
+            <h2 className="text-3xl md:text-4xl font-semibold text-primary">
+              How to Use Conwrite.ai
+            </h2>
+            <p className="text-muted-foreground max-w-2xl mx-auto">
+              Get started in minutes with our simple, AI-powered workflow.
+            </p>
+
+            <div className="sm:grid flex flex-wrap sm:grid-cols-2 lg:grid-cols-4 gap-6 auto-rows-[200px]">
+              {howToSteps.map((step, index) => {
+                let classNames = "rounded-2xl overflow-hidden shadow-sm border-2 border-primary/20 p-5 flex flex-col bg-muted/10";
+
+                if (index === 0) {
+                  classNames += " col-span-3 row-span-2";
+                } else if (index === 1) {
+                  classNames += "col-span-2 sm:col-span-1 row-span-2";
+                } else if (index === 2) {
+                  classNames += " col-span-1 row-span-2";
+                } else if (index === 3) {
+                  classNames += " col-span-3 row-span-2";
+                }
+                return (
+                  <div key={step.id} className={classNames}>
+                    <div className="relative w-full aspect-video mb-4 rounded-lg overflow-hidden">
+                      <Image
+                        src={step.image}
+                        alt={step.title}
+                        fill
+                        className="object-cover border-2 border-primary/20 rounded-lg"
+                      />
+                    </div>
+                    <h3 className="text-lg font-medium text-foreground mb-2">
+                      {step.title}
+                    </h3>
+                    <p className="text-muted-foreground text-sm">
+                      {step.description}
                     </p>
-                    <p className="text-[36px] font-semibold sm:text-[44px] leading-[120%] sm:leading-[56px] text-dark-600">${plan.price}</p>
-                    <p className="font-normal text-[16px] leading-[140%]">{plan.credits} Credits</p>
                   </div>
-    
-                  {/* Inclusions */}
-                  <ul className="flex flex-col gap-5 py-9">
-                    {plan.inclusions.map((inclusion) => (
-                      <li
-                        key={plan.name + inclusion.label}
-                        className="flex items-center gap-4"
-                      >
-                        <Image
-                          src={`/${inclusion.isIncluded ? "check.svg" : "cross.svg"
-                            }`}
-                          alt="check"
-                          width={24}
-                          height={24}
-                        />
-                        <p className="font-normal text-[16px] leading-[140%]">{inclusion.label}</p>
-                      </li>
-                    ))}
-                  </ul>
-    
-                  {plan.name === "Free" ? (
-                    <Button variant="outline" className="w-full rounded-full bg-accent bg-cover text-primary hover:text-primary">
-                      Free Consumable
-                    </Button>
-                  ) : (
-                    <SmartLink href={`/checkout/${plan.slug}`}>
-                      <Button
-                        type="submit"
-                        role="link"
-                        className="w-full bg-primary rounded-full bg-cover"
-                      >
-                        Buy Credit
-                      </Button>
-                    </SmartLink>
-                  )}
-                </li>
-              ))}
-            </ul>
-          </section>
-          <footer className="h-1s2 px-2 py-3 sm:px-8 flex flex-col max-sm:gap-3 sm:flex-row justify-between w-full bg-accsent items-center border">
-            <p className="text-muted-foreground text-center">Conwrite.ai All Right Reserved &copy;</p>
-            <p className="text-muted-foreground text-center">Made By Anas Ahmed</p>
-            <div className="flex gap-4 justify-between items-center">
-              <Instagram />
-              <Github />
-              <Facebook />
-              <LinkedinIcon />
+                );
+              })}
             </div>
-          </footer>
-        </main>
+
+          </div>
+        </Section>
+
+        <Pricing />
+        <Roadmap />
+        <Footer />
+      </div>
+
+      <ButtonGradient />
+    </>
   );
 }

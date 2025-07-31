@@ -25,10 +25,11 @@ export default function SmartLink({ target, title = '', children, ...props }: Sm
     // const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
     //     props.onClick?.(e);
     const handleClick = () => {
+
         const href = (props.href as string).split('?')[0].split('#')[0];
-        if (href || '/' !== pathname) {
+        if (href !== pathname) {
             start();
-        }
+        } 
     };
     return (
         <Link

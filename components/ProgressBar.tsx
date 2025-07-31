@@ -16,13 +16,13 @@ export default function ProgressBar() {
   return (
     <div className="fixed top-0 left-0 z-[9999] h-[3px] w-full bg-transparent">
       <div
-        className="h-full bg-black transition-all duration-200 ease-linear"
+        className="h-full bg-primary transition-all duration-200 ease-linear"
         style={{
           width: `${progress}%`,
           opacity: loading ? 1 : 0,
         }}
       >
-        <div className="absolute top-0 left-[-50%] h-full w-[50%] bg-gradient-to-r from-transparent via-white/60 to-transparent animate-shine" />
+        <div className="absolute top-0 left-[-50%] h-full w-[50%] bg-gradient-to-r from-transparent via-white/70 to-transparent animate-shine" />
 
 
       </div>

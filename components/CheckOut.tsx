@@ -9,11 +9,12 @@ import { useUser } from '@clerk/nextjs'
 
     const CheckOut = ({ selectedPlan }: {
         selectedPlan: {
-            _id: number;
+            id: string;
             name: string;
             icon: string;
             price: number;
             credits: string;
+            description: string;
             creditsNo: number;
             inclusions: {
                 label: string;
@@ -61,7 +62,7 @@ import { useUser } from '@clerk/nextjs'
             <>
                 <section className="bg-white pb-8 pt-6 antialiased dark:bg-gray-900 md:pb-16">
                     <div className="mx-auto max-w-screen-xl px-4 2xl:px-0">
-                        <SmartLink className='' href={'/dashboard/pricing'}>
+                        <SmartLink className='' href={'/pricing'}>
                             <Button className='group' variant={'link'}>
                                 <ArrowLeft className='group-hover:-translate-x-2 duration-300 -translate-x-1' size={'1rem'} />
                                 Back

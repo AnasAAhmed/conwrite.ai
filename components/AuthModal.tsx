@@ -2,12 +2,12 @@
 import { useEffect, useState } from "react";
 import { ClerkLoaded, ClerkLoading, SignIn, SignUp, useUser } from "@clerk/nextjs";
 
-import { Button } from "./ui/button";
 import SmartLink from '@/components/SmartLink';
 import { Dialog, DialogContent, DialogTitle, DialogTrigger } from "./ui/dialog";
 import { useRouter, useSearchParams } from "next/navigation";
 import DarkModeToggle from "./Toggle";
 import Loader from "./ui/loader";
+import Button from "./design-components/Button";
 
 export default function AuthModal() {
     const { user } = useUser();
@@ -41,17 +41,20 @@ export default function AuthModal() {
                 <DialogTitle asChild>
                     <p className="sr-only">This dialog needs a title</p>
                 </DialogTitle>
-                {user ?
-                    <div className="flex items-center gap-3">
-                        <DarkModeToggle />
-                        <SmartLink href={'/dashboard'}
-                        >
-                            <Button size={'sm'}>Dashboard</Button>
-                        </SmartLink>  </div> :
-                    <DialogTrigger >
-                        Login
-                    </DialogTrigger>
-                }
+
+                <div className="flex items-center gap-3">
+                    <DarkModeToggle />
+                    {user ? <SmartLink href={'/dashboard'}
+                    >
+                        <Button>Dashboard</Button>
+                    </SmartLink> :
+                        <Button onClick={()=>setOpen(!open)} title="Login to your account">
+                            {/* <DialogTrigger > */}
+                                Log-in
+                            {/* </DialogTrigger> */}
+                        </Button>
+                    }
+                </div>
                 <DialogContent className="max-w-md min-h-96 p-0">
                     <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
                         <Loader />
