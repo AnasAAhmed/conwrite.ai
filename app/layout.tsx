@@ -64,7 +64,7 @@ export default function RootLayout({
 }>) {
   return (
     <ClerkProvider signInUrl="/?auth=sign-in">
-      <html lang="en" >
+      <html lang="en" className="dark">
         <body className={inter.className}>
           <Suspense fallback={''}>
             <ProgressBar />

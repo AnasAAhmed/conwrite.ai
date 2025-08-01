@@ -35,9 +35,9 @@ const Header = () => {
       className={`fixed top-0 left-0 w-full z-30 bg-prsimary-foreground border-b border-n-6 lg:backdrop-blur-sm `}
     >
       <div className="flex items-center justify-between px-5 lg:px-7.5 xl:px-10 max-lg:py-2">
-        <a className="block w-[12rem] xl:mr-8" href="#hero">
-          <img src={'/brainwave.svg'} width={190} height={40} alt="Brainwave" />
-        </a>
+        <SmartLink className="block w-24 xl:mr-8" href="/#hero">
+          <img src={'/logo.svg'} className="dark:drop-shadow-[0_0_0.1rem_#ffffff70] dark:invert" width={190} height={40} alt="Conwrite.ai" />
+        </SmartLink>
 
         <nav
           className={` hidden fixed top-[5rem] left-0 right-0 bottom-0 bg-n-8 lg:static lg:flex lg:mx-auto lg:bg-transparent`}

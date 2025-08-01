@@ -16,17 +16,16 @@ const Roadmap = () => (
 
           return (
             <div
-              className={`md:flex even:md:translate-y-[7rem] p-0.25 rounded-[2.5rem] ${
-                item.colorful ? "bg-conic-gradient" : "bg-n-6"
-              }`}
+              className={`md:flex even:md:translate-y-[7rem] p-0.25 rounded-[2.5rem] border`}
               key={item.id}
             >
-              <div className="relative p-8 bg-n-8 rounded-[2.4375rem] overflow-hidden xl:p-15">
+              <div className="relative p-8 bgs-n-8 rounded-[2.4375rem] overflow-hidden xl:p-15">
                 <div className="absolute top-0 left-0 max-w-full">
                   <img
-                    className="w-full"
+                    className="w-full hidden dark:block"
                     src={'/grid.png'}
                     width={550}
+                    
                     height={550}
                     alt="Grid"
                   />
@@ -56,8 +55,8 @@ const Roadmap = () => (
                       alt={item.title}
                     />
                   </div>
-                  <h4 className="h4 mb-4">{item.title}</h4>
-                  <p className="body-2 text-n-4">{item.text}</p>
+                  <h4 className="text-3xl sm:text-4xl font-sans font-lisght mb-4">{item.title}</h4>
+                  <p className="font-mono text-muted-foreground font-thin">{item.text}</p>
                 </div>
               </div>
             </div>

@@ -21,13 +21,13 @@ const Hero = () => {
       customPaddings='s'
       id="hero"
     >
-      <div className="container mt-20 relative " ref={parallaxRef}>
+      <div className="container mt-10 sm:mt-20 relative " ref={parallaxRef}>
           <GradientRight/>
           <GradientLeft/>
 
         <div className="relative z-1 max-w-[72rem] mx-auto text-center mb-[3.875rem] md:mb-20 lg:mb-[6.25rem]">
-          <h1 className="h1 text-4xl font-semibold text-secondary-foreground md:text-5xl lg:text-6xl mb-6">
-            Explore the Possibilities of<span className="bg-clip-text bg-gradient-to-tl from-blue-400 to-violet-600 text-transparent">&nbsp;Content&nbsp;Generation</span> with {` `}
+          <h1 className="h1 text-3xl font-semibold text-secondary-foreground md:text-5xl lg:text-6xl mb-6">
+            Explore the Possibilities of<span className="bg-clip-text bg-gradient-to-tl from-blue-400 to-violet-600  text-transparent">&nbsp;Content Generation</span> with {` `}
             <span className="inline-block relative">
               Conwrite.ai{" "}
               <img

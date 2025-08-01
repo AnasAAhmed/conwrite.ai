@@ -17,20 +17,16 @@ const PricingList = () => {
           </p>
 
           <div className="flex items-center h-[5.5rem] mb-6">
-            {item.price && (
-              <>
-                <div className="h3">$</div>
-                <div className="text-[5.5rem] leading-none font-bold">
-                  {item.price}
-                </div>
-              </>
-            )}
+            <div className="h3">$</div>
+            <div className="text-[5.5rem] ldeading-none font-bold">
+              {item.price}
+            </div>
           </div>
 
           <Button
             className="w-full mb-6"
             href={item.price ? "/pricing" : ""}
-            // white={!!item.price}
+          // white={!!item.price}
           >
             {item.price ? "Get started" : "Free Consumable"}
           </Button>
@@ -41,7 +37,7 @@ const PricingList = () => {
                 key={index}
                 className="flex items-start py-5 border-t border-n-6"
               >
-                <img src={inclusion.isIncluded?'/check.svg':'/cross.svg'} width={24} height={24} alt="Check" />
+                <img src={inclusion.isIncluded ? '/check.svg' : '/cross.svg'} width={24} height={24} alt="Check" />
                 <p className="body-2 ml-4">{inclusion.label}</p>
               </li>
             ))}

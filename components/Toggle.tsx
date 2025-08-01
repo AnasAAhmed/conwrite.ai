@@ -3,36 +3,32 @@ import Image from 'next/image';
 import { useState, useEffect } from 'react';
 
 const DarkModeToggle = () => {
-    const [darkMode, setDarkMode] = useState(false);
+   const [darkMode, setDarkMode] = useState(false);
 
-    useEffect(() => {
-        const savedTheme = localStorage.getItem('theme');
-        if (savedTheme === 'dark') {
-            setDarkMode(true);
-            document.documentElement.classList.add('dark');
-        } else {
-            setDarkMode(false);
-            document.documentElement.classList.remove('dark');
-        }
-    }, []);
+useEffect(() => {
+    const savedTheme = localStorage.getItem('theme');
 
-    const toggleDarkMode = () => {
-        if (darkMode) {
-            document.documentElement.classList.remove('dark');
-            localStorage.setItem('theme', 'light');
-        } else {
-            document.documentElement.classList.add('dark');
-            localStorage.setItem('theme', 'dark');
-        }
-        // const toggleDarkModeForRichTextEditor = () => {
-        //     let el = document.getElementsByClassName("toastui-editor-defaultUI")[0];
-        //     if (el.classList.contains("toastui-editor-dark"))
-        //         el.classList.remove("toastui-editor-dark");
-        //     else el.classList.add("toastui-editor-dark");
-        // }
-        // toggleDarkModeForRichTextEditor()
-        setDarkMode(!darkMode);
-    };
+    // 👇 Default to dark if no theme is saved
+    if (savedTheme === 'dark' || savedTheme === null) {
+        setDarkMode(true);
+        document.documentElement.classList.add('dark');
+    } else {
+        setDarkMode(false);
+        document.documentElement.classList.remove('dark');
+    }
+}, []);
+
+const toggleDarkMode = () => {
+    if (darkMode) {
+        document.documentElement.classList.remove('dark');
+        localStorage.setItem('theme', 'light');
+    } else {
+        document.documentElement.classList.add('dark');
+        localStorage.setItem('theme', 'dark');
+    }
+
+    setDarkMode(!darkMode);
+};
 
     return (
         <button
