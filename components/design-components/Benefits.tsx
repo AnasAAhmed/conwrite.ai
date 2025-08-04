@@ -5,13 +5,14 @@ import Section from "./Section";
 import { GradientLight } from "./design/Benefits";
 import { benefits } from "@/constants";
 import ClipPath from "@/assets/svg/ClipPath";
+import SmartLink from "../SmartLink";
 
 const Benefits = () => {
   return (
     <Section crosses
-    // crossesOffset="lg:translate-y-[5.25rem]"
-    customPaddings='py-10 lg:py-20'
-    id="features">
+      // crossesOffset="lg:translate-y-[5.25rem]"
+      customPaddings='py-10 lg:py-20'
+      id="features">
       <div className="container relative z-2">
         <Heading
           className="md:max-w-md lg:max-w-2xl"
@@ -37,9 +38,9 @@ const Benefits = () => {
                     height={48}
                     alt={item.title}
                   />
-                  <p className="ml-auto font-code text-xs font-bold text-n-1 uppercase tracking-wider">
+                  <SmartLink href={item.url} title={'Explore more at ' + item.url} className="ml-auto font-code text-xs font-bold text-n-1 uppercase tracking-wider">
                     Explore more
-                  </p>
+                  </SmartLink>
                   <Arrow />
                 </div>
               </div>
