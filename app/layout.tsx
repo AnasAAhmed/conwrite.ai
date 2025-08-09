@@ -39,7 +39,7 @@ export const metadata: Metadata = {
     url: `${process.env.ECOM_STORE_URL}`,
     images: [
       {
-        url: '/hero.avif',
+        url: '/hero.png',
         width: 711,
         height: 400,
         alt: 'ConWrite.ai home preview',
