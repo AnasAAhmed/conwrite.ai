@@ -1,6 +1,9 @@
+'use client'
 import PlusSvg from "@/assets/svg/PlusSvg";
-import { useEffect, useState } from "react";
-import { MouseParallax } from "react-just-parallax";
+import { heroIcons } from "@/constants";
+import { useEffect, useRef, useState } from "react";
+import { MouseParallax, ScrollParallax } from "react-just-parallax";
+import Notification from "../Notification";
 
 
 export const Gradient = () => {
@@ -34,7 +37,30 @@ const Rings = () => {
     </>
   );
 };
+export const Parallax = () => {
+  const parallaxRef = useRef(null);
 
+  return (
+    <div ref={parallaxRef} className="masx-sm:hidden scale-75 lg:scale-100">
+      < ScrollParallax isAbsolutelyPositioned >
+        <ul className="absolute -left-[10rem] sm:-left-[5.5rem] bottom-[7.5rem] px-1 py-1 bg-n-9/40 backdrop-blur border border-foreground/50 rounded-2xl flex">
+          {heroIcons.map((icon, index) => (
+            <li title={icon} className="p-5" key={index}>
+              <img src={icon} width={24} height={25} alt={icon} />
+            </li>
+          ))}
+        </ul>
+      </ScrollParallax >
+
+      <ScrollParallax isAbsolutelyPositioned>
+        <Notification
+          className="absolute border border-foreground/50 -right-[10rem] sm:-right-[5.5rem] bottom-[11rem] w-[18rem] flex"
+          title="30+ projects"
+        />
+      </ScrollParallax>
+    </div >
+  );
+};
 export const BackgroundCircles = ({ parallaxRef }:{parallaxRef?:any}) => {
   const [mounted, setMounted] = useState(false);
 

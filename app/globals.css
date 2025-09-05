@@ -4,6 +4,7 @@
 
 @layer base {
   :root {
+    scroll-behavior: smooth;
     --font-sora: "Sora", sans-serif;
     --font-code: "Source Code Pro", monospace;
     --font-grotesk: "Space Grotesk", sans-serif;
@@ -36,7 +37,7 @@
   }
 
   .dark {
-    --background: 0 0% 3.9%;
+    --background: 0 0% 4.3%;
     --foreground: 0 0% 98%;
     --card: 0 0% 3.9%;
     --card-foreground: 0 0% 98%;
@@ -70,10 +71,11 @@
 
   body {
     scroll-behavior: smooth;
-    @apply bg-background text-foreground ;
-    
+    @apply bg-background text-foreground;
+
   }
 }
+
 .rotate-45 {
   @apply rotate-[45deg]
 }
@@ -137,6 +139,7 @@
 .-rotate-360 {
   @apply rotate-[-360deg]
 }
+
 @keyframes marquee {
   0% {
     transform: translateX(100%);
@@ -159,6 +162,92 @@
 
 .animate-shine {
   animation: shine 1s linear infinite;
+}
+
+@keyframes fadeUp {
+  0% {
+    opacity: 0;
+    transform: translateY(var(--y, 12px));
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+    scale: 1;
+  }
+}
+
+.split-text-item {
+  opacity: 0;
+  animation-name: fadeUp;
+  animation-fill-mode: forwards;
+  animation-timing-function: ease-out;
+}
+
+@keyframes fade {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+    scale: 1;
+  }
+}
+
+.h1-fade {
+  opacity: 0;
+  animation-name: fadeUp;
+  animation-fill-mode: forwards;
+  animation-timing-function: ease-out;
+  animation-duration: 0.3s;
+  animation-delay: 0.1s;
+  will-change: opacity, transform;
+
+}
+
+.h2-fade {
+  opacity: 0;
+  animation-name: fadeUp;
+  animation-fill-mode: forwards;
+  animation-timing-function: ease-out;
+  animation-duration: 0.3s;
+  animation-delay: 0.3s;
+  will-change: opacity, transform;
+  scale: 0.97;
+
+}
+
+.p-fade {
+  opacity: 0;
+  animation-name: fade;
+  animation-fill-mode: forwards;
+  animation-timing-function: ease-out;
+  animation-duration: 0.3s;
+  animation-delay: 0.5s;
+  will-change: opacity, transform;
+
+}
+
+.btns-fade {
+  opacity: 0;
+  animation-name: fade;
+  animation-fill-mode: forwards;
+  animation-timing-function: ease-out;
+  animation-duration: 0.3s;
+  will-change: opacity, transform;
+  animation-delay: 0.7s;
+}
+
+.hero-img-fadeUp {
+  opacity: 0;
+  will-change: opacity, transform;
+  animation-name: fadeUp;
+  animation-fill-mode: forwards;
+  animation-timing-function: ease-out;
+  animation-duration: 0.3s;
+  animation-delay: 0.9s;
 }
 
 .animate-marquee {

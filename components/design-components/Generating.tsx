@@ -7,7 +7,7 @@ const Generating = ({ className }:{className?:string}) => {
         className || ""
       } text-base`}
     >
-      <img className="w-5 h-5 mr-4" src={'/loading.png'} alt="Loading" />
+      <img className="w-5 h-5 mr-4 animate-spin" src={'/loading.png'} alt="Loading" />
       AI is generating
     </div>
   );

@@ -67,7 +67,7 @@ const Roadmap = () => (
       </div>
 
       <div className="flex justify-center mt-12 md:mt-15 xl:mt-20">
-        <Button inNewTab href="https://anas3d.netlify.app">About Me</Button>
+        <Button inNewTab href="https://anasahmed-portfolio.vercel.app">About Me</Button>
       </div>
     </div>
   </Section>

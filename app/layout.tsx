@@ -64,7 +64,19 @@ export default function RootLayout({
 }>) {
   return (
     <ClerkProvider signInUrl="/?auth=sign-in">
-      <html lang="en" className="dark">
+      <html lang="en" className="dark" suppressHydrationWarning>
+         <head>
+        <script dangerouslySetInnerHTML={{
+          __html: `
+            (function() {
+              const theme = localStorage.getItem('theme')
+              if (theme === 'light') {
+                document.documentElement.classList.remove('dark')
+              }
+            })()
+          `
+        }} />
+      </head>
         <body className={inter.className}>
           <Suspense fallback={''}>
             <ProgressBar />
