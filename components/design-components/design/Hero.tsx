@@ -41,7 +41,7 @@ export const Parallax = () => {
   const parallaxRef = useRef(null);
 
   return (
-    <div ref={parallaxRef} className="masx-sm:hidden scale-75 lg:scale-100">
+    <div ref={parallaxRef} className="masx-sm:hidden scale-50 md:scale-75 lg:scale-100">
       < ScrollParallax isAbsolutelyPositioned >
         <ul className="absolute -left-[10rem] sm:-left-[5.5rem] bottom-[7.5rem] px-1 py-1 bg-n-9/40 backdrop-blur border border-foreground/50 rounded-2xl flex">
           {heroIcons.map((icon, index) => (
@@ -55,7 +55,7 @@ export const Parallax = () => {
       <ScrollParallax isAbsolutelyPositioned>
         <Notification
           className="absolute border border-foreground/50 -right-[10rem] sm:-right-[5.5rem] bottom-[11rem] w-[18rem] flex"
-          title="30+ projects"
+          title="20+ AI Agents"
         />
       </ScrollParallax>
     </div >

@@ -35,7 +35,7 @@ export const metadata: Metadata = {
         url: `${process.env.ECOM_STORE_URL}`,
         images: [
             {
-                url: '/demo.png',
+                url: '/hero/hero.webp',
                 width: 400,
                 height: 400,
                 alt: 'ConWrite.ai Logo',

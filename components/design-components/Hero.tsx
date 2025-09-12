@@ -1,10 +1,10 @@
 import Button from "./Button";
 import Section from "./Section";
 import { BackgroundCircles, BottomLine, Gradient, Parallax } from "./design/Hero";
-import Generating from "./Generating";
 import CompanyLogos from "./CompanyLogos";
 import { GradientRight, Gradient as GradientLeft } from "./design/Roadmap";
 import { SplitText2 } from "../ui/split-text-ssr";
+import Image from "next/image";
 
 const Hero = () => {
 
@@ -47,33 +47,32 @@ const Hero = () => {
           </p>
           <div className="flex justify-center items-center gap-3 btns-fade mt-6 ">
 
-          <Button px="sm:px-7 px-3" href="/#how-to-use">
-            How To Use
-          </Button>
-          <Button px="sm:px-7 px-3" href="/dashboard">
-            Get started
-          </Button>
+            <Button px="sm:px-7 px-3" href="/#how-to-use">
+              How To Use
+            </Button>
+            <Button px="sm:px-7 px-3" href="/dashboard">
+              Get started
+            </Button>
           </div>
         </div>
-        <div className="relative mt-8 max-w-[23rem] mx-auto md:max-w-5xl xl:mb-24">
-          <div className="relative hero-img-fadeUp z-1 p-1 rounded-2xl bg-[conic-gradient(from_225deg,#FFC876,#79FFF7,#9F53FF,#FF98E2,#FFC876)]">
+        <div className="relative mx-auto md:max-w-6xl">
+          <div className="hero-img-fadeUp relative z-1 p-0.5 rounded-2xl bg-[conic-gradient(from_225deg,#FFC876,#79FFF7,#9F53FF,#FF98E2,#FFC876)]">
             <div className="relative bg-[#19142b] rounded-[1rem]">
-              <div className="aspect-[33/40] rounded-[0.9rem] overflow-hidden md:aspect-[688/490] lg:aspect-[1024/490]">
-                <img
-                  src={'/hero/robot.webp'}
-                  className="w-full scale-[1.7] translate-y-[8%] md:scale-[1] md:-translate-y-[10%] lg:-translate-y-[23%]"
-                  width={1024}
-                  height={490}
+              <div className="rounded-[0.9rem] overflow-hidden">
+                <Image
+                  src="/hero/hero.webp"
+                  className="w-full aspect-[4/5] sm:aspect-[16/9] object-cover"
+                  width={1224}
+                  height={890}
+                  loading="eager"
                   alt="AI"
                 />
 
-                <Generating className="absolute left-4 right-4 bottom-5 md:left-1/2 md:right-auto md:bottom-8 md:w-[31rem] md:-translate-x-1/2" />
-
-                <Parallax />
               </div>
+                <Parallax />
             </div>
 
-            <Gradient />
+            {/* <Gradient /> */}
           </div>
           {/* <div className="absolute -z-50 -top-[54%] left-1/2 w-[234%] -translate-x-1/2 md:-top-[46%] md:w-[138%] lg:-top-[104%]">
             <Image

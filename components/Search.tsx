@@ -26,7 +26,7 @@ const Search = ({ onSearchInput }: any) => {
 
   return (
     <div className="sm:p-10 p-7 text-white flex justify-center items-center bg-gradient-to-br from-slate-600 via-black to-slate-600 flex-col">
-      <h2 className="sm:text-3xl text-xl text-center font-bold">Browse All Templates</h2>
+      <h2 className="sm:text-3xl text-xl text-center font-bold">Browse All AI Agents</h2>
       <p className='sm:text-md text-sm text-center'>What would you like to create today?</p>
       <div className="w-full flex justify-center">
         <div className="relative flex items-center sm:w-[60%] w-full border rounded-md bg-primary-foreground my-5">

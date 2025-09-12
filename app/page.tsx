@@ -17,7 +17,7 @@ const howToSteps = [
     id: 1,
     title: "Step 1: Choose an AI Agent",
     description: "Select a specialized agent like Blog Writer, Code Debugger, or Freelance Guide — tailored to your workflow.",
-    image: "/demo.png", // Replace with your actual image paths
+    image: "/hero/hero.webp", // Replace with your actual image paths
   },
   {
     id: 2,
@@ -29,13 +29,13 @@ const howToSteps = [
     id: 3,
     title: "Step 3: Review your Chat history",
     description: "You can track your AI-Created content from here at /history as well as Billing history.",
-    image: "/demo2.png",
+    image: "/demo3.png",
   },
   {
     id: 4,
     title: "Our new Chatbot",
     description: "Get results instantly.All within a clean, distraction-free interface.",
-    image: "/demo3.png",
+    image: "/demo4.png",
   },
 ];
 export default async function Home() {
@@ -61,31 +61,28 @@ export default async function Home() {
               Get started in minutes with our simple, AI-powered workflow.
             </p>
 
-            <div className="sm:grid flex flex-wrap sm:grid-cols-2 lg:grid-cols-4 gap-6 auto-rows-[200px]">
+            <div className="sm:grid flex flex-wrap sm:grid-cols-2 lg:grid-cols-4 gap-6 auto-rows-[s300px]">
               {howToSteps.map((step, index) => {
                 let classNames = "rounded-2xl overflow-hidden shadow-sm border-2 border-primary/20 p-1 sm:p-3 flex flex-col bg-muted/10";
-                let aspect = "";
-
+          
                 if (index === 0) {
-                  classNames += " col-span-3 row-span-2";
-                  aspect='16/9'
+                  classNames += " col-span-4 row-span-2";
                 } else if (index === 1) {
-                  classNames += "col-span-2 sm:col-span-1 row-span-2";
-                  aspect='4/5'
+                  classNames += "col-span-1 sm:col-span-2 row-span-1";
                 } else if (index === 2) {
-                  classNames += " col-span-1 row-span-2";
-                  aspect='4/5'
+                  classNames += " col-span-1 sm:col-span-2 row-span-1";
                 } else if (index === 3) {
-                  classNames += " col-span-3 row-span-2";
-                  aspect='16/9'
+                  classNames += " col-span-4 row-span-2";
                 }
                 return (
                   <div key={step.id} className={classNames}>
-                    <div style={{aspectRatio:aspect}} className="relative w-full mb-4 rounded-lg overflow-hidden">
+                    <div className="relative w-full mb-4 rounded-lg overflow-hidden">
                       <Image
                         src={step.image}
                         alt={step.title}
-                        fill
+                        width={1224}
+                        height={890}
+                        style={{ aspectRatio: '16/9' }}
                         className="object-cover border-2 border-primary/20 rounded-lg"
                       />
                     </div>
