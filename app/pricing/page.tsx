@@ -43,8 +43,8 @@ const page = () => {
 
     return (
         <main className="flex pt-20 bg-no-repeat scroll-smooth flex-col  items-center justify-center bg-cover">
-            <Header/>
-{/* 
+            <Header />
+            {/* 
             <div className="px-3 sm:px-6 py-1 w-full items-center border-b justify-between text-sm flex">
                 <SmartLink href={'/'} title="home">
                     <Image
@@ -98,22 +98,31 @@ const page = () => {
                                 </Button>
                             ) : (
                                 // <SignedIn>
-                                    <SmartLink href={`/checkout/${plan.slug}`}>
-                                        <Button
-                                            type="submit"
-                                            role="SmartLink"
-                                            className="w-full bg-primary rounded-full bg-cover"
-                                        >
-                                            Buy Credit
-                                        </Button>
-                                    </SmartLink>
+                                plan.slug ? <SmartLink href={`/checkout/${plan.slug}`}>
+                                    <Button
+                                        type="submit"
+                                        role="SmartLink"
+                                        className="w-full bg-primary rounded-full bg-cover"
+                                    >
+                                        Buy Credit
+                                    </Button>
+                                </SmartLink>
+                                    :
+                                    <Button
+                                        type="submit"
+                                        role="SmartLink"
+                                        disabled
+                                        className="w-full bg-primary rounded-full bg-cover"
+                                    >
+                                        Free Consumable
+                                    </Button>
                                 //  </SignedIn> 
                             )}
                         </li>
                     ))}
                 </ul>
             </section>
-           <Footer/>
+            <Footer />
         </main>
     );
 };

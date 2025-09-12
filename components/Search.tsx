@@ -32,7 +32,7 @@ const Search = ({ onSearchInput }: any) => {
         <div className="relative flex items-center sm:w-[60%] w-full border rounded-md bg-primary-foreground my-5">
           <SearchIcon className="text-primary mx-2" />
           <input
-            type="text"
+            type="search"
             placeholder="Search..."
             className="outline-none text-primary bg-transparent w-full py-2 px-3"
             value={placeHolder}

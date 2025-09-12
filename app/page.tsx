@@ -63,20 +63,25 @@ export default async function Home() {
 
             <div className="sm:grid flex flex-wrap sm:grid-cols-2 lg:grid-cols-4 gap-6 auto-rows-[200px]">
               {howToSteps.map((step, index) => {
-                let classNames = "rounded-2xl overflow-hidden shadow-sm border-2 border-primary/20 p-5 flex flex-col bg-muted/10";
+                let classNames = "rounded-2xl overflow-hidden shadow-sm border-2 border-primary/20 p-1 sm:p-3 flex flex-col bg-muted/10";
+                let aspect = "";
 
                 if (index === 0) {
                   classNames += " col-span-3 row-span-2";
+                  aspect='16/9'
                 } else if (index === 1) {
                   classNames += "col-span-2 sm:col-span-1 row-span-2";
+                  aspect='4/5'
                 } else if (index === 2) {
                   classNames += " col-span-1 row-span-2";
+                  aspect='4/5'
                 } else if (index === 3) {
                   classNames += " col-span-3 row-span-2";
+                  aspect='16/9'
                 }
                 return (
                   <div key={step.id} className={classNames}>
-                    <div className="relative w-full aspect-video mb-4 rounded-lg overflow-hidden">
+                    <div style={{aspectRatio:aspect}} className="relative w-full mb-4 rounded-lg overflow-hidden">
                       <Image
                         src={step.image}
                         alt={step.title}

@@ -15,8 +15,8 @@ const OutputSection = ({ result }: { result: string }) => {
         if (editorInstance) {
             editorInstance.setMarkdown(result);
 
-            const editableEl = editorInstance?.editor?.el?.querySelector('iframe')?.contentWindow?.document?.activeElement;
-            editableEl?.blur(); 
+            // const editableEl = editorInstance?.editor?.el?.querySelector('iframe')?.contentWindow?.document?.activeElement;
+            // editableEl?.blur(); 
         }
 
     }, [result]);

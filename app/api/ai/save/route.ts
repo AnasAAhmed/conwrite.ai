@@ -3,7 +3,7 @@ import { auth } from "@clerk/nextjs/server";
 import { db } from "@/lib/db";
 import { AIOutput, UserData } from "@/lib/schema"; // adjust as needed
 import { sql, eq } from "drizzle-orm";
-import { revalidatePath } from "next/cache";
+import { revalidatePath, revalidateTag } from "next/cache";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: NextRequest) {
@@ -32,8 +32,8 @@ export async function POST(req: NextRequest) {
       })
       .where(eq(UserData.userId, userId));
 
+    revalidateTag("user-credits");
     revalidatePath('/dashboard/history');
-
     return NextResponse.json("Successfully created history", { status: 200 });
 
   } catch (error) {

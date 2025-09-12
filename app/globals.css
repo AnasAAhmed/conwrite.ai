@@ -180,6 +180,7 @@
 
 .split-text-item {
   opacity: 0;
+  animation-delay: 0.1s;
   animation-name: fadeUp;
   animation-fill-mode: forwards;
   animation-timing-function: ease-out;
@@ -198,11 +199,11 @@
 
 .h1-fade {
   opacity: 0;
-  animation-name: fadeUp;
+  animation-name: fade;
   animation-fill-mode: forwards;
   animation-timing-function: ease-out;
   animation-duration: 0.3s;
-  animation-delay: 0.1s;
+  animation-delay: 0.2s;
   will-change: opacity, transform;
 
 }

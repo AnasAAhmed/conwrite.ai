@@ -170,7 +170,7 @@ export const pricing = [
   {
     id: "0",
     name: "Basic",
-    slug: "free",
+    slug: null,
     icon: "/free-plan.svg",
     price: 0,
     credits: '13k',
@@ -314,33 +314,27 @@ export const benefits = [
 
 export const socials = [
   {
-    id: "0",
-    title: "Discord",
-    iconUrl: "/socials/discord.svg",
-    url: "#",
-  },
-  {
     id: "1",
-    title: "Twitter",
-    iconUrl: "/socials/twitter.svg",
-    url: "#",
+    title: "Portfolio",
+    iconUrl: "/socials/case.svg",
+    url: "https://anasahmed-portfolio.vercel.app/",
   },
   {
     id: "2",
     title: "Instagram",
     iconUrl: "/socials/instagram.svg",
-    url: "#",
+    url: "https://www.instagram.com/anas_web_developer/",
   },
   {
     id: "3",
-    title: "Telegram",
-    iconUrl: "/socials/telegram.svg",
-    url: "#",
+    title: "Github",
+    iconUrl: "/socials/github.svg",
+    url: "https://github.com/AnasAAhmed",
   },
   {
     id: "4",
     title: "Facebook",
     iconUrl: "/socials/facebook.svg",
-    url: "#",
+    url: "https://www.facebook.com/profile.php?id=61566842432079&sk=about_overview",
   },
 ];

@@ -1,8 +1,9 @@
 'use server';
 
+import { unstable_cache } from "next/cache";
 import { db } from './db';
 import { auth } from '@clerk/nextjs/server';
-import { AIOutput } from './schema';
+import { AIOutput, UserData } from './schema';
 import { and, eq } from 'drizzle-orm';
 
 
@@ -28,3 +29,18 @@ export async function deleteHistory(historyId: number, userId: string) {
     return tyeError.message;
   }
 }
+
+export const getUserCredits = unstable_cache(
+  async (userId: string) => {
+    const database = await db();
+    return database
+      .select({
+        usage: UserData.usage,
+        credits: UserData.credits,
+      })
+      .from(UserData)
+      .where(eq(UserData.userId, userId));
+  },
+  ["getUserCredits"],
+  { tags: ["user-credits"] }
+);

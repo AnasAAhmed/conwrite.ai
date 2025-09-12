@@ -7,7 +7,7 @@ const Footer = () => {
     <Section  customPaddings="s" className="!px-0 !py-2">
       <div className="container flex sm:justify-between justify-center items-center gap-10 max-sm:flex-col">
         <p className="caption text-n-4 lg:block">
-          Conwrite.ai © {new Date().getFullYear()}. All rights reserved.
+          Conwrite.ai © {new Date().getFullYear()} | All rights reserved. Made By Anas ahmed
         </p>
 
         <ul className="flex gap-5 flex-wrap">

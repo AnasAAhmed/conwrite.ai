@@ -21,6 +21,21 @@ export async function generateMetadata(props: { params: Promise<{ slug: string }
                 follow: true,
             },
         },
+        openGraph: {
+            title: selectedPlan?.name + " | ConWrite.ai",
+            description:
+                `Boost your productivity with ${selectedPlan?.name} package ConWrite.ai – the ultimate AI tool for content generation, marketing copy, social media posts, and intelligent chatbot support. Powered by the latest AI technology.`,
+            url: `${process.env.ECOM_STORE_URL}/${params.slug}`,
+            images: [
+                {
+                    url: '/pricing.webp',
+                    width: 711,
+                    height: 400,
+                    alt: 'ConWrite.ai pricing',
+                },
+            ],
+            siteName: 'ConWrite.ai | AI Tools by Anas Ahmed',
+        },
 
     }
 };

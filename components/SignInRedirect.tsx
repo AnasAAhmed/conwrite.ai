@@ -9,7 +9,7 @@ export default function SignInRedirect({ redirectTo }: { redirectTo?: string }) 
   useEffect(() => {
     const timeout = setTimeout(() => {
       router.push(`/?auth=sign-in&redirect_url=${encodeURIComponent(redirectTo||'/')}`);
-    }, 5000); // auto-redirect after 5 seconds
+    }, 3000); // auto-redirect after 3 seconds
 
     return () => clearTimeout(timeout);
   }, [redirectTo, router]);

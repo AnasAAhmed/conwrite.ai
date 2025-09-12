@@ -28,10 +28,10 @@ const PricingList = () => {
 
           <Button
             className="w-full mb-6"
-            href={item.price ? "/pricing" : ""}
+            href={item.slug ? '/checkout/'+item.slug : ""}
           // white={!!item.price}
           >
-            {item.price ? "Get started" : "Free Consumable"}
+            {item.slug ? "Get started" : "Free Consumable"}
           </Button>
 
           <ul>
