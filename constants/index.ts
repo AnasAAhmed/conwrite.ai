@@ -1,33 +1,36 @@
 export const navigation = [
   {
     id: "0",
+    title: "Home",
+    url: "/#hero",
+  },
+  {
+    id: "1",
     title: "Features",
     url: "/#features",
   },
   {
-    id: "1",
+    id: "2",
     title: "Services",
     url: "/#services",
   },
   {
-    id: "2",
+    id: "3",
     title: "How to use",
     url: "/#how-to-use",
   },
   {
-    id: "3",
+    id: "4",
     title: "Pricing",
     url: "/#pricing",
   },
   
   {
-    id: "6",
+    id: "5",
     title: "Roadmap",
     url: "/#roadmap",
   },
 ];
-
-export const heroIcons = ['/home-smile.svg', '/file-02.svg', '/search-md.svg', '/plus-square.svg'];
 
 export const notificationImages = ['/notification/image-4.png', '/notification/image-3.png', '/notification/image-2.png'];
 

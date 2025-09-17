@@ -1,9 +1,9 @@
 'use client'
 import PlusSvg from "@/assets/svg/PlusSvg";
-import { heroIcons } from "@/constants";
 import { useEffect, useRef, useState } from "react";
 import { MouseParallax, ScrollParallax } from "react-just-parallax";
 import Notification from "../Notification";
+import { File, Home, PlusSquare, Search } from "lucide-react";
 
 
 export const Gradient = () => {
@@ -44,11 +44,18 @@ export const Parallax = () => {
     <div ref={parallaxRef} className="masx-sm:hidden scale-50 md:scale-75 lg:scale-100">
       < ScrollParallax isAbsolutelyPositioned >
         <ul className="absolute -left-[10rem] sm:-left-[5.5rem] bottom-[7.5rem] px-1 py-1 bg-n-9/40 backdrop-blur border border-foreground/50 rounded-2xl flex">
-          {heroIcons.map((icon, index) => (
-            <li title={icon} className="p-5" key={index}>
-              <img src={icon} width={24} height={25} alt={icon} />
-            </li>
-          ))}
+          <li title={'icon'} className="p-5">
+            <Home />
+          </li>
+          <li title={'icon'} className="p-5">
+            <File />
+          </li>
+          <li title={'icon'} className="p-5">
+            <Search />
+          </li>
+          <li title={'icon'} className="p-5">
+            <PlusSquare />
+          </li>
         </ul>
       </ScrollParallax >
 
@@ -61,7 +68,7 @@ export const Parallax = () => {
     </div >
   );
 };
-export const BackgroundCircles = ({ parallaxRef }:{parallaxRef?:any}) => {
+export const BackgroundCircles = ({ parallaxRef }: { parallaxRef?: any }) => {
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -76,49 +83,43 @@ export const BackgroundCircles = ({ parallaxRef }:{parallaxRef?:any}) => {
       <MouseParallax strength={0.07} parallaxContainerRef={parallaxRef}>
         <div className="absolute bottom-1/2 left-1/2 w-0.25 h-1/2 origin-bottom rotate-[46deg]">
           <div
-            className={`w-2 h-2 -ml-1 -mt-36 bg-gradient-to-b from-[#DD734F] to-[#1A1A32] rounded-full transition-transform duration-500 ease-out ${
-              mounted ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"
-            }`}
+            className={`w-2 h-2 -ml-1 -mt-36 bg-gradient-to-b from-[#DD734F] to-[#1A1A32] rounded-full transition-transform duration-500 ease-out ${mounted ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"
+              }`}
           />
         </div>
 
         <div className="absolute bottom-1/2 left-1/2 w-0.25 h-1/2 origin-bottom -rotate-[56deg]">
           <div
-            className={`w-4 h-4 -ml-1 -mt-32 bg-gradient-to-b from-[#DD734F] to-[#1A1A32] rounded-full transition-transform duration-500 ease-out ${
-              mounted ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"
-            }`}
+            className={`w-4 h-4 -ml-1 -mt-32 bg-gradient-to-b from-[#DD734F] to-[#1A1A32] rounded-full transition-transform duration-500 ease-out ${mounted ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"
+              }`}
           />
         </div>
 
         <div className="absolute bottom-1/2 left-1/2 w-0.25 h-1/2 origin-bottom rotate-[54deg]">
           <div
-            className={`hidden w-4 h-4 -ml-1 mt-[12.9rem] bg-gradient-to-b from-[#B9AEDF] to-[#1A1A32] rounded-full xl:block transit transition-transform duration-500 ease-out ${
-              mounted ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"
-            }`}
+            className={`hidden w-4 h-4 -ml-1 mt-[12.9rem] bg-gradient-to-b from-[#B9AEDF] to-[#1A1A32] rounded-full xl:block transit transition-transform duration-500 ease-out ${mounted ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"
+              }`}
           />
         </div>
 
         <div className="absolute bottom-1/2 left-1/2 w-0.25 h-1/2 origin-bottom -rotate-[65deg]">
           <div
-            className={`w-3 h-3 -ml-1.5 mt-52 bg-gradient-to-b from-[#B9AEDF] to-[#1A1A32] rounded-full transition-transform duration-500 ease-out ${
-              mounted ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"
-            }`}
+            className={`w-3 h-3 -ml-1.5 mt-52 bg-gradient-to-b from-[#B9AEDF] to-[#1A1A32] rounded-full transition-transform duration-500 ease-out ${mounted ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"
+              }`}
           />
         </div>
 
         <div className="absolute bottom-1/2 left-1/2 w-0.25 h-1/2 origin-bottom -rotate-[85deg]">
           <div
-            className={`w-6 h-6 -ml-3 -mt-3 bg-gradient-to-b from-[#88E5BE] to-[#1A1A32] rounded-full transition-transform duration-500 ease-out ${
-              mounted ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"
-            }`}
+            className={`w-6 h-6 -ml-3 -mt-3 bg-gradient-to-b from-[#88E5BE] to-[#1A1A32] rounded-full transition-transform duration-500 ease-out ${mounted ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"
+              }`}
           />
         </div>
 
         <div className="absolute bottom-1/2 left-1/2 w-0.25 h-1/2 origin-bottom rotate-[70deg]">
           <div
-            className={`w-6 h-6 -ml-3 -mt-3 bg-gradient-to-b from-[#88E5BE] to-[#1A1A32] rounded-full transition-transform duration-500 ease-out ${
-              mounted ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"
-            }`}
+            className={`w-6 h-6 -ml-3 -mt-3 bg-gradient-to-b from-[#88E5BE] to-[#1A1A32] rounded-full transition-transform duration-500 ease-out ${mounted ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"
+              }`}
           />
         </div>
       </MouseParallax>

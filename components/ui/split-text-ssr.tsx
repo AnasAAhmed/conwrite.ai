@@ -6,6 +6,7 @@ interface SplitTextProps {
   delayPerItem?: number; // seconds
   duration?: number; // seconds
   y?: number; // px slide
+  highlightWords?: { word: string, color: string }[];
 }
 
 export function SplitText2({
@@ -16,16 +17,19 @@ export function SplitText2({
   delayPerItem = 0.04,
   duration = 0.3,
   y = 12,
+  highlightWords = []
 }: SplitTextProps) {
   const pieces =
     mode === "words" ? text.split(/(\s+)/) : [...text];
-
+  const highlightMap = new Map(
+    highlightWords.map(({ word, color }) => [word, color])
+  );
   return (
     <h1 className={`inline-block ${className}`} aria-label={text} role="text">
       {pieces.map((piece, i) => {
         const isSpace = /^\s+$/.test(piece);
         if (isSpace) return <span key={`s-${i}`}>{piece}</span>;
-
+        const color = highlightMap.get(piece);
         return (
           <span
             key={i}
@@ -34,6 +38,7 @@ export function SplitText2({
               animationDelay: `${i * delayPerItem}s`,
               animationDuration: `${duration}s`,
               transform: `translateY(${y}px)`,
+              color: color ? color : "",
             }}
           >
             <span className="inline-block">{piece}</span>

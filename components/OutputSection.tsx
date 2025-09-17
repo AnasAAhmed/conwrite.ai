@@ -56,6 +56,7 @@ const OutputSection = ({ result }: { result: string }) => {
             <Editor
                 ref={editorRef}
                 // theme={'dark'}
+                autoFocus={false}
                 initialValue=""
                 height="600px"
                 initialEditType="wysiwyg"

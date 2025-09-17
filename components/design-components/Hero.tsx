@@ -22,14 +22,19 @@ const Hero = () => {
 
         <div className="relative z-1 max-w-[72rem] mx-auto text-center mb-[2rem]">
           <SplitText2
-            text="Explore the Possibilities of"
+            text="Explore the Possibilities of Content Generation with Conwrite.ai"
             mode="words"
             className="relative z-10 mx-auto max-w-5xl text-center max-sm:text-xl text-2xl font-bold md:text-4xl lg:text-6xl not-light:text-slate-300"
             delayPerItem={0.06}
             duration={0.4}
             y={12}
+            highlightWords={[
+              {word:'Content',color:"#818cf8"},
+              {word:'Generation',color:"#6366f1"},
+              {word:'Conwrite.ai',color:"#fde047 "},
+            ]}
           />
-          <h1 className="h1-fade text-2xl font-semibold text-secondary-foreground md:text-4xl lg:text-6xl mb-6">
+          {/* <h1 className="h1-fade text-2xl font-semibold text-secondary-foreground md:text-4xl lg:text-6xl mb-6">
             <span className="bg-clip-text bg-gradient-to-tl from-blue-400 to-violet-600  text-transparent">&nbsp;Content Generation</span> with {` `}
             <span className="inline-block relative">
               Conwrite.ai{" "}
@@ -41,7 +46,7 @@ const Hero = () => {
                 alt="Curve"
               />
             </span>
-          </h1>
+          </h1> */}
           <p style={{ fontWeight: '50' }} className="p-fade mt-6 max-w-3xl text-muted-foreground mx-auto text-sm md:text-xl lg:text-2xl  ">
             Revolutionize your content creation with our AI-Agents, delivering engaging and high-quality text in seconds.
           </p>
@@ -60,16 +65,21 @@ const Hero = () => {
             <div className="relative bg-[#19142b] rounded-[1rem]">
               <div className="rounded-[0.9rem] overflow-hidden">
                 <Image
-                  src="/hero/hero.webp"
-                  className="w-full aspect-[4/5] sm:aspect-[16/9] object-cover"
+                  src="/hero/hero.png"
+                  className="w-full dark:block hidden aspect-[4/5] sm:aspect-[16/9] object-cover"
                   width={1224}
                   height={890}
-                  loading="eager"
-                  alt="AI"
+                  alt="Hero image dark"
                 />
-
+                <Image
+                  src="/hero/hero-light.png"
+                  className="w-full  dark:hidden block aspect-[4/5] sm:aspect-[16/9] object-cover"
+                  width={1224}
+                  height={890}
+                  alt="Hero image light"
+                />
               </div>
-                <Parallax />
+              <Parallax />
             </div>
 
             {/* <Gradient /> */}
