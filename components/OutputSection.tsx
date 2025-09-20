@@ -21,12 +21,16 @@ const OutputSection = ({ result }: { result: string }) => {
     const [theme, setTheme] = useState<'light' | 'dark'>('light');
 
     useEffect(() => {
+        let el = document.getElementsByClassName("toastui-editor-defaultUI")[0];
+
         const savedTheme = localStorage.getItem('theme');
         if (savedTheme === 'dark' || savedTheme === null) {
             setTheme('dark');
+            if (el) el.classList.add("toastui-editor-dark");
             document.documentElement.classList.add('dark');
         } else {
             setTheme('light');
+            if (el) el.classList.remove("toastui-editor-dark");
             document.documentElement.classList.remove('dark');
         }
     }, []);
