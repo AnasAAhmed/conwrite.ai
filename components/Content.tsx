@@ -139,7 +139,7 @@ const Content = ({ selectedTemp }: {
                   />
                 ) : item.field === 'select' ? (
                   <select
-                    className="h-10 px-3 sm:msb-4 mr-2 bg-gray-100 rounded-lg"
+                    className="h-10 px-3 sm:msb-4 mrs-2 bg-primary text-primary-foreground/80 rounded-lg"
                     disabled={loading}
                     name={item.name}
                     id={item.name}

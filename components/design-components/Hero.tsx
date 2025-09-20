@@ -16,7 +16,7 @@ const Hero = () => {
       customPaddings='s'
       id="hero"
     >
-      <div className="container mt-7 sm:mt-16 relative ">
+      <div className="container mst-7 sm:mt-12 relative ">
         <GradientRight />
         <GradientLeft />
 
@@ -24,14 +24,15 @@ const Hero = () => {
           <SplitText2
             text="Explore the Possibilities of Content Generation with Conwrite.ai"
             mode="words"
-            className="relative z-10 mx-auto max-w-5xl text-center max-sm:text-xl text-2xl font-bold md:text-4xl lg:text-6xl not-light:text-slate-300"
-            delayPerItem={0.06}
-            duration={0.4}
+            className="relative z-10 mx-audto max-w-full text-center text-2xl font-bold md:text-4xl lg:text-6xl "
+            delayPerItem={0.05}
+            duration={0.3}
             y={12}
             highlightWords={[
-              {word:'Content',color:"#818cf8"},
-              {word:'Generation',color:"#6366f1"},
-              {word:'Conwrite.ai',color:"#fde047 "},
+              {word:'Content',color:"#3B82F6"},//text-indigo-300
+              {word:'Generation',color:"#8B5CF6  "},//text-orange-400
+              // {word:'with',color:"#f9a8d4 "},text-pink-300
+              {word:'Conwrite.ai',color:"#EC4899"},//text-voilet-600
             ]}
           />
           {/* <h1 className="h1-fade text-2xl font-semibold text-secondary-foreground md:text-4xl lg:text-6xl mb-6">
@@ -65,14 +66,14 @@ const Hero = () => {
             <div className="relative bg-[#19142b] rounded-[1rem]">
               <div className="rounded-[0.9rem] overflow-hidden">
                 <Image
-                  src="/hero/hero.png"
+                  src="/hero/hero.webp"
                   className="w-full dark:block hidden aspect-[4/5] sm:aspect-[16/9] object-cover"
                   width={1224}
                   height={890}
                   alt="Hero image dark"
                 />
                 <Image
-                  src="/hero/hero-light.png"
+                  src="/hero/hero-light.webp"
                   className="w-full  dark:hidden block aspect-[4/5] sm:aspect-[16/9] object-cover"
                   width={1224}
                   height={890}

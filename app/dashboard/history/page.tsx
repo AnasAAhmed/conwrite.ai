@@ -43,7 +43,7 @@ const Page = async (props: { searchParams: Promise<any> }) => {
         return selectedTemp ? (
             <div className="flex items-center gap-2">
                 <Image src={selectedTemp.icon} alt="icon" width={40} height={40} />
-                <SmartLink href={'/dashborad/content/' + selectedTemp.slug} className="font-bold text-md">{selectedTemp.name}</SmartLink>
+                <SmartLink href={'/dashboard/content/' + selectedTemp.slug} className="font-bold text-md">{selectedTemp.name}</SmartLink>
             </div>
         ) : null;
     };

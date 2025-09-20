@@ -69,9 +69,13 @@ export default function RootLayout({
         <script dangerouslySetInnerHTML={{
           __html: `
             (function() {
+            let el = document.getElementsByClassName("toastui-editor-defaultUI")[0];
               const theme = localStorage.getItem('theme')
               if (theme === 'light') {
-                document.documentElement.classList.remove('dark')
+                if (el) el.classList.add("toastui-editor-dark");
+                document.documentElement.classList.remove('dark');
+              } else {
+                if (el) el.classList.add("toastui-editor-dark");
               }
             })()
           `
