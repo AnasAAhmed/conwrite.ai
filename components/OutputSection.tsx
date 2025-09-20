@@ -5,32 +5,34 @@ import '@toast-ui/editor/dist/theme/toastui-editor-dark.css';
 import dynamic from 'next/dynamic';
 import { Button } from './ui/button';
 import { Check, Copy } from 'lucide-react';
+import Loader from './ui/loader';
 
 const Editor = dynamic(
-  () => import('@toast-ui/react-editor').then(mod => mod.Editor),
-  { ssr: false }
+    () => import('@toast-ui/react-editor').then(mod => mod.Editor),
+    {
+        ssr: false,
+        loading: () => <Loader />,
+    }
 );
 
 const OutputSection = ({ result }: { result: string }) => {
     const [isCopy, setIsCopy] = useState(false);
     const editorRef = useRef<any>(null);
-    const [darkMode, setDarkMode] = useState(false);
+    const [theme, setTheme] = useState<'light' | 'dark'>('light');
+
     useEffect(() => {
         const savedTheme = localStorage.getItem('theme');
-        let el = document.getElementsByClassName("toastui-editor-defaultUI")[0];
-
-        // 👇 Default to dark if no theme is saved
         if (savedTheme === 'dark' || savedTheme === null) {
-            setDarkMode(true);
+            setTheme('dark');
             document.documentElement.classList.add('dark');
-            if (el) el.classList.add("toastui-editor-dark");
         } else {
-            setDarkMode(false);
+            setTheme('light');
             document.documentElement.classList.remove('dark');
-            if (el) el.classList.remove("toastui-editor-dark");
         }
-        const editorInstance = editorRef.current.getInstance();
+    }, []);
 
+    useEffect(() => {
+        const editorInstance = editorRef.current?.getInstance();
         if (editorInstance) {
             editorInstance.setMarkdown(result);
 
@@ -55,45 +57,24 @@ const OutputSection = ({ result }: { result: string }) => {
             });
     };
 
-    const toggleDarkMode = () => {
-        if (darkMode) {
-            document.documentElement.classList.remove('dark');
-            localStorage.setItem('theme', 'light');
-        } else {
-            document.documentElement.classList.add('dark');
-            localStorage.setItem('theme', 'dark');
-        }
-
-        setDarkMode(!darkMode);
-    };
     return (
         <div className='bg-primary-foreground text-primary shadow-lg border rounded-lg'>
             <div className="flex justify-between items-center p-5">
                 <h2>Your Result</h2>
-                <abbr title={isCopy ? "Copied" : "Copy result"}>
-                    <Button onClick={copyResult}>
-                        {isCopy ? <><Check className='w-5 h-5 mr-1' />Copied</> : <> <Copy className='w-4 h-4 mr-1' />Copy </>}
+                <Button title={isCopy ? "Copied" : "Copy result"} onClick={copyResult}>
+                    {isCopy ? <><Check className='w-5 h-5 mr-1' />Copied</> : <> <Copy className='w-4 h-4 mr-1' />Copy </>}
 
-                    </Button>
-                </abbr>
+                </Button>
             </div>
-
             <Editor
                 ref={editorRef}
                 autoFocus={false}
-                // theme={'dark'}
+                theme={theme}
                 initialValue=""
                 height="600px"
                 initialEditType="wysiwyg"
                 useCommandShortcut={true}
             />
-            {/* <Markdown >{result}</Markdown> */}
-            {/* <Viewer
-                ref={editorRef}
-                initialValue={result}
-                theme={'dark'}
-                height="600px"
-            /> */}
         </div>
     );
 }

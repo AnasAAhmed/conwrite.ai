@@ -8,7 +8,7 @@ import DarkModeToggle from './Toggle';
 
 const SideNav = () => {
 
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const toggleCloseForMob = () =>{
     if(window.innerWidth<640){
