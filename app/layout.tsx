@@ -54,8 +54,8 @@ export const metadata: Metadata = {
 
     siteName: 'ConWrite.ai | AI Tools by Anas Ahmed',
   },
-  other:{
-    "google-site-verification":"Hay2Qf7NjoV9IjEhp1Hpf9xV4fnZsq1CsQkKrS8ZXXk"
+  other: {
+    "google-site-verification": "OG4--pwhuorqRhEHtEXwiAIdavrU1KXFAi1sRUu38EY"
   }
 };
 
@@ -68,9 +68,9 @@ export default function RootLayout({
   return (
     <ClerkProvider signInUrl="/?auth=sign-in">
       <html lang="en" className="dark" suppressHydrationWarning>
-         <head>
-        <script dangerouslySetInnerHTML={{
-          __html: `
+        <head>
+          <script dangerouslySetInnerHTML={{
+            __html: `
             (function() {
             let el = document.getElementsByClassName("toastui-editor-defaultUI")[0];
               const theme = localStorage.getItem('theme')
@@ -82,8 +82,8 @@ export default function RootLayout({
               }
             })()
           `
-        }} />
-      </head>
+          }} />
+        </head>
         <body className={inter.className}>
           <Suspense fallback={''}>
             <ProgressBar />
