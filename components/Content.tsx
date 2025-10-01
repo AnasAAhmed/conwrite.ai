@@ -49,6 +49,8 @@ const Content = ({ selectedTemp }: {
   const [aiOutput, setAiOutput] = useState<string>('');
   const [formData, setFormData] = useState<any>();
   const [limitReached, setLimitReached] = useState<boolean>(false);
+  const [webSearch, setWebSearch] = useState<boolean>(false);
+
   const { usage, maxCredits } = useUsage();
   const router = useRouter();
 
@@ -70,7 +72,7 @@ const Content = ({ selectedTemp }: {
 
       const response = await fetch('/api/ai/stream', {
         method: 'POST',
-        body: JSON.stringify({ prompt }),
+        body: JSON.stringify({ prompt, webSearch }),
         headers: {
           'Content-Type': 'application/json',
         },
@@ -98,7 +100,7 @@ const Content = ({ selectedTemp }: {
           aiResponse: result,
           formData,
           templateSlug: selectedTemp?.slug,
-          trimmedLength,
+          trimmedLength: webSearch ? trimmedLength + 1500 : trimmedLength,
         }),
       });
       const ressponse = await res.json()
@@ -127,7 +129,7 @@ const Content = ({ selectedTemp }: {
 
           <form className="mt-6 " onSubmit={onSubmit}>
             {selectedTemp?.form?.map((item, i) => (
-              <div key={i} className="mt-2 flex flex-col gap-2 mb-7 outline-none">
+              <div key={i} className="mt-2 flex flex-col gap-s2 mb-7 outline-none">
                 <label className='font-bold' htmlFor={item.name}>{item.label}</label>
                 {item.field === 'input' ? (
                   <Input
@@ -139,7 +141,7 @@ const Content = ({ selectedTemp }: {
                   />
                 ) : item.field === 'select' ? (
                   <select
-                    className="h-10 px-3 sm:msb-4 mrs-2 bg-primary text-primary-foreground/80 rounded-lg"
+                    className="h-10 px-3 border bg-primary-foreground text-primary/80 rounded-lg"
                     disabled={loading}
                     name={item.name}
                     id={item.name}
@@ -162,6 +164,9 @@ const Content = ({ selectedTemp }: {
                 )}
               </div>
             ))}
+            <Button size={'sm'} title={webSearch ? 'Enabled' : 'Disabled'} onClick={() => setWebSearch(!webSearch)} type="button" disabled={loading} variant={webSearch ? 'default' : 'secondary'} className="rounded-full mb-2">
+              WebSearch
+            </Button>
             <Button disabled={loading} className='w-full'>
               {loading && <Loader className='animate-spin mr-2' />}
               Generate Content

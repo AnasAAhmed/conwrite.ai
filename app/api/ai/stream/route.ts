@@ -1,24 +1,65 @@
-import { NextRequest } from 'next/server';
-import { GoogleGenerativeAI } from '@google/generative-ai';
-
-const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY!);
-
+import { NextRequest, NextResponse } from 'next/server';
+import { model } from '@/lib/AI_Modal';
+import { tavily, TavilySearchResponse } from '@tavily/core';
 export async function POST(req: NextRequest) {
-  const { prompt } = await req.json();
+  let prompt: string;
+  let webSearch: boolean;
 
-  const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
-  const chat = model.startChat();
+  try {
+    const body = await req.json();
+    prompt = body.prompt;
+    webSearch = body.webSearch;
 
-  const result = await chat.sendMessageStream(prompt);
+    if (!prompt) {
+      return NextResponse.json({ error: 'Invalid input' }, { status: 400 });
+    }
+  } catch (err) {
+    console.error('[Request Parse Error]', err);
+    return NextResponse.json({ error: 'Invalid JSON body' }, { status: 400 });
+  }
+
   const encoder = new TextEncoder();
 
   const stream = new ReadableStream({
     async start(controller) {
-      for await (const chunk of result.stream) {
-        const text = await chunk.text();
-        controller.enqueue(encoder.encode(text));
+      try {
+        let searchRes: TavilySearchResponse | null = null;
+        // if (webSearch) {
+        //   try {
+        //     const tvly = tavily({ apiKey: process.env.TAVILY_API_KEY! });
+        //     searchRes = await tvly.search(prompt, { maxResults: 3 });
+        //   } catch (err) {
+        //     console.error('[Tavily Error]', err);
+        //     controller.enqueue(encoder.encode('\n[Search unavailable]\n'));
+        //   }
+        // }
+
+        const result = await model.generateContentStream({
+          contents: [{
+            role: "user", parts: [{
+              text: `${prompt} ${searchRes ? ' search results:' + JSON.stringify(searchRes) : ''
+                }` +
+                (!webSearch
+                  ? ' medium answer'
+                  : ' Summarize these search results and include links')
+            }]
+          }],
+          tools: webSearch ? [{ googleSearch: {} }] as any : [],
+        })
+
+        for await (const chunk of result.stream) {
+          const text = await chunk.text();
+
+          controller.enqueue(encoder.encode(text));
+        }
+      } catch (err) {
+        console.error('[Stream Error]', err);
+        controller.enqueue(
+          encoder.encode('\n[Error generating response, please retry]\n')
+        );
+      } finally {
+        controller.close();
       }
-      controller.close();
     },
   });
 

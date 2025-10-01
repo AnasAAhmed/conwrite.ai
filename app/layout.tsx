@@ -54,6 +54,9 @@ export const metadata: Metadata = {
 
     siteName: 'ConWrite.ai | AI Tools by Anas Ahmed',
   },
+  other:{
+    "google-site-verification":"Hay2Qf7NjoV9IjEhp1Hpf9xV4fnZsq1CsQkKrS8ZXXk"
+  }
 };
 
 

@@ -1,6 +1,6 @@
 'use client'
 import { SignOutButton, UserButton } from '@clerk/nextjs';
-import { ChevronLeft, ChevronRight, History,  LayoutDashboard, LogOut, LoaderIcon, User, WalletCards } from 'lucide-react';
+import { ChevronLeft, ChevronRight, History, LayoutDashboard, LogOut, LoaderIcon, User, WalletCards } from 'lucide-react';
 import Image from 'next/image';
 import SmartLink from '@/components/SmartLink';
 import React, { useEffect, useRef, useState } from 'react';
@@ -8,32 +8,36 @@ import DarkModeToggle from './Toggle';
 
 const SideNav = () => {
 
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(true);
   const dropdownRef = useRef<HTMLDivElement>(null);
-  const toggleCloseForMob = () =>{
-    if(window.innerWidth<640){
+  const toggleCloseForMob = () => {
+    if (window.innerWidth < 640) {
       setOpen(false);
     }
-  } 
+  }
   const toggleOpen = () => setOpen(!open);
-  const toggleClose = () =>{
-    if(window.innerWidth<640){
+  const toggleClose = () => {
+    if (window.innerWidth < 640) {
       setOpen(false);
     }
-  } 
-
+  }
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
         toggleCloseForMob();
       }
     };
-
+    
     document.addEventListener('mousedown', handleClickOutside);
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
   }, []);
+    useEffect(() => {
+      if (window.innerWidth < 640) {
+        setOpen(false);
+      }
+    }, []);
   const [load, setLoad] = useState(false)
   const menuListt = [
     {
@@ -85,7 +89,7 @@ const SideNav = () => {
                 <SmartLink
                   href={menu.path}
                   key={index}
-                  onClick={()=>setTimeout(()=>toggleClose(),120)}
+                  onClick={() => setTimeout(() => toggleClose(), 120)}
                   className='flex group items-center gap-2 mb-2 p-3 hover:bg-border hover:text-primary rounded-md cursor-pointer'
                 >
                   <menu.icon />

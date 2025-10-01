@@ -1,5 +1,5 @@
 import Templates from '@/lib/Templates'
-import { SearchIcon } from 'lucide-react'
+import { Plus, SearchIcon } from 'lucide-react'
 import React, { useState } from 'react'
 
 const Search = ({ onSearchInput }: any) => {
@@ -40,6 +40,9 @@ const Search = ({ onSearchInput }: any) => {
             onFocus={() => setShowOptions(true)}
             onBlur={() => setTimeout(() => setShowOptions(false), 100)} // Delay to allow click on option
           />
+         {placeHolder&& <button onClick={()=>handleInputChange('')}>
+            <Plus className="rotate-45 text-primary mx-2" />
+          </button>}
           {showOptions && (
             <div className="absolute top-full left-0 w-full bg-primary-foreground text-primary mt-1 rounded-md shadow-lg max-h-48 overflow-y-auto z-10">
               {filteredTemplates.map((item, i) => (

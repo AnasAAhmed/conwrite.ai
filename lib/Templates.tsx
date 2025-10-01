@@ -1,3 +1,49 @@
+import React from "react";
+import ReactMarkdown from "react-markdown";
+// import remarkGfm from "remark-gfm"; // for GitHub-style markdown (tables, strikethrough, etc)
+
+export const MarkdownRenderer = ({ text }: { text: string }) => {
+  return (
+    <ReactMarkdown
+    //   remarkPlugins={[remarkGfm]}
+      components={{
+        a: ({ node, ...props }) => (
+          <a
+            {...props}
+            href={
+              props.href +
+              `?utm_source=Conwrite.ai&utm_medium=referral&source=AnasAhmed`
+            }
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-blue-500 hover:underline break-all"
+          />
+        ),
+        strong: ({ node, ...props }) => (
+          <strong className="font-semibold" {...props} />
+        ),
+        em: ({ node, ...props }) => (
+          <em className="italic text-gray-600 dark:text-gray-400" {...props} />
+        ),
+        code: ({ node, inline, ...props }) =>
+          inline ? (
+            <code
+              className="px-1 py-0.5 not-dark:bg-gray-200 dark:bg-gray-800 rounded text-sm"
+              {...props}
+            />
+          ) : (
+            <pre className="p-2 bg-gray-200 dark:bg-gray-800 rounded text-sm overflow-x-auto">
+              <code {...props} />
+            </pre>
+          ),
+      }}
+    >
+      {text}
+    </ReactMarkdown>
+  );
+};
+
+
 const Templates = [
     {
         name: 'Blog Title',

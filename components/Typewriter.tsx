@@ -19,8 +19,6 @@ const TypeWriter = ({ isNewRes, txt }: { isNewRes: boolean; txt: string }) => {
   }, [currentIndex, txt, speed]);
 
   useEffect(() => {
-    console.log('ss');
-    
     window.scrollTo({
       top: document.body.scrollHeight,
       behavior: "smooth",
@@ -29,7 +27,7 @@ const TypeWriter = ({ isNewRes, txt }: { isNewRes: boolean; txt: string }) => {
 
   return (
     <div
-      className="p-3 rounded-lg font-sans bg-primary-foreground dark:text-gray-300 whitespace-pre-wrap" // Add max height for better scrolling
+      className="p-3 rounded-lg font-sans bg-psrimary-foreground dark:text-gray-300 whitespace-pre-wrap" // Add max height for better scrolling
     >
       <strong>AI:</strong> <Markdown>{isNewRes ? txt.slice(0, currentIndex) : txt}</Markdown>
     </div>

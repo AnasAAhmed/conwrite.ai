@@ -76,7 +76,7 @@ const OutputSection = ({ result }: { result: string }) => {
                 theme={theme}
                 initialValue=""
                 height="600px"
-                initialEditType="wysiwyg"
+                initialEditType="markdown"
                 useCommandShortcut={true}
             />
         </div>

@@ -24,15 +24,15 @@ const Hero = () => {
           <SplitText2
             text="Explore the Possibilities of Content Generation with Conwrite.ai"
             mode="words"
-            className="relative z-10 mx-audto max-w-full text-center text-2xl font-bold md:text-4xl lg:text-6xl "
+            className="relative z-10 mx-audto bg-[#b1s35eb] max-w-full text-center text-2xl font-bold md:text-4xl lg:text-6xl "
             delayPerItem={0.05}
             duration={0.3}
             y={12}
             highlightWords={[
-              {word:'Content',color:"#3B82F6"},//text-indigo-300
-              {word:'Generation',color:"#8B5CF6  "},//text-orange-400
+              { word: 'Content', color: "#3B82F6" },//text-indigo-300
+              { word: 'Generation', color: "#8B5CF6  " },//text-orange-400
               // {word:'with',color:"#f9a8d4 "},text-pink-300
-              {word:'Conwrite.ai',color:"#EC4899"},//text-voilet-600
+              { word: 'Conwrite.ai', color: "#b135eb" },//text-voilet-600
             ]}
           />
           {/* <h1 className="h1-fade text-2xl font-semibold text-secondary-foreground md:text-4xl lg:text-6xl mb-6">
@@ -55,6 +55,9 @@ const Hero = () => {
 
             <Button px="sm:px-7 px-3" href="/#how-to-use">
               How To Use
+            </Button>
+            <Button px="sm:px-7 px-3" href="/chat">
+              Chatbot
             </Button>
             <Button px="sm:px-7 px-3" href="/dashboard">
               Get started

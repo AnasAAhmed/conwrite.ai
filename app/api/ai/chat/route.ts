@@ -1,49 +1,90 @@
-// app/api/gemini-chat/route.ts
 import { NextRequest, NextResponse } from 'next/server';
+import { tavily, TavilySearchResponse } from '@tavily/core';
+import { model } from '@/lib/AI_Modal';
 
 export async function POST(req: NextRequest) {
+  let aiPrompt: string;
+  let chatHistory: { prompt: string; response: string }[];
+  let maxTokens: number;
+  let webSearch: boolean;
+
   try {
     const body = await req.json();
-    const { aiPrompt, chatHistory, maxTokens } = body;
+    aiPrompt = body.aiPrompt;
+    chatHistory = body.chatHistory || [];
+    maxTokens = body.maxTokens;
+    webSearch = body.webSearch;
 
     if (!aiPrompt || maxTokens < 1) {
       return NextResponse.json({ error: 'Invalid input' }, { status: 400 });
     }
-
-    const { GoogleGenerativeAI } = require('@google/generative-ai');
-    const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
-
-    // Convert your client history to Gemini format
-    const history = chatHistory.map((msg: { prompt: string; response: string }) => ({
-      role: 'user',
-      parts: [{ text: msg.prompt }],
-    })).flatMap((entry:any, idx:number) => [
-      entry,
-      {
-        role: 'model',
-        parts: [{ text: chatHistory[idx].response }],
-      }
-    ]);
-
-    const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
-
-    const generationConfig = {
-      temperature: 1,
-      topP: 0.95,
-      topK: 64,
-      maxOutputTokens: maxTokens,
-      responseMimeType: 'text/plain',
-    };
-
-    const chat = model.startChat({ generationConfig, history });
-
-    const result = await chat.sendMessage(aiPrompt + ' medium answer');
-    const responseText = result.response.text();
-
-    return NextResponse.json({ response: responseText });
-  } catch (error) {
-    console.error('[Gemini Chat Error]', error);
-    return NextResponse.json({ error: 'Internal server error '+(error as Error).message }, { status: 500 });
+  } catch (err) {
+    console.error('[Request Parse Error]', err);
+    return NextResponse.json({ error: 'Invalid JSON body' }, { status: 400 });
   }
+
+  const encoder = new TextEncoder();
+
+  const stream = new ReadableStream({
+    async start(controller) {
+      try {
+        let searchRes: TavilySearchResponse | null = null;
+        if (webSearch) {
+          try {
+            const tvly = tavily({ apiKey: process.env.TAVILY_API_KEY! });
+            searchRes = await tvly.search(aiPrompt, { maxResults: 3 });
+          } catch (err) {
+            console.error('[Tavily Error]', err);
+            controller.enqueue(encoder.encode('\n[Search unavailable]\n'));
+          }
+        }
+
+        const history = chatHistory.flatMap((msg, idx) => [
+          { role: 'user', parts: [{ text: msg.prompt }] },
+          { role: 'model', parts: [{ text: msg.response }] },
+        ]);
+        
+        const chat = model.startChat({
+          generationConfig: {
+            temperature: 1,
+            topP: 0.95,
+            topK: 64,
+            maxOutputTokens: maxTokens,
+            responseMimeType: 'text/plain',
+          },
+          history,
+        });
+
+        const result = await chat.sendMessageStream(
+          `user:${aiPrompt} ${
+            searchRes ? ' search results:' + JSON.stringify(searchRes) : ''
+          }` +
+            (!webSearch
+              ? ' medium answer'
+              : ' Summarize these search results and include links in markdown format')
+        );
+
+        for await (const chunk of result.stream) {
+          const text = await chunk.text();
+          controller.enqueue(encoder.encode(text));
+        }
+      } catch (err) {
+        console.error('[Stream Error]', err);
+        controller.enqueue(
+          encoder.encode('\n[Error generating response, please retry]\n')
+        );
+      } finally {
+        controller.close();
+      }
+    },
+  });
+
+  return new Response(stream, {
+    headers: {
+      'Content-Type': 'text/plain',
+      'Cache-Control': 'no-cache',
+    },
+  });
 }
-export const dynamic = 'force-dynamic'
+
+export const dynamic = 'force-dynamic';
