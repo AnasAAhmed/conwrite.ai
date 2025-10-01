@@ -132,7 +132,7 @@ useEffect(() => {
                         </div>
                     </div>
                 </div>
-                <Button variant={'outline'} onClick={() => setChatHistory([])}>Clear Chat History</Button>
+                {/* <Button variant={'outline'} onClick={() => setChatHistory([])}>Clear Chat History</Button> */}
                 {chatHistory.map((chat, index) => (
                     <div key={index} className="my-6 sm:w-[80%]">
                         <div className="flex justify-end mb-2">
