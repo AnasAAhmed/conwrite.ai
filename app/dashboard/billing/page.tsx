@@ -5,12 +5,13 @@ import React from 'react';
 import { count, desc, eq } from 'drizzle-orm';
 import PaginationControls from '@/components/PaginationControls';
 import { Metadata } from 'next';
+import SignInRedirect from '@/components/SignInRedirect';
 export const metadata: Metadata = {
   title: "Billing | ConWrite.ai",
 };
 const Page = async (props: { searchParams: Promise<any> }) => {
-  const { userId } = await auth.protect();
-  if (!userId) return 'Unauthorized';
+  const { userId } = await auth();
+  if (!userId) return <SignInRedirect text='Unauthorized' redirectTo='/dashboard/billing'/>;
   const searchParams = await props.searchParams;
   let page = Number(searchParams?.page) || 1;
   const limit = 6

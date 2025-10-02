@@ -53,7 +53,8 @@ const layout = async ({
     const { userId } = await auth();
     return (
         <div className='h-screen flex bg-accent'>
-            {userId && <SideNav />}
+           <SideNav />
+            {/* {userId && <SideNav />} */}
             <div className="bg-accent w-full overflow-y-auto lgs:ml-64 md:sml-44">
                 <Header />
                 {children}

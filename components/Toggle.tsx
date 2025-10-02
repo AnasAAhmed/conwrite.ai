@@ -1,6 +1,7 @@
 'use client'
 import Image from 'next/image';
 import { useState, useEffect } from 'react';
+import { Button } from './ui/button';
 
 const DarkModeToggle = () => {
     const [darkMode, setDarkMode] = useState(false);
@@ -41,12 +42,13 @@ const DarkModeToggle = () => {
         setDarkMode(!darkMode);
     };
     return (
-        <button
+        <Button
             onClick={toggleDarkMode}
-            className="text-black text-[22px] dark:text-white"
+            variant={'outline'}
+            size={'icon'}
         >
             {darkMode ? <Image height={18} width={18} src="/sun.svg" alt="moon" /> : <Image height={18} width={18} src="/Moon.svg" alt="moon" />}
-        </button>
+        </Button>
     );
 };
 

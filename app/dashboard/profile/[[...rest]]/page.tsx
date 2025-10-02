@@ -1,3 +1,4 @@
+import SignInRedirect from '@/components/SignInRedirect';
 import Loader from '@/components/ui/loader';
 import { ClerkLoaded, ClerkLoading, UserProfile } from '@clerk/nextjs'
 import { auth } from '@clerk/nextjs/server';
@@ -6,9 +7,9 @@ import React from 'react'
 export const metadata: Metadata = {
   title: "Profile | ConWrite.ai",
 };
-const page =async () => {
-  const { userId } = await auth.protect();
-  if (!userId) return 'Unauthorized';
+const page = async () => {
+  const { userId } = await auth();
+  if (!userId) return <SignInRedirect text='Unauthorized' redirectTo='/dashboard/billing' />;
   return (
     <div className='w-full h-fuldl my-8  flex justify-center items-center'>
       <div className='overflow-y-auto'>

@@ -19,6 +19,7 @@ const OutputSection = ({ result }: { result: string }) => {
     const [isCopy, setIsCopy] = useState(false);
     const editorRef = useRef<any>(null);
     const [theme, setTheme] = useState<'light' | 'dark'>('light');
+    const editorInstance = editorRef.current?.getInstance();
 
     useEffect(() => {
         let el = document.getElementsByClassName("toastui-editor-defaultUI")[0];
@@ -33,16 +34,17 @@ const OutputSection = ({ result }: { result: string }) => {
             if (el) el.classList.remove("toastui-editor-dark");
             document.documentElement.classList.remove('dark');
         }
+        if (editorInstance) {
+            setTimeout(() => {
+                editorInstance?.blur();
+                 editorInstance.changeMode("preview");
+            }, 0);
+        }
     }, []);
 
     useEffect(() => {
-        const editorInstance = editorRef.current?.getInstance();
         if (editorInstance) {
             editorInstance.setMarkdown(result);
-
-            setTimeout(() => {
-                editorInstance?.blur();
-            }, 0);
         }
 
     }, [result]);
@@ -76,6 +78,7 @@ const OutputSection = ({ result }: { result: string }) => {
                 theme={theme}
                 initialValue=""
                 height="600px"
+                //   previewStyle={'vertical'} 
                 initialEditType="markdown"
                 useCommandShortcut={true}
             />

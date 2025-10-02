@@ -10,12 +10,13 @@ import PaginationControls from '@/components/PaginationControls';
 import Delete from '@/components/Delete';
 import Markdown from 'react-markdown';
 import { Metadata } from 'next';
+import SignInRedirect from '@/components/SignInRedirect';
 export const metadata: Metadata = {
     title: "History | ConWrite.ai",
 };
 const Page = async (props: { searchParams: Promise<any> }) => {
-    const { userId } = await auth.protect();
-    if (!userId) return 'Unauthorized';
+    const { userId } = await auth();
+    if (!userId) return <SignInRedirect text='Unauthorized' redirectTo='/dashboard/billing' />;
     const searchParams = await props.searchParams;
     let page = Number(searchParams?.page) || 1;
     const limit = 6

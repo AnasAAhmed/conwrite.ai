@@ -43,7 +43,7 @@ const page = async (props: { params: Promise<{ template: string }> }) => {
     const { userId } = await auth();
     if (!userId) {
         return (
-            <SignInRedirect redirectTo={`/content/${params.template}`} />
+            <SignInRedirect text='Unauthorized' redirectTo={`/dashboard/content/${params.template}`} />
         );
     }
     const selectedTemp = Templates.find((item) => item.slug === params.template);

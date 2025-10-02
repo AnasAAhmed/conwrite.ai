@@ -1,10 +1,13 @@
-import Button from "./Button";
+import DesignButton from "./Button";
 import Section from "./Section";
-import { BackgroundCircles, BottomLine, Gradient, Parallax } from "./design/Hero";
+import { BackgroundCircles, BottomLine, Parallax } from "./design/Hero";
 import CompanyLogos from "./CompanyLogos";
 import { GradientRight, Gradient as GradientLeft } from "./design/Roadmap";
 import { SplitText2 } from "../ui/split-text-ssr";
 import Image from "next/image";
+import { Button } from "../ui/button";
+import { ChevronRight, MoveRight } from "lucide-react";
+import SmartLink from "../SmartLink";
 
 const Hero = () => {
 
@@ -16,23 +19,26 @@ const Hero = () => {
       customPaddings='s'
       id="hero"
     >
-      <div className="container mst-7 sm:mt-12 relative ">
+      <div className="container flex flex-col justify-center items-center mst-7 sm:mt-12 relative ">
         <GradientRight />
         <GradientLeft />
-
+        <SmartLink
+          href={'/chat'}
+          title="Try the New AI Chat Bot with Web Search For Free."
+          className="bg-indigo-300/20 mb-3 px-3 text-centers text-[9px] sm:text-sm text-indigo-600 border-indigo-700 border rounded-full">
+          ● Try the New AI Chat Bot with Web Search For Free.
+        </SmartLink>
         <div className="relative z-1 max-w-[72rem] mx-auto text-center mb-[2rem]">
           <SplitText2
             text="Explore the Possibilities of Content Generation with Conwrite.ai"
             mode="words"
-            className="relative z-10 mx-audto bg-[#b1s35eb] max-w-full text-center text-2xl font-bold md:text-4xl lg:text-6xl "
+            className="relative z-10 mx-audto max-w-full text-center text-2xl font-bold md:text-4xl lg:text-6xl "
             delayPerItem={0.05}
             duration={0.3}
             y={12}
             highlightWords={[
-              { word: 'Content', color: "#3B82F6" },//text-indigo-300
-              { word: 'Generation', color: "#8B5CF6  " },//text-orange-400
-              // {word:'with',color:"#f9a8d4 "},text-pink-300
-              { word: 'Conwrite.ai', color: "#b135eb" },//text-voilet-600
+              { word: 'Content', color: "#3B82F6" },
+              { word: 'Generation', color: "#8B5CF6  " },
             ]}
           />
           {/* <h1 className="h1-fade text-2xl font-semibold text-secondary-foreground md:text-4xl lg:text-6xl mb-6">
@@ -53,15 +59,17 @@ const Hero = () => {
           </p>
           <div className="flex justify-center items-center gap-3 btns-fade mt-6 ">
 
-            <Button px="sm:px-7 px-3" href="/#how-to-use">
+            {/* <Button px="sm:px-7 px-3" href="/chat">
+              AI Chatbot
+            </Button> */}
+            <DesignButton href="#how-to-use">
               How To Use
-            </Button>
-            <Button px="sm:px-7 px-3" href="/chat">
-              Chatbot
-            </Button>
-            <Button px="sm:px-7 px-3" href="/dashboard">
-              Get started
-            </Button>
+            </DesignButton>
+            <SmartLink href={'/dashboard'} title='Dashboard'>
+              <Button className="bg-primary gap-2 group text-primary-foreground rounded-lg" variant={'outline'}>
+                Get started <MoveRight size={'1.3rem'} className="group-hover:translate-x-2 duration-300" />
+              </Button>
+            </SmartLink>
           </div>
         </div>
         <div className="relative mx-auto md:max-w-6xl">

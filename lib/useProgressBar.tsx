@@ -18,6 +18,7 @@ export const useProgressStore = create<ProgressState>((set) => ({
 
     const stepTimeouts = [
       // setTimeout(() => set({ progress: 0 }), 100),
+      setTimeout(() => set({ progress: 30 }), 50),
       setTimeout(() => set({ progress: 50 }), 100),
       setTimeout(() => set({ progress: 75 }), 200),
     ];

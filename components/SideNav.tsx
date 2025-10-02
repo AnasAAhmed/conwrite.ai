@@ -1,5 +1,5 @@
 'use client'
-import { SignOutButton, UserButton } from '@clerk/nextjs';
+import { SignedIn, SignOutButton, UserButton } from '@clerk/nextjs';
 import { ChevronLeft, ChevronRight, History, LayoutDashboard, LogOut, LoaderIcon, User, WalletCards } from 'lucide-react';
 import Image from 'next/image';
 import SmartLink from '@/components/SmartLink';
@@ -27,17 +27,17 @@ const SideNav = () => {
         toggleCloseForMob();
       }
     };
-    
+
     document.addEventListener('mousedown', handleClickOutside);
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
   }, []);
-    useEffect(() => {
-      if (window.innerWidth < 640) {
-        setOpen(false);
-      }
-    }, []);
+  useEffect(() => {
+    if (window.innerWidth < 640) {
+      setOpen(false);
+    }
+  }, []);
   const [load, setLoad] = useState(false)
   const menuListt = [
     {
@@ -97,12 +97,14 @@ const SideNav = () => {
                 </SmartLink>
               ))}
             </div>
-            <SignOutButton >
-              <div onClick={() => setLoad(true)} className='flex items-center group gap-2 mb-2 p-3 hover:bg-border hover:text-primary rounded-md cursor-pointer'>
-                <LogOut />
-                <span className='text-lg flex items-center gap-1 duration-300 group-hover:translate-x-1'>Sign out {load && <LoaderIcon className='animate-spin' />}</span>
-              </div>
-            </SignOutButton>
+            <SignedIn>
+              <SignOutButton >
+                <div onClick={() => setLoad(true)} className='flex items-center group gap-2 mb-2 p-3 hover:bg-border hover:text-primary rounded-md cursor-pointer'>
+                  <LogOut />
+                  <span className='text-lg flex items-center gap-1 duration-300 group-hover:translate-x-1'>Sign out {load && <LoaderIcon className='animate-spin' />}</span>
+                </div>
+              </SignOutButton>
+            </SignedIn>
           </div>
           <div className="md:hidden flex flex-1 justify-between items-center gap-1 text-primary bg-primary-foreground rounded-md w-full">
             <DarkModeToggle />
