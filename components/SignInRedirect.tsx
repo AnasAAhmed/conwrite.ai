@@ -22,12 +22,12 @@ export default function SignInRedirect({ text, redirectTo }: { text?: string; re
       <p className="text-center text-accent-foreground max-w-md mb-8">
         To access this content, please sign in. You’ll be redirected shortly, or you can use the buttons below to navigate.
       </p>
-      <div className="flex flex-wrap gap-4">
+      <div className="flex justify-center flex-wrap gap-4">
         <button
           onClick={() =>
             router.push(`/?auth=sign-in&redirect_url=${encodeURIComponent(redirectTo || '/')}`)
           }
-          className="px-6 py-2 bg-indigo-600 text-primary-foreground rounded-lg hover:bg-indigo-700 transition"
+          className="px-6 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition"
         >
           Login Now
         </button>

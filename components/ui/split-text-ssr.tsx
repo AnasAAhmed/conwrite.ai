@@ -33,7 +33,7 @@ export function SplitText2({
         return (
           <span
             key={i}
-            className={`split-text-item responsive-filter inline-block will-change-transform ${itemClassName}`}
+            className={`split-text-item responsive-filter inline-block willl-change-transform ${itemClassName}`}
             style={{
               animationDelay: `${i * delayPerItem}s`,
               animationDuration: `${duration}s`,

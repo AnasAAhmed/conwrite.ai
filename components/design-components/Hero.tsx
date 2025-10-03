@@ -19,20 +19,20 @@ const Hero = () => {
       customPaddings='s'
       id="hero"
     >
-      <div className="container flex flex-col justify-center items-center mst-7 sm:mt-12 relative ">
+      <div className="container flex flex-col justify-center bsg-[#ffffff] items-center mst-7 sm:mt-12 relative ">
         <GradientRight />
         <GradientLeft />
         <SmartLink
           href={'/chat'}
           title="Try the New AI Chat Bot with Web Search For Free."
-          className="bg-indigo-300/20 mb-3 px-3 text-centers text-[9px] sm:text-sm text-indigo-600 border-indigo-700 border rounded-full">
+          className="bg-indigo-300/20 mb-3 px-1 sm:px-3 text-centers text-[12px] sm:text-[16px] text-indigo-600 border-indigo-700 border rounded-full">
           ● Try the New AI Chat Bot with Web Search For Free.
         </SmartLink>
-        <div className="relative z-1 max-w-[72rem] mx-auto text-center mb-[2rem]">
+        <div className="relative z-1 mx-auto text-center mb-[2rem]">
           <SplitText2
             text="Explore the Possibilities of Content Generation with Conwrite.ai"
             mode="words"
-            className="relative z-10 mx-audto max-w-full text-center text-2xl font-bold md:text-4xl lg:text-6xl "
+            className="relative z-10 mx-audto max-w-full text-center text-[27px] font-bold md:text-4xl lg:text-6xl "
             delayPerItem={0.05}
             duration={0.3}
             y={12}

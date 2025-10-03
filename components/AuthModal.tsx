@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { ClerkLoaded, ClerkLoading, SignIn, SignUp, useUser } from "@clerk/nextjs";
 
 import SmartLink from '@/components/SmartLink';
-import { Dialog, DialogContent, DialogTitle, DialogTrigger } from "./ui/dialog";
+import { Dialog, DialogContent, DialogTitle } from "./ui/dialog";
 import { useRouter, useSearchParams } from "next/navigation";
 import DarkModeToggle from "./Toggle";
 import Loader from "./ui/loader";

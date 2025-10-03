@@ -17,7 +17,7 @@ const Header = async () => {
   return (
     <div className='p-2 gap-2 shadow-sm border-b flex bg-accent justify-between items-center'>
       <SmartLink href={'/'} className="md:hdidden cursor-pointer flex justify-start">
-        <Image src={'/logo.svg'} alt='logo' className='dark:drop-shadow-[0_0_0.1rem_#ffffff70] dark:invert ' width={70} height={70} />
+        <Image src={'/logo.png'} alt='logo' className='dark:drop-shadow-[0_0_0.1rem_#ffffff70] dark:invert ' width={70} height={70} />
       </SmartLink>
      <SmartLink href={'/pricing'}>
       <h2 className="hidden md:flex bg-primary text-primary-foreground py-2 rounded-full text-xs px-2">

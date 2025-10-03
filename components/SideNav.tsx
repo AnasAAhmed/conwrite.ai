@@ -76,7 +76,7 @@ const SideNav = () => {
         <div className='flex flex-col justify-between h-screen overflow-y-auto bg-primary-foreground p-3 lg:p-5 shadow-sm border'>
           <div className="flex justify-between items-center">
             <SmartLink href={'/dashboard'} className="flex justify-start">
-              <Image src={'/logo.svg'} className='dark:drop-shadow-[0_0_0.1rem_#ffffff70] dark:invert' alt='logo' width={130} height={88} />
+              <Image src={'/logo.png'} className='dark:drop-shadow-[0_0_0.1rem_#ffffff70] dark:invert' alt='logo' width={130} height={88} />
             </SmartLink>
             <div onClick={() => toggleOpen()} className='sm:hisdden cursor-pointer'>
               <ChevronLeft />

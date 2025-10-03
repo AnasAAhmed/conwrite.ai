@@ -50,7 +50,7 @@ export async function POST(req: NextRequest) {
             topP: 0.95,
             topK: 64,
             maxOutputTokens: maxTokens,
-            responseMimeType: 'text/plain',
+            responseMimeType: 'text/markdown',
           },
           history,
         });
@@ -81,7 +81,7 @@ export async function POST(req: NextRequest) {
 
   return new Response(stream, {
     headers: {
-      'Content-Type': 'text/plain',
+      'Content-Type': 'text/markdown',
       'Cache-Control': 'no-cache',
     },
   });

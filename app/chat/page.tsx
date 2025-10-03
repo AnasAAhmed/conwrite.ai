@@ -1,5 +1,6 @@
 import AuthModal from '@/components/AuthModal';
 import Chat from '@/components/Chat'
+import Header from '@/components/design-components/Header';
 import SmartLink from '@/components/SmartLink';
 import { Metadata } from 'next';
 import Image from 'next/image';
@@ -35,21 +36,7 @@ export const dynamic = 'force-static'
 const page = () => {
     return (
         <div className='px-4'>
-            <div className="px-3 sm:px-6 py-1 w-full  items-center border-b justify-between text-sm flex">
-                <SmartLink title="home" href={'/'}>
-                    <Image
-                        className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
-                        src="/logo.svg"
-                        alt="Next.js Logo"
-                        width={100}
-                        height={37}
-                        priority
-                    />
-                </SmartLink>
-                <Suspense fallback={<div className='h-5 w-16 p-1 rounded-md bg-gray-300 animate-pulse'/>}>
-                    <AuthModal />
-                </Suspense>
-            </div>
+            <Header />
             <Chat />
         </div>
     )
