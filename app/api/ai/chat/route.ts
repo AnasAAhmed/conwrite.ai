@@ -16,11 +16,11 @@ export async function POST(req: NextRequest) {
     webSearch = body.webSearch;
 
     if (!aiPrompt || maxTokens < 1) {
-      return NextResponse.json({ error: 'Invalid input' }, { status: 400 });
+      return NextResponse.json({ error: 'Invalid input' }, { status: 400, statusText: 'Invalid input'});
     }
   } catch (err) {
     console.error('[Request Parse Error]', err);
-    return NextResponse.json({ error: 'Invalid JSON body' }, { status: 400 });
+    return NextResponse.json({ error: 'Invalid JSON body' }, { status: 400, statusText: 'Invalid JSON body' });
   }
 
   const encoder = new TextEncoder();
@@ -35,7 +35,7 @@ export async function POST(req: NextRequest) {
             searchRes = await tvly.search(aiPrompt, { maxResults: 3 });
           } catch (err) {
             console.error('[Tavily Error]', err);
-            controller.enqueue(encoder.encode('\n[Search unavailable]\n'));
+            controller.enqueue(encoder.encode(`\n[Search unavailable](${(err as Error).message})\n`));
           }
         }
 
@@ -43,25 +43,24 @@ export async function POST(req: NextRequest) {
           { role: 'user', parts: [{ text: msg.prompt }] },
           { role: 'model', parts: [{ text: msg.response }] },
         ]);
-        
+
         const chat = model.startChat({
           generationConfig: {
             temperature: 1,
             topP: 0.95,
             topK: 64,
             maxOutputTokens: maxTokens,
-            responseMimeType: 'text/markdown',
+            responseMimeType: 'text/plain',
           },
           history,
         });
 
         const result = await chat.sendMessageStream(
-          `user:${aiPrompt} ${
-            searchRes ? ' search results:' + JSON.stringify(searchRes) : ''
+          `user:${aiPrompt} ${searchRes ? ' search results:' + JSON.stringify(searchRes) : ''
           }` +
-            (!webSearch
-              ? ' medium answer'
-              : ' Summarize these search results and include links in markdown format')
+          (!webSearch
+            ? ' medium answer'
+            : ' Summarize these search results and include links in markdown format')
         );
 
         for await (const chunk of result.stream) {
@@ -71,7 +70,7 @@ export async function POST(req: NextRequest) {
       } catch (err) {
         console.error('[Stream Error]', err);
         controller.enqueue(
-          encoder.encode('\n[Error generating response, please retry]\n')
+          encoder.encode(`\n[Error generating response, please retry](${(err as Error).message})\n`)
         );
       } finally {
         controller.close();
@@ -81,7 +80,7 @@ export async function POST(req: NextRequest) {
 
   return new Response(stream, {
     headers: {
-      'Content-Type': 'text/markdown',
+      'Content-Type': 'text/plain',
       'Cache-Control': 'no-cache',
     },
   });
