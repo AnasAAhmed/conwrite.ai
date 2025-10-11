@@ -2,6 +2,7 @@
 import Image from 'next/image';
 import { useState, useEffect } from 'react';
 import { Button } from './ui/button';
+import { Moon, Sun } from 'lucide-react';
 
 const DarkModeToggle = () => {
     const [darkMode, setDarkMode] = useState(false);
@@ -46,8 +47,9 @@ const DarkModeToggle = () => {
             onClick={toggleDarkMode}
             variant={'outline'}
             size={'icon'}
+            className='mx-2'
         >
-            {darkMode ? <Image height={18} width={18} src="/sun.svg" alt="moon" /> : <Image height={18} width={18} src="/Moon.svg" alt="moon" />}
+            {!darkMode ? <Sun/> : <Moon/>}
         </Button>
     );
 };

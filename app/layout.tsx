@@ -24,6 +24,8 @@ export const metadata: Metadata = {
     'GPT-powered assistant',
     'AI marketing tools'
   ],
+  applicationName:"Conwrite.ai",
+  icons: "/logo-icon.png",
   robots: {
     index: true,
     follow: true,

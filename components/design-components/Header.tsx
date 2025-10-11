@@ -10,6 +10,7 @@ import { navigation } from "@/constants";
 import AuthModal from "../AuthModal";
 import SmartLink from "../SmartLink";
 import ButtonGradient from "@/assets/svg/ButtonGradient";
+import Image from "next/image";
 
 const Header = () => {
   // const [openNavigation, setOpenNavigation] = useState(false);
@@ -37,7 +38,7 @@ const Header = () => {
     >
       <div className="flex items-center justify-between px-5 lg:px-7.5 xl:px-10 max-lg:py-2">
         <SmartLink className="block w-24 xl:mr-8" href="/">
-          <img src={'/logo.png'} className="dark:drop-shadow-[0_0_0.1rem_#ffffff70] dark:invert" width={230} height={230} alt="Conwrite.ai" />
+          <Image src={'/logo.png'} className="s" width={430} height={430} alt="Conwrite.ai" />
         </SmartLink>
 
         <nav

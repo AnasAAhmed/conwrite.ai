@@ -25,7 +25,7 @@ const Hero = () => {
         <SmartLink
           href={'/chat'}
           title="Try the New AI Chat Bot with Web Search For Free."
-          className="bg-indigo-300/20 mb-3 px-1 sm:px-3 text-centers text-[12px] sm:text-[16px] text-indigo-600 border-indigo-700 border rounded-full">
+          className="bg-indigo-300/20 mb-3 px-1 sm:px-3 text-centers text-[10px] sm:text-[16px] lg:text-[18px] text-indigo-600 border-indigo-700 border rounded-full">
           ● Try the New AI Chat Bot with Web Search For Free.
         </SmartLink>
         <div className="relative z-1 mx-auto text-center mb-[2rem]">
@@ -72,23 +72,23 @@ const Hero = () => {
             </SmartLink>
           </div>
         </div>
-        <div className="relative mx-auto md:max-w-6xl">
-          <div className="hero-img-fadeUp relative z-1 p-0.5 rounded-2xl bg-[conic-gradient(from_225deg,#FFC876,#79FFF7,#9F53FF,#FF98E2,#FFC876)]">
-            <div className="relative bg-[#19142b] rounded-[1rem]">
-              <div className="rounded-[0.9rem] overflow-hidden">
+        <div className="relative w-full mx-auto md:max-w-6xl">
+          <div className="hero-img-fadeUp w-full relative z-1 p-0.5 rounded-2xl bg-[conic-gradient(from_225deg,#FFC876,#79FFF7,#9F53FF,#FF98E2,#FFC876)]">
+            <div className=" bg-[#19142b] rounded-[1rem]">
+              <div className="relative w-full aspect-[4/4] sm:aspect-[16/9] rounded-[0.9rem] overflow-hidden">
+                {/* <Image
+                  src="/hero/hero.webp"
+                  alt="Hero image dark"
+                  fill
+                  sizes="100vw"
+                  className={`absolute dark:block hidden transition-opacity`}
+                /> */}
                 <Image
                   src="/hero/hero.webp"
-                  className="w-full dark:block hidden aspect-[4/5] sm:aspect-[16/9] object-cover"
-                  width={1224}
-                  height={890}
                   alt="Hero image dark"
-                />
-                <Image
-                  src="/hero/hero-light.webp"
-                  className="w-full  dark:hidden block aspect-[4/5] sm:aspect-[16/9] object-cover"
-                  width={1224}
-                  height={890}
-                  alt="Hero image light"
+                  fill
+                  sizes="100vw"
+                  className={`absolute darsk:hidden bslock transition-opacity`}
                 />
               </div>
               <Parallax />

@@ -5,7 +5,7 @@ import { MetadataRoute } from "next";
 export const dynamic = "force-static";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-    const baseUrl = process.env.SITE_URL! || 'http://localhost:3000';
+    const baseUrl = process.env.SITE_URL! || 'https://conwrite-ai.vercel.app';
     const now = new Date().toISOString();
 
     const templates = Templates;
