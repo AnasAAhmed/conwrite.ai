@@ -117,15 +117,15 @@ const Chat = () => {
 
     return (
         <>
-            <div className="mb-28 px-1 sm:px-12 flex flex-col justify-center items-center p-3 space-y-2">
-                <div className="flex mb-20 justify-center">
+            <div className="mb-28 px-1 sm:px-12 flex flex-col mt-24 justify-center items-center p-3 space-y-2">
+                {chatHistory?.length < 1 && <div className="flex mb-5 justify-center">
                     <div style={{ opacity: 1 }}>
-                        <div className="mx-3 mt-20 flex max-w-3xl flex-wrap items-stretch justify-center gap-4">
-                            <Image src={'/logo.png'} className='dark:drop-shadow-[0_0_0.1rem_#ffffff70] dark:invert' alt='logo' width={220} height={220} />
+                        <div className="mx-3 flex max-w-3xl flex-wrap items-stretch justify-center gap-2">
+                            <Image src={'/logo.png'} className='' alt='logo' width={220} height={220} />
                             <div className="flex max-md:hidden max-w-3xl flex-wrap items-stretch justify-center gap-2">
                                 {promptCard.map((i, _) => (
                                     <button key={_} onClick={() => setAiPrompt(i.prompt)} className="relative flex w-40 flex-col gap-2 rounded-2xl border border-token-border-light px-3 pb-4 pt-3 text-start align-top text-[15px] shadow-xxs transition enabled:hover:bg-token-main-surface-secondary disabled:cursor-not-allowed">
-                                        <Image src={i.img} className='dark:drop-shadow-[0_0_0.1rem_#ffffff70] dark:invert' alt='logo' width={24} height={24} />
+                                        <Image src={i.img} className='' alt='logo' width={24} height={24} />
                                         <div className="line-clamp-3 max-w-full text-balance text-gray-600 dark:text-gray-300 break-word">{i.prompt}
                                         </div>
                                     </button>
@@ -133,7 +133,7 @@ const Chat = () => {
                             </div>
                         </div>
                     </div>
-                </div>
+                </div>}
                 {/* <Button variant={'outline'} onClick={() => setChatHistory([])}>Clear Chat History</Button> */}
                 {initialChat.map((chat, index) => (
                     <div key={index} className="z md:w-[80%]">

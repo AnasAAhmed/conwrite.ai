@@ -37,8 +37,8 @@ const Header = () => {
       className={`fixed top-0 left-0 w-full z-30 bg-background/80 border-b border-n-6 lg:backdrop-blur-sm `}
     >
       <div className="flex items-center justify-between px-5 lg:px-7.5 xl:px-10 max-lg:py-2">
-        <SmartLink className="block w-24 xl:mr-8" href="/">
-          <Image src={'/logo.png'} className="s" width={430} height={430} alt="Conwrite.ai" />
+        <SmartLink title="Conwrite.ai" className="block w-14 xl:mr-8" href="/">
+          <Image src={'/logo-icon.png'} width={130} height={130} alt="Conwrite.ai" />
         </SmartLink>
 
         <nav
