@@ -24,19 +24,19 @@ export default function SmartLink({ target, title = '', children, ...props }: Sm
 
     // const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
     //     props.onClick?.(e);
-    const handleClick = () => {
+    // const handleClick = () => {
 
-        const href = (props.href as string).split('?')[0].split('#')[0];
-        if (href !== pathname) {
-            start();
-        } 
-    };
+    //     const href = (props.href as string).split('?')[0].split('#')[0];
+    //     if (href !== pathname) {
+    //         start();
+    //     } 
+    // };
     return (
         <Link
             {...props}
-            onNavigate={() => {
-                handleClick();
-            }}
+            // onNavigate={() => {
+            //     handleClick();
+            // }}
             prefetch={isPrefetch}
             onMouseEnter={() => setIsPrefetch(true)}
             title={title}

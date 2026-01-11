@@ -1,12 +1,12 @@
 'use client'
-import Image from 'next/image';
 import { useState, useEffect } from 'react';
 import { Button } from './ui/button';
 import { Moon, Sun } from 'lucide-react';
+import { useThemeStore } from '@/lib/useTheme';
 
 const DarkModeToggle = () => {
     const [darkMode, setDarkMode] = useState(false);
-
+    const { theme, setTheme } = useThemeStore();
     useEffect(() => {
         const savedTheme = localStorage.getItem('theme');
         let el = document.getElementsByClassName("toastui-editor-defaultUI")[0];
@@ -14,6 +14,7 @@ const DarkModeToggle = () => {
         // 👇 Default to dark if no theme is saved
         if (savedTheme === 'dark' || savedTheme === null) {
             setDarkMode(true);
+            setTheme('dark')
             document.documentElement.classList.add('dark');
             /*usually this will only work for if the Editor 
             is mounted on the page that your currently on so this code also
@@ -21,6 +22,7 @@ const DarkModeToggle = () => {
             // if (el) el.classList.add("toastui-editor-dark") ;
         } else {
             setDarkMode(false);
+            setTheme('light')
             document.documentElement.classList.remove('dark');
             /*usually this will only work for if the Editor 
             is mounted on the page that your currently on so this code also
@@ -41,6 +43,7 @@ const DarkModeToggle = () => {
             localStorage.setItem('theme', 'dark');
         }
         setDarkMode(!darkMode);
+        setTheme(theme === 'dark' ? 'light' : 'dark');
     };
     return (
         <Button
@@ -49,7 +52,7 @@ const DarkModeToggle = () => {
             size={'icon'}
             className='mx-2'
         >
-            {!darkMode ? <Sun/> : <Moon/>}
+            {theme==='light' ? <Sun /> : <Moon />}
         </Button>
     );
 };

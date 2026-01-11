@@ -1,11 +1,10 @@
 import type { Metadata } from "next";
-import { Inter, Roboto } from "next/font/google";
+import {  Roboto } from "next/font/google";
 import "./globals.css";
 import { ClerkProvider } from "@clerk/nextjs";
 import CreateUser from "@/components/CreateUser";
 import ProgressBar from "@/components/ProgressBar";
 import { Suspense } from "react";
-
 const inter = Roboto({ subsets: ["latin"], weight: ['500', '700'] });
 
 export const metadata: Metadata = {
@@ -24,7 +23,7 @@ export const metadata: Metadata = {
     'GPT-powered assistant',
     'AI marketing tools'
   ],
-  applicationName:"Conwrite.ai",
+  applicationName: "Conwrite.ai",
   icons: "/logo-icon.png",
   robots: {
     index: true,
@@ -87,9 +86,8 @@ export default function RootLayout({
           }} />
         </head>
         <body className={inter.className}>
-          <Suspense fallback={''}>
-            <ProgressBar />
-          </Suspense>
+            <ProgressBar/>
+         
           <CreateUser />
           {children}
         </body>
