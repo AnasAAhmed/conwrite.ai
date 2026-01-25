@@ -55,7 +55,7 @@ export async function POST(req: NextRequest) {
       } catch (err) {
         console.error('[Stream Error]', err);
         controller.enqueue(
-          encoder.encode('\n[Error generating response, please retry]\n')
+          encoder.encode('\n[Error generating response, please retry]\n'+(err as Error)?.message)
         );
       } finally {
         controller.close();
